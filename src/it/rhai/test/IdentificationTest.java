@@ -6,7 +6,7 @@ import it.distanciable.sequences.SequenceRecognizer;
 import it.rhai.identification.ApplianceIdentifier;
 import it.rhai.identification.Sequencer;
 import it.rhai.model.PowerConsumptionLabel;
-import it.rhai.settings.DebugSettings;
+import it.rhai.settings.ConcreteSettings;
 import it.rhai.settings.SettingsKeeper;
 
 import java.io.File;
@@ -22,8 +22,8 @@ public class IdentificationTest {
 			Sequence<PowerConsumptionLabel> sequence = new Sequence<PowerConsumptionLabel>(
 					2);
 			try {
-				sequence.addElement(new PowerConsumptionLabel("low"));
-				sequence.addElement(new PowerConsumptionLabel("medium"));
+				sequence.addElement(new PowerConsumptionLabel("low power"));
+				sequence.addElement(new PowerConsumptionLabel("medium-low power"));
 			} catch (Exception e) {
 			}
 			return sequence;
@@ -34,7 +34,7 @@ public class IdentificationTest {
 			sequencer, new SequenceRecognizer<PowerConsumptionLabel>(null));
 
 	static {
-		SettingsKeeper.setInstance(new DebugSettings());
+		SettingsKeeper.setInstance(new ConcreteSettings());
 	}
 
 	@Test
