@@ -1,5 +1,7 @@
 package it.rhai.model;
 
+import it.rhai.settings.SettingsKeeper;
+
 import java.util.Collections;
 import java.util.HashMap;
 
@@ -9,23 +11,29 @@ import util.distanciables.Distanciator;
 public class PowerConsumptionLabel implements
 		Distanciable<PowerConsumptionLabel> {
 
-	private static final HashMap<String, Integer> LEVELS = new HashMap<String, Integer>();
-	
-	static{
-		LEVELS.put("low", 0);
-		LEVELS.put("medium", 1);
-		LEVELS.put("high", 2);
+	private static final HashMap<String, Integer> LEVELS;
+
+	static {
+		LEVELS = SettingsKeeper.getInstance().getAvailableLevels();
 	}
 
 	private String level;
 
-	public PowerConsumptionLabel(String level) {
-		this.level = level;
+	public PowerConsumptionLabel(String level) throws Exception {
+		if (LEVELS.containsKey(level)) {
+			this.level = level;
+		} else {
+			throw new Exception();
+		}
 	}
 
 	@Override
 	public PowerConsumptionLabel getCopy() {
-		return new PowerConsumptionLabel(level);
+		try {
+			return new PowerConsumptionLabel(level);
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	@Override

@@ -1,2 +1,3 @@
 # Electric-Load-Recognizer
-A Java tool to recognize different electric loads real-time
+
+This Java tool is meant to identify household appliances over power consumption data

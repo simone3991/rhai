@@ -2,14 +2,26 @@ package it.rhai.test;
 
 import static org.junit.Assert.*;
 import it.rhai.model.PowerConsumptionLabel;
+import it.rhai.settings.ConcreteSettings;
+import it.rhai.settings.SettingsKeeper;
 
 import org.junit.Test;
 
 public class PowerConsumptionLabelTest {
 
-	private PowerConsumptionLabel low = new PowerConsumptionLabel("low");
-	private PowerConsumptionLabel high = new PowerConsumptionLabel("high");
-	private PowerConsumptionLabel medium = new PowerConsumptionLabel("medium");
+	private static PowerConsumptionLabel low;
+	private static PowerConsumptionLabel high;
+	private static PowerConsumptionLabel medium;
+
+	static {
+		SettingsKeeper.setInstance(new ConcreteSettings());
+		try {
+			low = new PowerConsumptionLabel("low");
+			high = new PowerConsumptionLabel("high");
+			medium = new PowerConsumptionLabel("medium");
+		} catch (Exception e) {
+		}
+	}
 
 	@Test
 	public void testDistanceFrom() {
