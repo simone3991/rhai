@@ -1,13 +1,12 @@
 package it.rhai.identification;
 
+import it.distanciable.sequences.Sequence;
+import it.distanciable.sequences.SequenceRecognizer;
 import it.rhai.model.PowerConsumptionLabel;
 import it.rhai.settings.SettingsKeeper;
 
 import java.io.File;
 import java.util.ArrayList;
-
-import model.Sequence;
-import model.SequenceRecognizer;
 
 public class ApplianceIdentifier {
 
@@ -23,8 +22,9 @@ public class ApplianceIdentifier {
 	public String identify(File data) {
 		recognizer.save(SettingsKeeper.getInstance().getLib());
 		recognizer.receiveMessage(getToBeIdentified(data));
-		recognizer.recognize(SettingsKeeper.getInstance().getTolerance());
-		return null;
+		ArrayList<Sequence<PowerConsumptionLabel>> sequence = recognizer
+				.recognize(SettingsKeeper.getInstance().getTolerance());
+		return SettingsKeeper.getInstance().getAppliance(sequence.get(0));
 	}
 
 	private ArrayList<Sequence<PowerConsumptionLabel>> getToBeIdentified(

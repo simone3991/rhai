@@ -1,12 +1,11 @@
 package it.rhai.model;
 
+import it.distanciable.Distanciable;
+import it.distanciable.Distanciator;
 import it.rhai.settings.SettingsKeeper;
 
 import java.util.Collections;
 import java.util.HashMap;
-
-import util.distanciables.Distanciable;
-import util.distanciables.Distanciator;
 
 public class PowerConsumptionLabel implements
 		Distanciable<PowerConsumptionLabel> {
@@ -55,5 +54,10 @@ public class PowerConsumptionLabel implements
 	@Override
 	public int getMaximumDistance() {
 		return Collections.max(LEVELS.values());
+	}
+	
+	@Override
+	public String toString() {
+		return level;
 	}
 }

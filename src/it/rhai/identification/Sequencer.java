@@ -1,9 +1,9 @@
 package it.rhai.identification;
 
-import java.io.File;
+import it.distanciable.Distanciable;
+import it.distanciable.sequences.Sequence;
 
-import util.distanciables.Distanciable;
-import model.Sequence;
+import java.io.File;
 
 public interface Sequencer<T extends Distanciable<T>> {
 

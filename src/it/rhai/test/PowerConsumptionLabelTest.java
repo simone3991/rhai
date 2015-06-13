@@ -2,7 +2,7 @@ package it.rhai.test;
 
 import static org.junit.Assert.*;
 import it.rhai.model.PowerConsumptionLabel;
-import it.rhai.settings.ConcreteSettings;
+import it.rhai.settings.DebugSettings;
 import it.rhai.settings.SettingsKeeper;
 
 import org.junit.Test;
@@ -14,7 +14,7 @@ public class PowerConsumptionLabelTest {
 	private static PowerConsumptionLabel medium;
 
 	static {
-		SettingsKeeper.setInstance(new ConcreteSettings());
+		SettingsKeeper.setInstance(new DebugSettings());
 		try {
 			low = new PowerConsumptionLabel("low");
 			high = new PowerConsumptionLabel("high");
