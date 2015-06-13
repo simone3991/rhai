@@ -14,7 +14,7 @@ public class PowerConsumptionLabelTest {
 	private static PowerConsumptionLabel medium;
 
 	static {
-		SettingsKeeper.setInstance(new DebugSettings());
+		SettingsKeeper.setSettings(new DebugSettings());
 		try {
 			low = new PowerConsumptionLabel("low");
 			high = new PowerConsumptionLabel("high");

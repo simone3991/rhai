@@ -34,7 +34,7 @@ public class IdentificationTest {
 			sequencer, new SequenceRecognizer<PowerConsumptionLabel>(null));
 
 	static {
-		SettingsKeeper.setInstance(new ConcreteSettings());
+		SettingsKeeper.setSettings(new ConcreteSettings());
 	}
 
 	@Test
