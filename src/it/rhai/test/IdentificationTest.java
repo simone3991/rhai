@@ -22,8 +22,9 @@ public class IdentificationTest {
 			Sequence<PowerConsumptionLabel> sequence = new Sequence<PowerConsumptionLabel>(
 					2);
 			try {
-				sequence.addElement(new PowerConsumptionLabel("low power"));
-				sequence.addElement(new PowerConsumptionLabel("medium-low power"));
+				sequence.addElement(PowerConsumptionLabel.high);
+				sequence.addElement(PowerConsumptionLabel.medium);
+				sequence.addElement(PowerConsumptionLabel.high);
 			} catch (Exception e) {
 			}
 			return sequence;
@@ -39,7 +40,7 @@ public class IdentificationTest {
 
 	@Test
 	public void testIdentify() {
-		assertEquals("load1", identifier.identify(null));
+		assertEquals("lib/forno", identifier.identify(null));
 	}
 
 }

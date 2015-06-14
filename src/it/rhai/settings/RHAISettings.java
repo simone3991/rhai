@@ -5,7 +5,6 @@ import it.distanciable.sequences.SequenceRecognizer;
 import it.rhai.model.PowerConsumptionLabel;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * {@link RHAISettings} represents a generic interface through which all needed
@@ -15,14 +14,6 @@ import java.util.HashMap;
  *
  */
 public interface RHAISettings {
-
-	/**
-	 * Returns the available labels for the power consumption discrete levels
-	 * 
-	 * @return: a {@link HashMap} in which each label (key) is mapped to an
-	 *          integer representation (value)
-	 */
-	public HashMap<String, Integer> getAvailableLevels();
 
 	/**
 	 * Returns the available library of {@link Sequence} instances. Theese
@@ -42,7 +33,7 @@ public interface RHAISettings {
 	 * 
 	 * @return
 	 */
-	public double getTolerance();
+	public double getMinimumLikelihood();
 
 	/**
 	 * Returns the proper appliance for a specified sequence of

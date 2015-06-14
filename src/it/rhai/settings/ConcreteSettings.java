@@ -5,7 +5,7 @@ import it.rhai.model.PowerConsumptionLabel;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileFilter;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,80 +13,105 @@ import java.util.HashMap;
 
 public class ConcreteSettings implements RHAISettings {
 
-	private static final String LEVELS_PROPERTIES_FILE = "levels.properties";
-	private HashMap<Sequence<PowerConsumptionLabel>, String> appliances = new HashMap<Sequence<PowerConsumptionLabel>, String>();
+	private static final String LIB_DIRECTORY = "lib";
+	private HashMap<String, ArrayList<Sequence<PowerConsumptionLabel>>> appliances = new HashMap<String, ArrayList<Sequence<PowerConsumptionLabel>>>();
 
-	@Override
-	public HashMap<String, Integer> getAvailableLevels() {
-		File file = new File(LEVELS_PROPERTIES_FILE);
-		try {
-			return getLevelsFromFile(file);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
+	public ConcreteSettings() {
+		this.loadLib();
 	}
 
 	@Override
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see it.rhai.settings.RHAISettings#getLib()
+	 */
 	public ArrayList<Sequence<PowerConsumptionLabel>> getLib() {
 		ArrayList<Sequence<PowerConsumptionLabel>> lib = new ArrayList<Sequence<PowerConsumptionLabel>>();
-		Sequence<PowerConsumptionLabel> sequence1 = new Sequence<PowerConsumptionLabel>(
-				2);
-		lib.add(sequence1);
-		Sequence<PowerConsumptionLabel> sequence2 = new Sequence<PowerConsumptionLabel>(
-				2);
-		lib.add(sequence2);
-		try {
-			sequence1.addElement(new PowerConsumptionLabel("low power"));
-			sequence1.addElement(new PowerConsumptionLabel("low power"));
-			sequence2.addElement(new PowerConsumptionLabel("high power"));
-			sequence2.addElement(new PowerConsumptionLabel("high power"));
-			this.appliances.put(sequence1, "load1");
-			this.appliances.put(sequence2, "load2");
-		} catch (Exception e) {
+		for (ArrayList<Sequence<PowerConsumptionLabel>> list : appliances
+				.values()) {
+			lib.addAll(list);
 		}
 		return lib;
 	}
 
 	@Override
-	public double getTolerance() {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see it.rhai.settings.RHAISettings#getTolerance()
+	 */
+	public double getMinimumLikelihood() {
 		return 0;
 	}
 
 	@Override
-	public String getAppliance(Sequence<PowerConsumptionLabel> sequence) {
-		for (Sequence<PowerConsumptionLabel> libSequence : appliances.keySet()) {
-			if (libSequence.toString().compareTo(sequence.toString()) == 0) {
-				return appliances.get(libSequence);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * it.rhai.settings.RHAISettings#getAppliance(it.distanciable.sequences.
+	 * Sequence)
+	 */
+	//TODO: change to Sequence#equals()
+	public String getAppliance(
+			Sequence<PowerConsumptionLabel> recognizedSequence) {
+		for (String appliance : appliances.keySet()) {
+			for (Sequence<PowerConsumptionLabel> sequence : appliances
+					.get(appliance)) {
+				if (sequence.toString()
+						.compareTo(recognizedSequence.toString()) == 0) {
+					return appliance;
+				}
 			}
 		}
 		return null;
 	}
-	
-	private HashMap<String, Integer> getLevelsFromFile(File file)
-			throws FileNotFoundException, IOException {
-		HashMap<String, Integer> levels = new HashMap<String, Integer>();
-		String[] labels = getLabels(file);
-		for (int i = 0; i < labels.length; i++) {
-			levels.put(labels[i], i);
+
+	private void loadLib() {
+		File directory = new File(LIB_DIRECTORY);
+		for (File subDir : directory.listFiles(new FileFilter() {
+
+			@Override
+			public boolean accept(File pathname) {
+				return pathname.isDirectory();
+			}
+		})) {
+			String appliance = subDir.toString();
+			appliances.put(appliance,
+					new ArrayList<Sequence<PowerConsumptionLabel>>());
+			for (File file : subDir.listFiles()) {
+				try {
+					appliances.get(appliance).add(getSequenceFromFile(file));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
-		return levels;
 	}
 
-	private String[] getLabels(File file) throws FileNotFoundException,
-			IOException {
+	private Sequence<PowerConsumptionLabel> getSequenceFromFile(File file)
+			throws IOException {
 		BufferedReader reader = new BufferedReader(new FileReader(file));
-		reader.readLine();
 		String line = reader.readLine();
 		reader.close();
-		String[] labels = toLabels(line);
-		return labels;
+		return toSequence(line);
 	}
 
-	private String[] toLabels(String line) {
-		line = line.split("=")[1];
-		String[] labels = line.split(",");
-		return labels;
+	/*
+	 * TODO: move to Sequence#parseSequence()
+	 */
+	private Sequence<PowerConsumptionLabel> toSequence(String line) {
+		String[] elements = line.trim().split("-");
+		Sequence<PowerConsumptionLabel> sequence = new Sequence<PowerConsumptionLabel>(
+				elements.length);
+		for (String string : elements) {
+			try {
+				sequence.addElement(PowerConsumptionLabel.valueOf(string.trim()));
+			} catch (IllegalArgumentException exception) {
+				exception.printStackTrace();
+			}
+		}
+		return sequence;
 	}
-
 }

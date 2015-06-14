@@ -57,7 +57,7 @@ public class ApplianceIdentifier {
 		recognizer.save(SettingsKeeper.getSettings().getLib());
 		recognizer.receiveMessage(getToBeIdentified(data));
 		ArrayList<Sequence<PowerConsumptionLabel>> sequence = recognizer
-				.recognize(SettingsKeeper.getSettings().getTolerance());
+				.recognize(SettingsKeeper.getSettings().getMinimumLikelihood());
 		return SettingsKeeper.getSettings().getAppliance(sequence.get(0));
 	}
 
