@@ -23,6 +23,7 @@ public class TestingDataHandler<T, K> implements DataHandler<T, K> {
 	@Override
 	public void handle(Collection<T> data) {
 		handled = new ArrayList<K>();
+		System.out.println("handled "+data.size()+" data");
 	}
 
 }

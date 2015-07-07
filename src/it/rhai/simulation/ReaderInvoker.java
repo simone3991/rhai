@@ -15,18 +15,26 @@ public class ReaderInvoker {
 
 	private ArrayList<PowerMeasure> data = new ArrayList<PowerMeasure>();
 	private Timer timer = new Timer("invoker");
-	
-	public ReaderInvoker(File file, final Reader<PowerMeasure> reader, int samplingTime) throws IOException {
+	private Reader<PowerMeasure> reader;
+	private int samplingTime;
+
+	public ReaderInvoker(File file, final Reader<PowerMeasure> reader,
+		int samplingTime) throws IOException {
 		loadData(file);
+		this.reader = reader;
+		this.samplingTime = samplingTime;
+	}
+
+	public void start() {
 		timer.schedule(new TimerTask() {
-			
+
 			private int nextData = 0;
 
 			@Override
 			public void run() {
 				reader.read(data.get(nextData));
 				nextData++;
-				if (nextData==data.size()) {
+				if (nextData == data.size()) {
 					timer.cancel();
 				}
 			}
@@ -36,7 +44,7 @@ public class ReaderInvoker {
 	private void loadData(File file) throws IOException {
 		BufferedReader reader = new BufferedReader(new FileReader(file));
 		String line;
-		while((line = reader.readLine()) != null){
+		while ((line = reader.readLine()) != null) {
 			data.add(PowerMeasure.parsePowerMeasure(line));
 		}
 		reader.close();
