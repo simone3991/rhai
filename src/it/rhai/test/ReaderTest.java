@@ -3,6 +3,7 @@ package it.rhai.test;
 import static org.junit.Assert.*;
 import it.rhai.reading.DataHandler;
 import it.rhai.reading.Reader;
+import it.rhai.reading.RedirectingReader;
 import it.rhai.settings.SettingsKeeper;
 
 import org.junit.Test;
@@ -10,7 +11,7 @@ import org.junit.Test;
 public class ReaderTest {
 
 	DataHandler<Double, Object> dataHandler = new TestingDataHandler<Double, Object>();
-	Reader<Double> reader = new Reader<Double>(dataHandler);
+	Reader<Double> reader = new RedirectingReader<Double>(dataHandler);
 	
 	@Test
 	public void testRead() throws Exception{
