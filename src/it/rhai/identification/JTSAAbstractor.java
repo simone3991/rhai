@@ -7,9 +7,13 @@ import it.rhai.test.XMLAdjuster;
 
 import java.io.File;
 
-public class JTSASequencer implements Sequencer<PowerConsumptionLabel> {
+public class JTSAAbstractor implements Sequencer<PowerConsumptionLabel> {
 
 	@Override
+	/*
+	 * (non-Javadoc)
+	 * @see it.rhai.identification.Sequencer#buildSequence(java.io.File)
+	 */
 	public Sequence<PowerConsumptionLabel> buildSequence(File data) {
 		try {
 			XMLAdjuster.adjust(data.getPath());

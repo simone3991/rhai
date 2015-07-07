@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 /**
  * This class performs the household appliance identification. This is performed
- * extractinga {@link Sequence} of {@link PowerConsumptionLabel} from a source
+ * extracting {@link Sequence} of {@link PowerConsumptionLabel} from a source
  * data file, and then identifying it using an external library of available
  * sequences. For further informations, see {@link RHAISettings}.
  * 

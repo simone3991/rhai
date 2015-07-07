@@ -1,6 +1,6 @@
 package it.rhai.test;
 
-import it.rhai.identification.JTSASequencer;
+import it.rhai.identification.JTSAAbstractor;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -11,7 +11,7 @@ import org.junit.Test;
 
 public class JTSASequencerTest {
 	
-	private static JTSASequencer sequencer = new JTSASequencer();
+	private static JTSAAbstractor sequencer = new JTSAAbstractor();
 	private static File file = new File("lavatrice.csv");
 	
 	

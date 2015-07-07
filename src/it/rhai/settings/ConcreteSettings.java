@@ -114,4 +114,13 @@ public class ConcreteSettings implements RHAISettings {
 		}
 		return sequence;
 	}
+
+	@Override
+	/*
+	 * (non-Javadoc)
+	 * @see it.rhai.settings.RHAISettings#getTAbstraction()
+	 */
+	public int getTAbstraction() {
+		return 10;
+	}
 }

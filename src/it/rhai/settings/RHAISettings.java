@@ -45,4 +45,12 @@ public interface RHAISettings {
 	 */
 	public String getAppliance(Sequence<PowerConsumptionLabel> sequence);
 
+	/**
+	 * Returns the exact number of data to be redirected to the Abstractor
+	 * instance
+	 * 
+	 * @return
+	 */
+	public int getTAbstraction();
+
 }
