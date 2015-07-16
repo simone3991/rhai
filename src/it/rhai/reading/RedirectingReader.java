@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public class RedirectingReader<T> implements Reader<T> {
 
-	private DataHandler<T, Object> handler;
+	private DataHandler<T> handler;
 	private int maxLength;
 	private ArrayList<T> data;
 	private int nextIndex = 0;
@@ -28,7 +28,7 @@ public class RedirectingReader<T> implements Reader<T> {
 	 * @param handler
 	 *            : the object this reader will redirect the data to
 	 */
-	public RedirectingReader(DataHandler<T, Object> handler) {
+	public RedirectingReader(DataHandler<T> handler) {
 		this.handler = handler;
 		this.maxLength = SettingsKeeper.getSettings().getTAbstraction();
 		data = new ArrayList<T>(maxLength);

@@ -3,8 +3,8 @@ package it.rhai.test;
 import static org.junit.Assert.assertEquals;
 import it.distanciable.sequences.Sequence;
 import it.distanciable.sequences.SequenceRecognizer;
+import it.rhai.abstraction.Abstractor;
 import it.rhai.identification.ApplianceIdentifier;
-import it.rhai.identification.Sequencer;
 import it.rhai.model.PowerConsumptionLabel;
 import it.rhai.settings.ConcreteSettings;
 import it.rhai.settings.SettingsKeeper;
@@ -15,7 +15,7 @@ import org.junit.Test;
 
 public class IdentificationTest {
 
-	private static Sequencer<PowerConsumptionLabel> sequencer = new Sequencer<PowerConsumptionLabel>() {
+	private static Abstractor<PowerConsumptionLabel> sequencer = new Abstractor<PowerConsumptionLabel>() {
 
 		@Override
 		public Sequence<PowerConsumptionLabel> buildSequence(File data) {

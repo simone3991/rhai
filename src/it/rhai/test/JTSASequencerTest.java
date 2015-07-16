@@ -1,6 +1,6 @@
 package it.rhai.test;
 
-import it.rhai.identification.JTSAAbstractor;
+import it.rhai.abstraction.JTSAAbstractor;
 
 import java.io.BufferedWriter;
 import java.io.File;

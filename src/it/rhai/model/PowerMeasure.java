@@ -1,6 +1,12 @@
 package it.rhai.model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.StringTokenizer;
+
+import javax.swing.text.DateFormatter;
 
 public class PowerMeasure {
 
@@ -22,7 +28,27 @@ public class PowerMeasure {
 	}
 
 	public static PowerMeasure parsePowerMeasure(String line) {
-		return null;
+		StringTokenizer fullTokenizer = new StringTokenizer(line);
+		String dateString = fullTokenizer.nextToken();
+		StringTokenizer dateTokenizer = new StringTokenizer(dateString, "/");
+		int day = Integer.parseInt(dateTokenizer.nextToken());
+		int month = Integer.parseInt(dateTokenizer.nextToken());
+		int year = Integer.parseInt(dateTokenizer.nextToken());
+		String hourString = fullTokenizer.nextToken();
+		StringTokenizer hourTokenizer = new StringTokenizer(hourString, ":");
+		int hour = Integer.parseInt(hourTokenizer.nextToken());
+		int min = Integer.parseInt(hourTokenizer.nextToken());
+		int secs = Integer.parseInt(hourTokenizer.nextToken());
+		double value = Double.parseDouble(fullTokenizer.nextToken());
+		Calendar calendar = new GregorianCalendar(year, month, day, hour, min,
+				secs);
+		PowerMeasure measure = new PowerMeasure(calendar, value);
+		return measure;
 	}
 
+	@Override
+	public String toString() {
+		DateFormat format = new SimpleDateFormat("dd/MM 'at' HH:mm:ss");
+		return value+" ["+format.format(date.getTime())+"]";
+	}
 }

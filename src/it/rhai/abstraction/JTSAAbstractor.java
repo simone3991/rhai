@@ -1,4 +1,4 @@
-package it.rhai.identification;
+package it.rhai.abstraction;
 
 import it.bmi.jtsa.test.JTSATester;
 import it.distanciable.sequences.Sequence;
@@ -7,7 +7,7 @@ import it.rhai.test.XMLAdjuster;
 
 import java.io.File;
 
-public class JTSAAbstractor implements Sequencer<PowerConsumptionLabel> {
+public class JTSAAbstractor implements Abstractor<PowerConsumptionLabel> {
 
 	@Override
 	/*

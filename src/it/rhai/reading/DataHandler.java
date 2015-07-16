@@ -11,15 +11,7 @@ import java.util.Collection;
  * @param <T>: the type of data to be handled
  * @param <K>: the type of the resulting collection
  */
-public interface DataHandler<T, K> {
-
-	/**
-	 * Returns the translated collection
-	 * 
-	 * @return: a collection that represents the translation from the received
-	 *          collections
-	 */
-	public Collection<K> getHandled();
+public interface DataHandler<T> {
 
 	/**
 	 * Handle a collection of data

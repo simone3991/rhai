@@ -2,6 +2,7 @@ package it.rhai.identification;
 
 import it.distanciable.sequences.Sequence;
 import it.distanciable.sequences.SequenceRecognizer;
+import it.rhai.abstraction.Abstractor;
 import it.rhai.model.PowerConsumptionLabel;
 import it.rhai.settings.RHAISettings;
 import it.rhai.settings.SettingsKeeper;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
  */
 public class ApplianceIdentifier {
 
-	private Sequencer<PowerConsumptionLabel> sequencer;
+	private Abstractor<PowerConsumptionLabel> sequencer;
 	private SequenceRecognizer<PowerConsumptionLabel> recognizer;
 
 	/**
@@ -33,7 +34,7 @@ public class ApplianceIdentifier {
 	 *            : the instance of {@link SequenceRecognizer} to perform
 	 *            identification
 	 */
-	public ApplianceIdentifier(Sequencer<PowerConsumptionLabel> sequencer,
+	public ApplianceIdentifier(Abstractor<PowerConsumptionLabel> sequencer,
 			SequenceRecognizer<PowerConsumptionLabel> recognizer) {
 		this.sequencer = sequencer;
 		this.recognizer = recognizer;
