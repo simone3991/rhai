@@ -22,6 +22,7 @@ public class RedirectingReader<T> implements Reader<T> {
 	private int maxLength;
 	private ArrayList<T> data;
 	private int nextIndex = 0;
+	private int counter = 1;
 
 	/**
 	 * Creates a new reader
@@ -40,8 +41,10 @@ public class RedirectingReader<T> implements Reader<T> {
 	 */
 	@Override
 	public void read(T value) {
+		System.out.println("read data n°: "+counter);
 		data.add(nextIndex, value);
 		nextIndex++;
+		counter++;
 		if (nextIndex == maxLength) {
 			handler.handle(data);
 			nextIndex = 0;
