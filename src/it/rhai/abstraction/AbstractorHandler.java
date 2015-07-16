@@ -1,6 +1,7 @@
 package it.rhai.abstraction;
 
 import it.distanciable.Distanciable;
+import it.distanciable.sequences.Sequence;
 import it.rhai.reading.DataHandler;
 
 import java.io.BufferedWriter;
@@ -9,17 +10,17 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Collection;
 
-public class HandlerAbstractorAdapter<T, K extends Distanciable<K>> implements
-		DataHandler<T> {
+public class AbstractorHandler<T, K extends Distanciable<K>> implements
+		DataHandler<Collection<T>> {
 
 	private static final String TMP_FILENAME = "tmp.out";
-	private DataHandler<K> out;
 	private Abstractor<K> abstractor;
+	private DataHandler<Sequence<K>> handlerOut;
 
-	public HandlerAbstractorAdapter(DataHandler<K> out, Abstractor<K> abstractor) {
+	public AbstractorHandler(Abstractor<K> abstractor, DataHandler<Sequence<K>> handlerOut) {
 		super();
-		this.out = out;
 		this.abstractor = abstractor;
+		this.handlerOut = handlerOut;
 	}
 
 	@Override
@@ -32,8 +33,8 @@ public class HandlerAbstractorAdapter<T, K extends Distanciable<K>> implements
 				writer.newLine();
 			}
 			writer.close();
-//			Sequence<K> sequence = abstractor.buildSequence(new File(
-//					TMP_FILENAME));
+			Sequence<K> sequence = abstractor.buildSequence(new File(TMP_FILENAME));
+			this.handlerOut.handle(sequence);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -1,14 +1,15 @@
 package it.rhai.test;
 
-import java.io.File;
-import java.io.IOException;
-
-import it.rhai.abstraction.HandlerAbstractorAdapter;
+import it.distanciable.sequences.Sequence;
+import it.rhai.abstraction.AbstractorHandler;
 import it.rhai.model.PowerConsumptionLabel;
 import it.rhai.model.PowerMeasure;
 import it.rhai.reading.Reader;
 import it.rhai.reading.RedirectingReader;
 import it.rhai.simulation.ReaderInvoker;
+
+import java.io.File;
+import java.io.IOException;
 
 public class ReaderInvokerTest {
 
@@ -27,9 +28,10 @@ public class ReaderInvokerTest {
 		invoker = new ReaderInvoker(
 				new File("testing.dat"),
 				new RedirectingReader<PowerMeasure>(
-						new HandlerAbstractorAdapter<PowerMeasure, PowerConsumptionLabel>(
-								new TestingDataHandler<PowerConsumptionLabel>(),
-								null)), 1000);
+						new AbstractorHandler<PowerMeasure, PowerConsumptionLabel>(
+								new TestingAbstractor<PowerConsumptionLabel>(),
+								new TestingDataHandler<Sequence<PowerConsumptionLabel>>())),
+				1000);
 		invoker.start();
 	}
 }

@@ -1,6 +1,5 @@
 package it.rhai.reading;
 
-import java.util.Collection;
 
 /**
  * This interface easily represents an object that can translate a collection of
@@ -18,6 +17,6 @@ public interface DataHandler<T> {
 	 * 
 	 * @param data
 	 */
-	public void handle(Collection<T> data);
+	public void handle(T data);
 
 }

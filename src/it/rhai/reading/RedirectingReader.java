@@ -4,6 +4,7 @@ import it.rhai.settings.RHAISettings;
 import it.rhai.settings.SettingsKeeper;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * This class represents an object able to read a stream of data and redirecting
@@ -17,7 +18,7 @@ import java.util.ArrayList;
  */
 public class RedirectingReader<T> implements Reader<T> {
 
-	private DataHandler<T> handler;
+	private DataHandler<Collection<T>> handler;
 	private int maxLength;
 	private ArrayList<T> data;
 	private int nextIndex = 0;
@@ -28,12 +29,12 @@ public class RedirectingReader<T> implements Reader<T> {
 	 * @param handler
 	 *            : the object this reader will redirect the data to
 	 */
-	public RedirectingReader(DataHandler<T> handler) {
+	public RedirectingReader(DataHandler<Collection<T>> handler) {
 		this.handler = handler;
 		this.maxLength = SettingsKeeper.getSettings().getTAbstraction();
 		data = new ArrayList<T>(maxLength);
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see it.rhai.reading.Reader#read(T)
 	 */
