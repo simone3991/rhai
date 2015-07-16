@@ -1,5 +1,12 @@
 package it.rhai.reading;
 
+/**
+ * A generic reader
+ * 
+ * @author simone
+ *
+ * @param <T>
+ */
 public interface Reader<T> {
 
 	/**

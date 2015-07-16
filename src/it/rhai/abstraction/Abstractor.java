@@ -16,7 +16,7 @@ import java.io.File;
 public interface Abstractor<T extends Distanciable<T>> {
 
 	/**
-	 * Extarcts the sequence from the data file
+	 * Extracts the sequence from the data file
 	 * 
 	 * @param data
 	 *            : the source data file

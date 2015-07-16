@@ -22,11 +22,21 @@ public enum PowerConsumptionLabel implements
 	}
 
 	@Override
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see it.distanciable.Copiable#getCopy()
+	 */
 	public PowerConsumptionLabel getCopy() {
 		return PowerConsumptionLabel.valueOf(this.name());
 	}
 
 	@Override
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see it.distanciable.Distanciable#distanceFrom(java.lang.Object)
+	 */
 	public int distanceFrom(PowerConsumptionLabel anotherLabel) {
 		if (anotherLabel == null) {
 			return this.value;
@@ -39,12 +49,23 @@ public enum PowerConsumptionLabel implements
 	}
 
 	@Override
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see it.distanciable.Distanciable#distanceFrom(java.lang.Object,
+	 * it.distanciable.Distanciator)
+	 */
 	public int distanceFrom(PowerConsumptionLabel antherLabel,
 			Distanciator<PowerConsumptionLabel> distanciator) {
 		return distanciator.computeDistance(this, antherLabel);
 	}
 
 	@Override
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see it.distanciable.Distanciable#getMaximumDistance()
+	 */
 	public int getMaximumDistance() {
 		return 2;
 	}

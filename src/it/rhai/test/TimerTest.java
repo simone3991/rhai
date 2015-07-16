@@ -12,7 +12,7 @@ public class TimerTest {
 			
 			@Override
 			public void run() {
-				System.out.println("ciao");					
+				System.out.println("ciao".hashCode());					
 			}
 		}, 1000, 1000);
 	}

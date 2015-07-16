@@ -22,7 +22,7 @@ public class SettingsKeeper {
 	 * @return: the current settings
 	 */
 	public static RHAISettings getSettings() {
-		return new ConcreteSettings();
+		return instance;
 	}
 
 	/**

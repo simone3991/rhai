@@ -1,21 +1,19 @@
 package it.rhai.reading;
 
-
 /**
- * This interface easily represents an object that can translate a collection of
- * data to another collection of data, changing their type
+ * This interface represents a generic object able to handle inputs
  * 
  * @author simone
  *
- * @param <T>: the type of data to be handled
- * @param <K>: the type of the resulting collection
+ * @param <T>: the type of inputs
  */
 public interface DataHandler<T> {
 
 	/**
-	 * Handle a collection of data
+	 * Handles the input
 	 * 
 	 * @param data
+	 *            : the input dasta to be handled
 	 */
 	public void handle(T data);
 

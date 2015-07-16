@@ -7,16 +7,24 @@ import it.rhai.test.XMLAdjuster;
 
 import java.io.File;
 
+/**
+ * This implementation of {@link Abstractor} interface uses the JTSA Framework
+ * to extract a sequence of elementary patterns from a data file
+ * 
+ * @author simone
+ *
+ */
 public class JTSAAbstractor implements Abstractor<PowerConsumptionLabel> {
 
 	@Override
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see it.rhai.identification.Sequencer#buildSequence(java.io.File)
 	 */
 	public Sequence<PowerConsumptionLabel> buildSequence(File data) {
 		try {
-			XMLAdjuster.adjust(data.getPath());
+			XMLAdjuster.adjust(data.getPath(), "$TMP");
 			JTSATester.run("sequencer.xml");
 		} catch (Exception e) {
 			e.printStackTrace();

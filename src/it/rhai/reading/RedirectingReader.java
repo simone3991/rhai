@@ -8,13 +8,13 @@ import java.util.Collection;
 
 /**
  * This class represents an object able to read a stream of data and redirecting
- * to a {@link DataHandler} instance when a certain length has been reached. To
- * further information of this length, see
+ * to a {@link DataHandler} instance when a certain amount of data has been
+ * reached. To further information of this length, see
  * {@link RHAISettings#getTAbstraction()}
  * 
  * @author simone
  *
- * @param <T>: the type od data to be received
+ * @param <T>: the type of data to be received
  */
 public class RedirectingReader<T> implements Reader<T> {
 
@@ -25,7 +25,7 @@ public class RedirectingReader<T> implements Reader<T> {
 	private int counter = 1;
 
 	/**
-	 * Creates a new reader
+	 * Creates a new instance of this class
 	 * 
 	 * @param handler
 	 *            : the object this reader will redirect the data to
@@ -35,13 +35,15 @@ public class RedirectingReader<T> implements Reader<T> {
 		this.maxLength = SettingsKeeper.getSettings().getTAbstraction();
 		data = new ArrayList<T>(maxLength);
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see it.rhai.reading.Reader#read(T)
 	 */
 	@Override
 	public void read(T value) {
-		System.out.println("read data n°: "+counter);
+		System.out.println("read data n°: " + counter);
 		data.add(nextIndex, value);
 		nextIndex++;
 		counter++;
