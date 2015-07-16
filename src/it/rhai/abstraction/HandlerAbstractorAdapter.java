@@ -29,7 +29,7 @@ public class HandlerAbstractorAdapter<T, K extends Distanciable<K>> implements
 					TMP_FILENAME)));
 			for (T powerMeasure : data) {
 				writer.write(powerMeasure.toString());
-				System.out.println("writing "+powerMeasure.toString());
+				writer.newLine();
 			}
 			writer.close();
 //			Sequence<K> sequence = abstractor.buildSequence(new File(

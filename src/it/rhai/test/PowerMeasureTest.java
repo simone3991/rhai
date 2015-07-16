@@ -30,4 +30,11 @@ public class PowerMeasureTest {
 		assertEquals(10.610579, measure.getValue(), 0);
 		assertTrue(measure.getDate().before(new GregorianCalendar(2015, 5, 27)));
 	}
+	
+	@Test
+	public void testToString() throws Exception {
+		String line = "26/05/2015 13:25:51	10.610579";
+		PowerMeasure measure = PowerMeasure.parsePowerMeasure(line);
+		assertEquals(line, measure.toString());
+	}
 }

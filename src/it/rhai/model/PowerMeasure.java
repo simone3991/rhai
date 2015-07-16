@@ -6,8 +6,6 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.StringTokenizer;
 
-import javax.swing.text.DateFormatter;
-
 public class PowerMeasure {
 
 	private Calendar date;
@@ -40,7 +38,7 @@ public class PowerMeasure {
 		int min = Integer.parseInt(hourTokenizer.nextToken());
 		int secs = Integer.parseInt(hourTokenizer.nextToken());
 		double value = Double.parseDouble(fullTokenizer.nextToken());
-		Calendar calendar = new GregorianCalendar(year, month, day, hour, min,
+		Calendar calendar = new GregorianCalendar(year, month-1, day, hour, min,
 				secs);
 		PowerMeasure measure = new PowerMeasure(calendar, value);
 		return measure;
@@ -48,7 +46,7 @@ public class PowerMeasure {
 
 	@Override
 	public String toString() {
-		DateFormat format = new SimpleDateFormat("dd/MM 'at' HH:mm:ss");
-		return value+" ["+format.format(date.getTime())+"]";
+		DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		return format.format(date.getTime())+"\t"+value;
 	}
 }
