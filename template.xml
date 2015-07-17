@@ -6,7 +6,7 @@
 			parameters="/home/simone/Documenti/Software Development/Java/Running Household Appliances Identificator/parameters/levels.properties"
 			type="BASIC" subtype="BASIC_QUALITATIVE">
 		</step>
-		<renderer type="File" label="output" granularity="SECONDS"
+		<renderer type="File" label="output.jtsa" granularity="SECONDS"
 			renderInput="true" />
 	</block>
 

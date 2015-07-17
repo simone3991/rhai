@@ -16,6 +16,12 @@ import java.io.File;
  */
 public class JTSAAbstractor implements Abstractor<PowerConsumptionLabel> {
 
+	private Abstractor<PowerConsumptionLabel> outputAbstractor;
+
+	public JTSAAbstractor(Abstractor<PowerConsumptionLabel> outputAbstractor) {
+		this.outputAbstractor = outputAbstractor;
+	}
+
 	@Override
 	/*
 	 * (non-Javadoc)
@@ -30,7 +36,7 @@ public class JTSAAbstractor implements Abstractor<PowerConsumptionLabel> {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return outputAbstractor.buildSequence(new File("output.jtsa"));
 	}
 
 }
