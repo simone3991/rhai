@@ -14,7 +14,7 @@ import it.distanciable.Distanciator;
  */
 public enum PowerConsumptionLabel implements
 		Distanciable<PowerConsumptionLabel>, Copiable<PowerConsumptionLabel> {
-	low(0), medium(1), high(2);
+	low(0), mediumlow(1), medium(3), mediumhigh(3), high(4);
 	private int value;
 
 	private PowerConsumptionLabel(int value) {

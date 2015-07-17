@@ -3,7 +3,7 @@ package it.rhai.abstraction;
 import it.bmi.jtsa.test.JTSATester;
 import it.distanciable.sequences.Sequence;
 import it.rhai.model.PowerConsumptionLabel;
-import it.rhai.test.XMLAdjuster;
+import it.rhai.test.FileEditor;
 
 import java.io.File;
 
@@ -24,8 +24,9 @@ public class JTSAAbstractor implements Abstractor<PowerConsumptionLabel> {
 	 */
 	public Sequence<PowerConsumptionLabel> buildSequence(File data) {
 		try {
-			XMLAdjuster.adjust(data.getPath(), "$TMP");
-			JTSATester.run("sequencer.xml");
+			FileEditor xmlModifier = new FileEditor(new File("template.xml"));
+			JTSATester.run(xmlModifier.replaceLabel(data.getPath(), "$TMP")
+					.getName());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -14,7 +14,11 @@ public class PowerConsumptionLabelTest {
 
 	@Test
 	public void testDistanceFromPowerConsumptionLabel() {
-		assertEquals(1, PowerConsumptionLabel.low.distanceFrom(PowerConsumptionLabel.medium));
+		assertEquals(
+				PowerConsumptionLabel.medium
+						.distanceFrom(PowerConsumptionLabel.low),
+				PowerConsumptionLabel.low
+						.distanceFrom(PowerConsumptionLabel.medium));
 	}
 
 	@Test
