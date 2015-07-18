@@ -3,6 +3,7 @@ package it.rhai.test;
 import it.distanciable.Distanciable;
 import it.distanciable.sequences.Sequence;
 import it.rhai.abstraction.Abstractor;
+import it.rhai.settings.SettingsKeeper;
 
 import java.io.File;
 
@@ -22,7 +23,8 @@ public class TestingAbstractor<T extends Distanciable<T>> implements
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				System.out.println("\t\t\t\tbuilt sequence n°: " + counter);
+				SettingsKeeper.getSettings().getDebugLogger()
+						.println("\t\t\t\tbuilt sequence n°: " + counter);
 				counter++;
 			}
 		});

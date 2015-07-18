@@ -39,7 +39,7 @@ public class IdentificationTest {
 	}
 
 	@Test
-	public void testIdentify() {
+	public void testIdentify() throws Exception {
 		assertEquals("lib/forno", identifier.identify(null));
 	}
 

@@ -3,9 +3,11 @@ package it.rhai.abstraction;
 import it.bmi.jtsa.test.JTSATester;
 import it.distanciable.sequences.Sequence;
 import it.rhai.model.PowerConsumptionLabel;
+import it.rhai.settings.SettingsKeeper;
 import it.rhai.test.FileEditor;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * This implementation of {@link Abstractor} interface uses the JTSA Framework
@@ -28,13 +30,14 @@ public class JTSAAbstractor implements Abstractor<PowerConsumptionLabel> {
 	 * 
 	 * @see it.rhai.identification.Sequencer#buildSequence(java.io.File)
 	 */
-	public Sequence<PowerConsumptionLabel> buildSequence(File data) {
+	public Sequence<PowerConsumptionLabel> buildSequence(File data)
+			throws IOException {
 		try {
 			FileEditor xmlModifier = new FileEditor(new File("template.xml"));
 			JTSATester.run(xmlModifier.replaceLabel(data.getPath(), "$TMP")
 					.getName());
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.printStackTrace(SettingsKeeper.getSettings().getDebugLogger());;
 		}
 		return outputAbstractor.buildSequence(new File("output.jtsa"));
 	}

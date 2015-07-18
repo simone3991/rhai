@@ -8,6 +8,7 @@ import it.rhai.settings.RHAISettings;
 import it.rhai.settings.SettingsKeeper;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -53,8 +54,9 @@ public class ApplianceIdentifier {
 	 *            identified
 	 * @return: a string representing the appliance, or null if no appliance
 	 *          could be identified
+	 * @throws IOException 
 	 */
-	public String identify(File data) {
+	public String identify(File data) throws IOException {
 		recognizer.save(SettingsKeeper.getSettings().getLib());
 		recognizer.receiveMessage(getToBeIdentified(data));
 		ArrayList<Sequence<PowerConsumptionLabel>> sequence = recognizer
@@ -63,7 +65,7 @@ public class ApplianceIdentifier {
 	}
 
 	private ArrayList<Sequence<PowerConsumptionLabel>> getToBeIdentified(
-			File data) {
+			File data) throws IOException {
 		Sequence<PowerConsumptionLabel> sequence = sequencer
 				.buildSequence(data);
 		ArrayList<Sequence<PowerConsumptionLabel>> list = new ArrayList<Sequence<PowerConsumptionLabel>>();

@@ -21,7 +21,6 @@ public class RedirectingReader<T> implements Reader<T> {
 	private DataHandler<Collection<T>> handler;
 	private int maxLength;
 	private ArrayList<T> data;
-	private int nextIndex = 0;
 	private int counter = 1;
 
 	/**
@@ -43,13 +42,13 @@ public class RedirectingReader<T> implements Reader<T> {
 	 */
 	@Override
 	public void read(T value) {
-		System.out.println("read data n°: " + counter);
-		data.add(nextIndex, value);
-		nextIndex++;
-		counter++;
-		if (nextIndex == maxLength) {
+		SettingsKeeper.getSettings().getDebugLogger()
+				.println("read data n°: " + counter);
+		data.add(value);
+		if (data.size() == maxLength) {
 			handler.handle(data);
-			nextIndex = 0;
+			data.removeAll(data);
 		}
+		counter++;
 	}
 }

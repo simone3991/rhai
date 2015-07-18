@@ -4,6 +4,8 @@ import it.distanciable.Copiable;
 import it.distanciable.Distanciable;
 import it.distanciable.Distanciator;
 
+import java.util.Collection;
+
 /**
  * {@link PowerConsumptionLabel} enumeration represents any available level of
  * power consumption. Each level is identified by a textual representation, a
@@ -14,7 +16,7 @@ import it.distanciable.Distanciator;
  */
 public enum PowerConsumptionLabel implements
 		Distanciable<PowerConsumptionLabel>, Copiable<PowerConsumptionLabel> {
-	low(0), mediumlow(1), medium(3), mediumhigh(3), high(4);
+	low(1), mediumlow(2), medium(3), mediumhigh(4), high(5);
 	private int value;
 
 	private PowerConsumptionLabel(int value) {
@@ -68,6 +70,39 @@ public enum PowerConsumptionLabel implements
 	 */
 	public int getMaximumDistance() {
 		return 2;
+	}
+
+	/**
+	 * Returns the single {@link PowerConsumptionLabel} element that better
+	 * approximate the input collection of labels
+	 * 
+	 * @param labels
+	 *            : the collection to be smoothed into a single one label object
+	 * @return: the label that better approximate the multiple inputs
+	 */
+	public static PowerConsumptionLabel smooth(
+			Collection<PowerConsumptionLabel> labels) {
+		int smooth = getAverageValue(labels);
+		return labelOf(smooth);
+	}
+
+	private static int getAverageValue(Collection<PowerConsumptionLabel> labels) {
+		int sum = 0;
+		int smooth;
+		for (PowerConsumptionLabel powerConsumptionLabel : labels) {
+			sum += powerConsumptionLabel.value;
+		}
+		smooth = Math.round(sum / labels.size());
+		return smooth;
+	}
+
+	private static PowerConsumptionLabel labelOf(int value) {
+		for (PowerConsumptionLabel powerConsumptionLabel : values()) {
+			if (powerConsumptionLabel.value == value) {
+				return powerConsumptionLabel;
+			}
+		}
+		return null;
 	}
 
 }

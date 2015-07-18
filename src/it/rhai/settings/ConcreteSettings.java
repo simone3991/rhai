@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -23,7 +24,7 @@ public class ConcreteSettings implements RHAISettings {
 	@Override
 	/*
 	 * (non-Javadoc)
-	 * 
+	 * s
 	 * @see it.rhai.settings.RHAISettings#getLib()
 	 */
 	public ArrayList<Sequence<PowerConsumptionLabel>> getLib() {
@@ -53,7 +54,7 @@ public class ConcreteSettings implements RHAISettings {
 	 * it.rhai.settings.RHAISettings#getAppliance(it.distanciable.sequences.
 	 * Sequence)
 	 */
-	//TODO: change to Sequence#equals()
+	// TODO: change to Sequence#equals()
 	public String getAppliance(
 			Sequence<PowerConsumptionLabel> recognizedSequence) {
 		for (String appliance : appliances.keySet()) {
@@ -118,9 +119,19 @@ public class ConcreteSettings implements RHAISettings {
 	@Override
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see it.rhai.settings.RHAISettings#getTAbstraction()
 	 */
 	public int getTAbstraction() {
-		return 10;
+		return 13;
+	}
+
+	@Override
+	/*
+	 * (non-Javadoc)
+	 * @see it.rhai.settings.RHAISettings#getDebugLogger()
+	 */
+	public PrintStream getDebugLogger() {
+		return System.out;
 	}
 }

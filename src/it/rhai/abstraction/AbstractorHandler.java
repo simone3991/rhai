@@ -15,7 +15,7 @@ import java.util.Collection;
  * intermedium block of multiple data abstraction. This is performed by a
  * concrete implementation of {@link Abstractor} interface. The extracted
  * sequence is then redirected to an effective data handler. In other words,
- * this class converts a generic collection of data element into a
+ * this class converts a generic collection of data elements into a
  * {@link Sequence} of different type objects, and eventually let it be handled
  * by an other handler
  * 
@@ -51,12 +51,14 @@ public class AbstractorHandler<T, K extends Distanciable<K>> implements
 	@Override
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see it.rhai.reading.DataHandler#handle(java.lang.Object)
 	 */
 	public void handle(Collection<T> data) {
 		try {
-			BufferedWriter writer = new BufferedWriter(new FileWriter(new File(
-					TMP_FILENAME)));
+			File file = new File(TMP_FILENAME);
+			BufferedWriter writer = new BufferedWriter(new FileWriter(file,
+					false));
 			for (T powerMeasure : data) {
 				writer.write(powerMeasure.toString());
 				writer.newLine();

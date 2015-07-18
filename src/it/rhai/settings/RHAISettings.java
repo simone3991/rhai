@@ -4,6 +4,7 @@ import it.distanciable.sequences.Sequence;
 import it.distanciable.sequences.SequenceRecognizer;
 import it.rhai.model.PowerConsumptionLabel;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 
 /**
@@ -52,5 +53,12 @@ public interface RHAISettings {
 	 * @return
 	 */
 	public int getTAbstraction();
+
+	/**
+	 * Returns a stream where log any debug message
+	 * 
+	 * @return: a {@link PrintStream} where messages should be printed
+	 */
+	public PrintStream getDebugLogger();
 
 }

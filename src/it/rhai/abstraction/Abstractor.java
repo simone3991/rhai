@@ -4,6 +4,7 @@ import it.distanciable.Distanciable;
 import it.distanciable.sequences.Sequence;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * {@link Abstractor} interface represents any kind of object able to extract a
@@ -21,7 +22,8 @@ public interface Abstractor<T extends Distanciable<T>> {
 	 * @param data
 	 *            : the source data file
 	 * @return: the extracted sequence
+	 * @throws IOException 
 	 */
-	public Sequence<T> buildSequence(File data);
+	public Sequence<T> buildSequence(File data) throws IOException;
 
 }
