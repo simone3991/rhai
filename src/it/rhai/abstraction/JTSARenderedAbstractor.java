@@ -25,28 +25,45 @@ public class JTSARenderedAbstractor implements
 	@Override
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see it.rhai.abstraction.Abstractor#buildSequence(java.io.File)
 	 */
 	public Sequence<PowerConsumptionLabel> buildSequence(File data)
 			throws IOException {
 		BufferedReader reader = new BufferedReader(new FileReader(data));
-		reader.readLine();
-		String line;
-		ArrayList<PowerConsumptionLabel> labels = new ArrayList<PowerConsumptionLabel>();
-		while ((line = reader.readLine()) != null) {
-			StringTokenizer tokenizer = new StringTokenizer(line, ";");
-			int period = -Integer.parseInt(tokenizer.nextToken())
-					+ Integer.parseInt(tokenizer.nextToken());
-			PowerConsumptionLabel label = PowerConsumptionLabel
-					.valueOf(tokenizer.nextToken());
-			for (int i = 0; i < period; i++) {
-				labels.add(label);
-			}
-		}
+		ArrayList<PowerConsumptionLabel> labels = getSequence(reader);
 		reader.close();
+		Sequence<PowerConsumptionLabel> sequence = toOneLabel(labels);
+		return sequence;
+	}
+
+	private Sequence<PowerConsumptionLabel> toOneLabel(
+			ArrayList<PowerConsumptionLabel> labels) {
 		Sequence<PowerConsumptionLabel> sequence = new Sequence<PowerConsumptionLabel>(
 				1);
 		sequence.addElement(PowerConsumptionLabel.smooth(labels));
 		return sequence;
+	}
+
+	private ArrayList<PowerConsumptionLabel> getSequence(BufferedReader reader)
+			throws IOException {
+		String line = reader.readLine();
+		ArrayList<PowerConsumptionLabel> labels = new ArrayList<PowerConsumptionLabel>();
+		while ((line = reader.readLine()) != null) {
+			addAllSubSequence(line, labels);
+		}
+		return labels;
+	}
+
+	private void addAllSubSequence(String line,
+			ArrayList<PowerConsumptionLabel> labels) {
+		StringTokenizer tokenizer = new StringTokenizer(line, ";");
+		int period = -Integer.parseInt(tokenizer.nextToken())
+				+ Integer.parseInt(tokenizer.nextToken());
+		PowerConsumptionLabel label = PowerConsumptionLabel.valueOf(tokenizer
+				.nextToken());
+		for (int i = 0; i < period; i++) {
+			labels.add(label);
+		}
 	}
 }
