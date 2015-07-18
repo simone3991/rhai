@@ -23,8 +23,8 @@ public class ConcreteSettings implements RHAISettings {
 
 	@Override
 	/*
-	 * (non-Javadoc)
-	 * s
+	 * (non-Javadoc) s
+	 * 
 	 * @see it.rhai.settings.RHAISettings#getLib()
 	 */
 	public ArrayList<Sequence<PowerConsumptionLabel>> getLib() {
@@ -43,7 +43,7 @@ public class ConcreteSettings implements RHAISettings {
 	 * @see it.rhai.settings.RHAISettings#getTolerance()
 	 */
 	public double getMinimumLikelihood() {
-		return 0;
+		return -10;
 	}
 
 	@Override
@@ -57,12 +57,13 @@ public class ConcreteSettings implements RHAISettings {
 	// TODO: change to Sequence#equals()
 	public String getAppliance(
 			Sequence<PowerConsumptionLabel> recognizedSequence) {
+		System.out.println("ma è "+recognizedSequence);
 		for (String appliance : appliances.keySet()) {
 			for (Sequence<PowerConsumptionLabel> sequence : appliances
 					.get(appliance)) {
 				if (sequence.toString()
 						.compareTo(recognizedSequence.toString()) == 0) {
-					return appliance;
+					return appliance.substring(appliance.lastIndexOf("/")+1);
 				}
 			}
 		}
@@ -129,6 +130,7 @@ public class ConcreteSettings implements RHAISettings {
 	@Override
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see it.rhai.settings.RHAISettings#getDebugLogger()
 	 */
 	public PrintStream getDebugLogger() {

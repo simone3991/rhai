@@ -1,10 +1,10 @@
 package it.rhai.test;
 
-import it.distanciable.sequences.Sequence;
 import it.rhai.abstraction.AbstractorHandler;
 import it.rhai.abstraction.CumulativeAbstractor;
 import it.rhai.abstraction.JTSAAbstractor;
 import it.rhai.abstraction.JTSARenderedAbstractor;
+import it.rhai.identification.Identifier;
 import it.rhai.model.PowerConsumptionLabel;
 import it.rhai.model.PowerMeasure;
 import it.rhai.reading.RedirectingReader;
@@ -29,8 +29,7 @@ public class ReaderInvokerTest {
 								new CumulativeAbstractor<PowerConsumptionLabel>(
 										new JTSAAbstractor(
 												new JTSARenderedAbstractor())),
-								new TestingDataHandler<Sequence<PowerConsumptionLabel>>())),
-				100);
+								new Identifier())), 100);
 		invoker.start();
 	}
 }
