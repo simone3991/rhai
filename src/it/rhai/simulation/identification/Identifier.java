@@ -1,4 +1,4 @@
-package it.rhai.identification;
+package it.rhai.simulation.identification;
 
 import it.distanciable.sequences.Sequence;
 import it.distanciable.sequences.SequenceRecognizer;

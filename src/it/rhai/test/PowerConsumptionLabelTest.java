@@ -1,6 +1,6 @@
 package it.rhai.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import it.rhai.model.PowerConsumptionLabel;
 
 import org.junit.Test;

@@ -7,10 +7,10 @@ import it.rhai.abstraction.JTSARenderedAbstractor;
 import it.rhai.identification.Identifier;
 import it.rhai.model.PowerConsumptionLabel;
 import it.rhai.model.PowerMeasure;
-import it.rhai.reading.RedirectingReader;
 import it.rhai.settings.ConcreteSettings;
 import it.rhai.settings.SettingsKeeper;
 import it.rhai.simulation.ReaderInvoker;
+import it.rhai.simulation.reading.RedirectingReader;
 
 import java.io.File;
 import java.io.IOException;

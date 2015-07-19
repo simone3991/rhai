@@ -1,10 +1,9 @@
 package it.rhai.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import it.rhai.settings.FileSettings;
 
 import java.io.File;
-
-import it.rhai.settings.FileSettings;
 
 import org.junit.Test;
 

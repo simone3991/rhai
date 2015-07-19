@@ -1,7 +1,7 @@
 package it.rhai.simulation;
 
 import it.rhai.model.PowerMeasure;
-import it.rhai.reading.Reader;
+import it.rhai.simulation.reading.Reader;
 
 import java.io.BufferedReader;
 import java.io.File;
