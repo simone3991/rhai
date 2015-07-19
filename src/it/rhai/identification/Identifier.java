@@ -40,7 +40,6 @@ public class Identifier implements DataHandler<Sequence<PowerConsumptionLabel>> 
 	private void prepareRecognizer(Sequence<PowerConsumptionLabel> data) {
 		ArrayList<Sequence<PowerConsumptionLabel>> dataReceived = new ArrayList<Sequence<PowerConsumptionLabel>>(
 				1);
-		System.out.println("arriva "+data);
 		dataReceived.add(data);
 		recognizer.receiveMessage(dataReceived);
 	}

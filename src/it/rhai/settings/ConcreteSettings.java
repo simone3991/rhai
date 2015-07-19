@@ -57,7 +57,6 @@ public class ConcreteSettings implements RHAISettings {
 	// TODO: change to Sequence#equals()
 	public String getAppliance(
 			Sequence<PowerConsumptionLabel> recognizedSequence) {
-		System.out.println("ma è "+recognizedSequence);
 		for (String appliance : appliances.keySet()) {
 			for (Sequence<PowerConsumptionLabel> sequence : appliances
 					.get(appliance)) {

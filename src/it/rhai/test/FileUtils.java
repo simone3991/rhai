@@ -7,18 +7,18 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class FileEditor {
+public class FileUtils {
 
 	private File file;
 
-	public FileEditor(File file) {
+	public FileUtils(File file) {
 		super();
 		this.file = file;
 	}
 
 	public File replaceLabel(String replacer, String toBeReplaced)
 			throws IOException {
-		File output = new File(file.getName()+"-replaced." + getExtension(file));
+		File output = new File(file.getName()+"-replaced." + getExtension());
 		BufferedWriter writer = new BufferedWriter(new FileWriter(output));
 		BufferedReader reader = new BufferedReader(new FileReader(file));
 		String line;
@@ -34,7 +34,7 @@ public class FileEditor {
 		return output;
 	}
 
-	private String getExtension(File file) {
+	public String getExtension() {
 		String extension = "";
 
 		int i = file.getName().lastIndexOf('.');

@@ -4,7 +4,7 @@ import it.bmi.jtsa.test.JTSATester;
 import it.distanciable.sequences.Sequence;
 import it.rhai.model.PowerConsumptionLabel;
 import it.rhai.settings.SettingsKeeper;
-import it.rhai.test.FileEditor;
+import it.rhai.test.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,7 +33,7 @@ public class JTSAAbstractor implements Abstractor<PowerConsumptionLabel> {
 	public Sequence<PowerConsumptionLabel> buildSequence(File data)
 			throws IOException {
 		try {
-			FileEditor xmlModifier = new FileEditor(new File("template.xml"));
+			FileUtils xmlModifier = new FileUtils(new File("template.xml"));
 			JTSATester.run(xmlModifier.replaceLabel(data.getPath(), "$TMP")
 					.getName());
 		} catch (Exception e) {

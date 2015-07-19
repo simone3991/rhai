@@ -21,10 +21,9 @@ public class SettingsTest {
 	public void testGetAppliance() {
 		Sequence<PowerConsumptionLabel> sequence = new Sequence<PowerConsumptionLabel>(
 				3);
-		sequence.addElement(PowerConsumptionLabel.high);
-		sequence.addElement(PowerConsumptionLabel.high);
-		sequence.addElement(PowerConsumptionLabel.high);
-		assertEquals("lib/forno", settings.getAppliance(sequence));
+		sequence.addElement(PowerConsumptionLabel.low);
+		sequence.addElement(PowerConsumptionLabel.low);
+		assertEquals("forno", settings.getAppliance(sequence));
 	}
 
 }
