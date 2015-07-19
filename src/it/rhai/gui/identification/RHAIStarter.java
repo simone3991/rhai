@@ -10,7 +10,7 @@ public class RHAIStarter extends JButton {
 	private static final long serialVersionUID = 1L;
 
 	public RHAIStarter() {
-		super("Start");
+		super("Start the simulation");
 		super.addActionListener(new ActionListener() {
 			
 			@Override

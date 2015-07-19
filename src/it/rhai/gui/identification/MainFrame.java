@@ -4,9 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.util.Locale;
 
+import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -15,22 +17,24 @@ public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	public MainFrame() {
+		JComponent.setDefaultLocale(Locale.ENGLISH);
+		super.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.buildMe();
+		this.putAtMiddleScreen();
 	}
 
 	private void buildMe() {
 		super.setTitle("RHAI - Running Household Appliances Identifier");
-		super.setSize(420, 80);
+		super.setSize(600, 60);
 		super.setResizable(false);
 		super.setLayout(new BorderLayout());
 		super.add(new JPanel(), BorderLayout.NORTH);
-		super.add(buildLabel(), BorderLayout.SOUTH);
 		super.add(buildForm(), BorderLayout.CENTER);
 	}
 
 	private Component buildForm() {
 		JTextField inputField = new NotifierInputField(GUISystem.getInstance());
-		inputField.setPreferredSize(new Dimension(200, 24));
+		inputField.setPreferredSize(new Dimension(400, 24));
 		Container wrapperInput = new JPanel();
 		wrapperInput.add(inputField);
 		Container wrapperButton = new JPanel();
@@ -42,10 +46,10 @@ public class MainFrame extends JFrame {
 		form.add(wrapperButton, BorderLayout.EAST);
 		return form;
 	}
- 
-	private Component buildLabel() {
-		JLabel label = new JLabel("Insert the path of the power measures file");
-		label.setHorizontalAlignment(JLabel.CENTER);
-	    return label;
+
+	private void putAtMiddleScreen() {
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		super.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height
+				/ 2 - this.getSize().height / 2);
 	}
 }

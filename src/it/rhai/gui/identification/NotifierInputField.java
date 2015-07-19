@@ -12,6 +12,7 @@ public class NotifierInputField extends JTextField {
 	
 	public NotifierInputField(Notifiable notifiable) {
 		this.notifyDest = notifiable;
+		super.setToolTipText("Insert here the path of your file");
 		this.addKeyListener(new KeyListener() {
 			
 			@Override
