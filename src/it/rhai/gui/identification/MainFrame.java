@@ -5,7 +5,6 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -30,18 +29,20 @@ public class MainFrame extends JFrame {
 	}
 
 	private Component buildForm() {
-		JTextField inputField = new JTextField();
+		JTextField inputField = new NotifierInputField(GUISystem.getInstance());
 		inputField.setPreferredSize(new Dimension(200, 24));
 		Container wrapperInput = new JPanel();
 		wrapperInput.add(inputField);
 		Container wrapperButton = new JPanel();
-		wrapperButton.add(new JButton("Search"));
+		FileSearcher button = new FileSearcher(inputField);
+		wrapperButton.add(button);
+		GUISystem.getInstance().registerButton(button);
 		JPanel form = new JPanel(new BorderLayout());
 		form.add(wrapperInput, BorderLayout.CENTER);
 		form.add(wrapperButton, BorderLayout.EAST);
 		return form;
 	}
-
+ 
 	private Component buildLabel() {
 		JLabel label = new JLabel("Insert the path of the power measures file");
 		label.setHorizontalAlignment(JLabel.CENTER);
