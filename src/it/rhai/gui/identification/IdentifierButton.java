@@ -5,11 +5,11 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-public class RHAIStarter extends JButton {
+public class IdentifierButton extends JButton {
 
 	private static final long serialVersionUID = 1L;
 
-	public RHAIStarter() {
+	public IdentifierButton() {
 		super("Start the simulation");
 		super.addActionListener(new ActionListener() {
 			

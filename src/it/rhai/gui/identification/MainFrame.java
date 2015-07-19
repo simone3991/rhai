@@ -1,5 +1,8 @@
 package it.rhai.gui.identification;
 
+import it.rhai.gui.util.FileSearcher;
+import it.rhai.gui.util.NotifierInputField;
+
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
@@ -33,14 +36,14 @@ public class MainFrame extends JFrame {
 	}
 
 	private Component buildForm() {
-		JTextField inputField = new NotifierInputField(GUISystem.getInstance());
+		JTextField inputField = new NotifierInputField(IdentificationGUISystem.getInstance());
 		inputField.setPreferredSize(new Dimension(400, 24));
 		Container wrapperInput = new JPanel();
 		wrapperInput.add(inputField);
 		Container wrapperButton = new JPanel();
 		FileSearcher button = new FileSearcher(inputField);
 		wrapperButton.add(button);
-		GUISystem.getInstance().registerButton(button);
+		IdentificationGUISystem.getInstance().registerButton(button);
 		JPanel form = new JPanel(new BorderLayout());
 		form.add(wrapperInput, BorderLayout.CENTER);
 		form.add(wrapperButton, BorderLayout.EAST);

@@ -1,4 +1,4 @@
-package it.rhai.gui.identification;
+package it.rhai.gui.util;
 
 import java.awt.Container;
 import java.awt.event.ActionEvent;
@@ -27,7 +27,11 @@ public class FileSearcher extends DynamicButton {
 			    FileNameExtensionFilter filter = new FileNameExtensionFilter(
 			        "Source Data Files", "dat", "csv");
 			    chooser.setFileFilter(filter);
-			    int returnVal = chooser.showOpenDialog(myParent);
+			    handleChoice(chooser);
+			}
+
+			private void handleChoice(JFileChooser chooser) {
+				int returnVal = chooser.showOpenDialog(myParent);
 			    if(returnVal == JFileChooser.APPROVE_OPTION) {
 			       displayer.setText(chooser.getSelectedFile().getPath());
 			    }
@@ -36,7 +40,11 @@ public class FileSearcher extends DynamicButton {
 	}
 	
 	@Override
-	protected FileSearcher clone() throws CloneNotSupportedException {
+	/*
+	 * (non-Javadoc)
+	 * @see it.rhai.gui.util.DynamicButton#clone()
+	 */
+	public FileSearcher clone() throws CloneNotSupportedException {
 		return new FileSearcher(displayer);
 	}
 
