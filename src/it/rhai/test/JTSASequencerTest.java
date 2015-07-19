@@ -1,11 +1,11 @@
 package it.rhai.test;
 
-import it.rhai.abstraction.Abstractor;
-import it.rhai.abstraction.JTSAAbstractor;
-import it.rhai.abstraction.JTSARenderedAbstractor;
 import it.rhai.model.PowerConsumptionLabel;
 import it.rhai.settings.ConcreteSettings;
 import it.rhai.settings.SettingsKeeper;
+import it.rhai.simulation.abstraction.Abstractor;
+import it.rhai.simulation.abstraction.JTSAAbstractor;
+import it.rhai.simulation.abstraction.JTSARenderedAbstractor;
 
 import java.io.File;
 import java.io.IOException;

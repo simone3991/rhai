@@ -2,8 +2,8 @@ package it.rhai.test;
 
 import it.distanciable.Distanciable;
 import it.distanciable.sequences.Sequence;
-import it.rhai.abstraction.Abstractor;
 import it.rhai.settings.SettingsKeeper;
+import it.rhai.simulation.abstraction.Abstractor;
 
 import java.io.File;
 

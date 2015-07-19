@@ -1,15 +1,15 @@
 package it.rhai.test;
 
-import it.rhai.abstraction.AbstractorHandler;
-import it.rhai.abstraction.CumulativeAbstractor;
-import it.rhai.abstraction.JTSAAbstractor;
-import it.rhai.abstraction.JTSARenderedAbstractor;
-import it.rhai.identification.Identifier;
 import it.rhai.model.PowerConsumptionLabel;
 import it.rhai.model.PowerMeasure;
 import it.rhai.settings.ConcreteSettings;
 import it.rhai.settings.SettingsKeeper;
 import it.rhai.simulation.ReaderInvoker;
+import it.rhai.simulation.abstraction.AbstractorHandler;
+import it.rhai.simulation.abstraction.CumulativeAbstractor;
+import it.rhai.simulation.abstraction.JTSAAbstractor;
+import it.rhai.simulation.abstraction.JTSARenderedAbstractor;
+import it.rhai.simulation.identification.Identifier;
 import it.rhai.simulation.reading.RedirectingReader;
 
 import java.io.File;
