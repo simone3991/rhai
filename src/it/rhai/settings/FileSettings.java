@@ -2,6 +2,7 @@ package it.rhai.settings;
 
 import it.distanciable.sequences.Sequence;
 import it.rhai.model.PowerConsumptionLabel;
+import it.rhai.util.DebugPrinter;
 
 import java.io.BufferedReader;
 import java.io.File;

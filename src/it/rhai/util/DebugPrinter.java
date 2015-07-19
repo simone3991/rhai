@@ -1,4 +1,4 @@
-package it.rhai.settings;
+package it.rhai.util;
 
 import java.io.PrintStream;
 

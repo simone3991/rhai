@@ -4,7 +4,7 @@ import it.bmi.jtsa.test.JTSATester;
 import it.distanciable.sequences.Sequence;
 import it.rhai.model.PowerConsumptionLabel;
 import it.rhai.settings.SettingsKeeper;
-import it.rhai.test.FileUtils;
+import it.rhai.util.FileUtils;
 
 import java.io.File;
 import java.io.IOException;

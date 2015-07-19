@@ -1,4 +1,4 @@
-package it.rhai.test;
+package it.rhai.util;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
