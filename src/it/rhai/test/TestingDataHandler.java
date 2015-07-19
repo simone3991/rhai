@@ -1,7 +1,7 @@
 package it.rhai.test;
 
-import it.rhai.reading.DataHandler;
 import it.rhai.settings.SettingsKeeper;
+import it.rhai.util.DataHandler;
 
 public class TestingDataHandler<T> implements DataHandler<T> {
 
