@@ -23,7 +23,7 @@ public class ReaderInvokerTest {
 
 	public static void main(String[] args) throws IOException {
 		ReaderInvoker invoker = new ReaderInvoker(
-				new File("testing.dat"),
+				new File("data/testing.dat"),
 				new RedirectingReader<PowerMeasure>(
 						new AbstractorHandler<PowerMeasure, PowerConsumptionLabel>(
 								new CumulativeAbstractor<PowerConsumptionLabel>(

@@ -33,13 +33,16 @@ public class JTSAAbstractor implements Abstractor<PowerConsumptionLabel> {
 	public Sequence<PowerConsumptionLabel> buildSequence(File data)
 			throws IOException {
 		try {
-			FileUtils xmlModifier = new FileUtils(new File("template.xml"));
-			JTSATester.run(xmlModifier.replaceLabel(data.getPath(), "$TMP")
-					.getName());
+			FileUtils xmlModifier = new FileUtils(new File("data/template.xml"));
+			File xmlModified = xmlModifier.replaceLabel(data.getPath(), "$TMP");
+			xmlModified.deleteOnExit();
+			JTSATester.run(xmlModified .getName());
 		} catch (Exception e) {
-			e.printStackTrace(SettingsKeeper.getSettings().getDebugLogger());;
+			e.printStackTrace(SettingsKeeper.getSettings().getDebugLogger());
+			;
 		}
-		return outputAbstractor.buildSequence(new File("output.jtsa"));
+		File tmpFile = new File("data/output.jtsa");
+		tmpFile.deleteOnExit();
+		return outputAbstractor.buildSequence(tmpFile);
 	}
-
 }

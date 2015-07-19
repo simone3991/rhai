@@ -23,7 +23,7 @@ public class JTSASequencerTest {
 	
 	@Test
 	public void testBuildSequence() throws IOException {
-		sequencer.buildSequence(new File("testing.dat"));
+		sequencer.buildSequence(new File("data/testing.dat"));
 	}
 
 }

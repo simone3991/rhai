@@ -28,7 +28,7 @@ import java.util.Collection;
 public class AbstractorHandler<T, K extends Distanciable<K>> implements
 		DataHandler<Collection<T>> {
 
-	private static final String TMP_FILENAME = "tmp.out";
+	private static final String TMP_FILENAME = "data/tmp.out";
 	private Abstractor<K> abstractor;
 	private DataHandler<Sequence<K>> handlerOut;
 
@@ -64,8 +64,9 @@ public class AbstractorHandler<T, K extends Distanciable<K>> implements
 				writer.newLine();
 			}
 			writer.close();
-			Sequence<K> sequence = abstractor.buildSequence(new File(
-					TMP_FILENAME));
+			File tmpFile = new File(TMP_FILENAME);
+			tmpFile.deleteOnExit();
+			Sequence<K> sequence = abstractor.buildSequence(tmpFile);
 			this.handlerOut.handle(sequence);
 		} catch (IOException e) {
 			e.printStackTrace();
