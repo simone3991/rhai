@@ -12,9 +12,9 @@ public interface DataHandler<T> {
 	/**
 	 * Handles the input
 	 * 
-	 * @param data
+	 * @param toBeHandled
 	 *            : the input dasta to be handled
 	 */
-	public void handle(T data);
+	public void handle(T toBeHandled);
 
 }

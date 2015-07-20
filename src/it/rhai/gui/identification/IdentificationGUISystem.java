@@ -1,5 +1,7 @@
 package it.rhai.gui.identification;
 
+import java.io.File;
+
 import it.rhai.gui.util.DynamicButton;
 import it.rhai.settings.SettingsKeeper;
 import it.rhai.util.DataHandler;
@@ -9,6 +11,7 @@ public class IdentificationGUISystem implements DataHandler<String> {
 	private static IdentificationGUISystem system = new IdentificationGUISystem();
 	private DynamicButton button;
 	private DynamicButton original;
+	private File dataFile;
 
 	private IdentificationGUISystem() {
 	}
@@ -39,6 +42,14 @@ public class IdentificationGUISystem implements DataHandler<String> {
 			button.setTarget(original);
 			button.change();
 		}
+	}
+
+	public void setDataFile(File dataFile) {
+		this.dataFile = dataFile;
+	}
+	
+	public File getDataFile() {
+		return dataFile;
 	}
 
 }

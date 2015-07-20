@@ -28,7 +28,7 @@ public class MainFrame extends JFrame {
 
 	private void buildMe() {
 		super.setTitle("RHAI - Running Household Appliances Identifier");
-		super.setSize(600, 60);
+		super.setSize(650, 60);
 		super.setResizable(false);
 		super.setLayout(new BorderLayout());
 		super.add(new JPanel(), BorderLayout.NORTH);
@@ -42,6 +42,7 @@ public class MainFrame extends JFrame {
 		wrapperInput.add(inputField);
 		Container wrapperButton = new JPanel();
 		FileSearcher button = new FileSearcher(inputField);
+		button.setPreferredSize(new Dimension(180, 24));
 		wrapperButton.add(button);
 		IdentificationGUISystem.getInstance().registerButton(button);
 		JPanel form = new JPanel(new BorderLayout());
