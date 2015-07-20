@@ -28,7 +28,7 @@ public class MainFrame extends JFrame {
 
 	private void buildMe() {
 		super.setTitle("RHAI - Running Household Appliances Identifier");
-		super.setSize(650, 60);
+		super.setSize(650, 80);
 		super.setResizable(false);
 		super.setLayout(new BorderLayout());
 		super.add(new JPanel(), BorderLayout.NORTH);
