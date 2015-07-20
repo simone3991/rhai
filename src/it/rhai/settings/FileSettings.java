@@ -2,7 +2,7 @@ package it.rhai.settings;
 
 import it.distanciable.sequences.Sequence;
 import it.rhai.model.PowerConsumptionLabel;
-import it.rhai.util.DebugPrinter;
+import it.rhai.util.Loggers;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -152,6 +152,6 @@ public class FileSettings implements RHAISettings {
 	 * @see it.rhai.settings.RHAISettings#getDebugLogger()
 	 */
 	public PrintStream getDebugLogger() {
-		return DebugPrinter.valueOf(parameters.get("debug_printer")).getPrinter();
+		return Loggers.loggers.get(parameters.get("debug_printer"));
 	}
 }
