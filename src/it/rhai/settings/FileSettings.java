@@ -9,18 +9,24 @@ import it.rhai.util.Outputs;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Properties;
 
 public class FileSettings implements RHAISettings {
 
-	private static HashMap<String, String> parameters = new HashMap<String, String>();
+	private Properties properties = new Properties();
 	private HashMap<String, ArrayList<Sequence<PowerConsumptionLabel>>> appliances = new HashMap<String, ArrayList<Sequence<PowerConsumptionLabel>>>();
 
-	public FileSettings(File settings) {
-		this.loadParameters(settings);
+	public FileSettings(File settings){
+		try {
+			this.loadParameters(settings);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		this.loadLib();
 	}
 
@@ -46,7 +52,8 @@ public class FileSettings implements RHAISettings {
 	 * @see it.rhai.settings.RHAISettings#getTolerance()
 	 */
 	public double getMinimumLikelihood() {
-		return Double.parseDouble(parameters.get("acceptance_likelihood"));
+		return Double.parseDouble(properties
+				.getProperty("acceptance_likelihood"));
 	}
 
 	@Override
@@ -73,7 +80,7 @@ public class FileSettings implements RHAISettings {
 	}
 
 	private void loadLib() {
-		File directory = new File(parameters.get("lib_root"));
+		File directory = new File(properties.getProperty("lib_root"));
 		for (File subDir : directory.listFiles(new FileFilter() {
 
 			@Override
@@ -118,22 +125,9 @@ public class FileSettings implements RHAISettings {
 		}
 		return sequence;
 	}
-	
-	private void loadParameters(File settings) {
-		try {
-			BufferedReader reader = new BufferedReader(new FileReader(settings));
-			String line = null;
-			while ((line = reader.readLine()) != null) {
-				if (!((line.startsWith("#")) || line.equals(""))) {
-					String[] params = line.split("=");
-					parameters.put(params[0].trim(), params[1].trim());
-				}
-			}
-			reader.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
+
+	private void loadParameters(File settings) throws IOException {
+		properties.load(new FileInputStream("settings/settings.properties"));
 	}
 
 	@Override
@@ -143,7 +137,7 @@ public class FileSettings implements RHAISettings {
 	 * @see it.rhai.settings.RHAISettings#getTAbstraction()
 	 */
 	public int getTAbstraction() {
-		return Integer.parseInt(parameters.get("t_abstraction"));
+		return Integer.parseInt(properties.getProperty("t_abstraction"));
 	}
 
 	@Override
@@ -153,11 +147,11 @@ public class FileSettings implements RHAISettings {
 	 * @see it.rhai.settings.RHAISettings#getDebugLogger()
 	 */
 	public DataHandler<String> getDebugLogger() {
-		return Loggers.loggers.get(parameters.get("debug_printer"));
+		return Loggers.loggers.get(properties.getProperty("debug_printer"));
 	}
 
 	@Override
 	public DataHandler<String> getOutput() {
-		return Outputs.outputs.get(parameters.get("output_displayer"));
+		return Outputs.outputs.get(properties.getProperty("output_displayer"));
 	}
 }
