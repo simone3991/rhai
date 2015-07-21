@@ -36,7 +36,6 @@ public class Outputs {
 			});
 		} catch (FileNotFoundException e) {
 		}
-		outputs.put("gui", null);
 	}
 
 	private Outputs() {
@@ -45,5 +44,10 @@ public class Outputs {
 
 	public static DataHandler<String> getOutput(String output) {
 		return outputs.get(output);
+	}
+
+	public static void putOutput(String string,
+			DataHandler<String> output) {
+		outputs.put(string, output);		
 	}
 }
