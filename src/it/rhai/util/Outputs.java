@@ -5,9 +5,15 @@ import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.HashMap;
 
+/**
+ * A collection of {@link DataHandler} able to display outputs
+ * 
+ * @author simone
+ *
+ */
 public class Outputs {
 
-	public static final HashMap<String, DataHandler<String>> outputs = new HashMap<String, DataHandler<String>>();
+	private static final HashMap<String, DataHandler<String>> outputs = new HashMap<String, DataHandler<String>>();
 
 	static {
 		outputs.put("stdout", new DataHandler<String>() {
@@ -35,5 +41,9 @@ public class Outputs {
 
 	private Outputs() {
 
+	}
+
+	public static DataHandler<String> getOutput(String output) {
+		return outputs.get(output);
 	}
 }

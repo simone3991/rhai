@@ -7,18 +7,36 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * This class collects different algorithms to work on {@link File} instances
+ * 
+ * @author simone
+ *
+ */
 public class FileUtils {
 
-	private File file;
-
-	public FileUtils(File file) {
-		super();
-		this.file = file;
+	private FileUtils() {
 	}
 
-	public File replaceLabel(String replacer, String toBeReplaced)
-			throws IOException {
-		File output = new File(file.getName()+"-replaced." + getExtension());
+	/**
+	 * Opens the given file, searching for a specific label: whenever it finds
+	 * it, it replaces that label with another one.
+	 * 
+	 * @param replacer
+	 *            : the new label to write
+	 * @param toBeReplaced
+	 *            : the label to be replaced with the new one
+	 * @param file
+	 *            : the original file
+	 * @return: a new file equal to the given one except for that label
+	 * @throws IOException
+	 *             : if file can't be opened or something happens writing the
+	 *             new output file
+	 */
+	public static File replaceLabel(String replacer, String toBeReplaced,
+			File file) throws IOException {
+		File output = new File(file.getName() + "-replaced."
+				+ getExtension(file));
 		BufferedWriter writer = new BufferedWriter(new FileWriter(output));
 		BufferedReader reader = new BufferedReader(new FileReader(file));
 		String line;
@@ -34,7 +52,14 @@ public class FileUtils {
 		return output;
 	}
 
-	public String getExtension() {
+	/**
+	 * Returns the extension of a file
+	 * 
+	 * @param file
+	 *            : the file whose extension must be defined
+	 * @return: the extension of the given file
+	 */
+	public static String getExtension(File file) {
 		String extension = "";
 
 		int i = file.getName().lastIndexOf('.');

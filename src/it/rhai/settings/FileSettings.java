@@ -147,11 +147,11 @@ public class FileSettings implements RHAISettings {
 	 * @see it.rhai.settings.RHAISettings#getDebugLogger()
 	 */
 	public DataHandler<String> getDebugLogger() {
-		return Loggers.loggers.get(properties.getProperty("debug_printer"));
+		return Loggers.getLogger(properties.getProperty("debug_printer"));
 	}
 
 	@Override
 	public DataHandler<String> getOutput() {
-		return Outputs.outputs.get(properties.getProperty("output_displayer"));
+		return Outputs.getOutput(properties.getProperty("output_displayer"));
 	}
 }

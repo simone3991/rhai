@@ -135,11 +135,11 @@ public class ConcreteSettings implements RHAISettings {
 	 * @see it.rhai.settings.RHAISettings#getDebugLogger()
 	 */
 	public DataHandler<String> getDebugLogger() {
-		return Loggers.loggers.get("stdout");
+		return Loggers.getLogger("stdout");
 	}
 
 	@Override
 	public DataHandler<String> getOutput() {
-		return Outputs.outputs.get("stdout");
+		return Outputs.getOutput("stdout");
 	}
 }
