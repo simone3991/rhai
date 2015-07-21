@@ -1,10 +1,10 @@
 package it.rhai.gui.identification;
 
-import java.io.File;
-
 import it.rhai.gui.util.DynamicButton;
 import it.rhai.settings.SettingsKeeper;
 import it.rhai.util.DataHandler;
+
+import java.io.File;
 
 public class IdentificationGUISystem implements DataHandler<String> {
 
@@ -24,7 +24,7 @@ public class IdentificationGUISystem implements DataHandler<String> {
 		try {
 			this.original = (DynamicButton) button.clone();
 		} catch (CloneNotSupportedException e) {
-			e.printStackTrace(SettingsKeeper.getSettings().getDebugLogger());
+			SettingsKeeper.getSettings().getDebugLogger().handle(e.getMessage());
 		}
 		this.button = button;
 	}

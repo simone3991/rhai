@@ -5,30 +5,23 @@ import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.HashMap;
 
-public class Loggers {
+public class Outputs {
 
-	public static final HashMap<String, DataHandler<String>> loggers = new HashMap<String, DataHandler<String>>();
+	public static final HashMap<String, DataHandler<String>> outputs = new HashMap<String, DataHandler<String>>();
 
 	static {
-		loggers.put("stdout", new DataHandler<String>() {
+		outputs.put("stdout", new DataHandler<String>() {
 
 			@Override
 			public void handle(String toBeHandled) {
 				System.out.println(toBeHandled);
 			}
 		});
-		loggers.put("stderr", new DataHandler<String>() {
-
-			@Override
-			public void handle(String toBeHandled) {
-				System.err.println(toBeHandled);
-			}
-		});
 		try {
-			loggers.put("file-logger", new DataHandler<String>() {
+			outputs.put("file", new DataHandler<String>() {
 
 				private PrintStream stream = new PrintStream(new File(
-						"data/debug.txt"));
+						"data/output.txt"));
 
 				@Override
 				public void handle(String toBeHandled) {
@@ -37,9 +30,10 @@ public class Loggers {
 			});
 		} catch (FileNotFoundException e) {
 		}
+		outputs.put("gui", null);
 	}
 
-	private Loggers() {
+	private Outputs() {
 
 	}
 }

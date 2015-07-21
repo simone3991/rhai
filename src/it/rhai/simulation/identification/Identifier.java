@@ -26,8 +26,7 @@ public class Identifier implements DataHandler<Sequence<PowerConsumptionLabel>> 
 	public void handle(Sequence<PowerConsumptionLabel> data) {
 		Sequence<PowerConsumptionLabel> real = doIdentify(data).get(0);
 		String appliance = SettingsKeeper.getSettings().getAppliance(real);
-		SettingsKeeper.getSettings().getDebugLogger()
-				.println("active appliance: " + appliance);
+		SettingsKeeper.getSettings().getOutput().handle(appliance);
 	}
 
 	private ArrayList<Sequence<PowerConsumptionLabel>> doIdentify(

@@ -24,7 +24,7 @@ public class TestingAbstractor<T extends Distanciable<T>> implements
 					e.printStackTrace();
 				}
 				SettingsKeeper.getSettings().getDebugLogger()
-						.println("\t\t\t\tbuilt sequence n°: " + counter);
+						.handle("\t\t\t\tbuilt sequence n°: " + counter);
 				counter++;
 			}
 		});

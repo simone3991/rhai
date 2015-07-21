@@ -44,8 +44,8 @@ public class IdentifierButton extends JButton {
 											new Identifier())), 100);
 					invoker.start();
 				} catch (IOException e1) {
-					e1.printStackTrace(SettingsKeeper.getSettings()
-							.getDebugLogger());
+					SettingsKeeper.getSettings().getDebugLogger()
+							.handle(e1.getMessage());
 				}
 			}
 		});

@@ -2,14 +2,15 @@ package it.rhai.settings;
 
 import it.distanciable.sequences.Sequence;
 import it.rhai.model.PowerConsumptionLabel;
+import it.rhai.util.DataHandler;
 import it.rhai.util.Loggers;
+import it.rhai.util.Outputs;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -151,7 +152,12 @@ public class FileSettings implements RHAISettings {
 	 * 
 	 * @see it.rhai.settings.RHAISettings#getDebugLogger()
 	 */
-	public PrintStream getDebugLogger() {
+	public DataHandler<String> getDebugLogger() {
 		return Loggers.loggers.get(parameters.get("debug_printer"));
+	}
+
+	@Override
+	public DataHandler<String> getOutput() {
+		return Outputs.outputs.get(parameters.get("output_displayer"));
 	}
 }

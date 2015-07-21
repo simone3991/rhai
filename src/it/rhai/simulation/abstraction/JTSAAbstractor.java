@@ -36,10 +36,10 @@ public class JTSAAbstractor implements Abstractor<PowerConsumptionLabel> {
 			FileUtils xmlModifier = new FileUtils(new File("data/template.xml"));
 			File xmlModified = xmlModifier.replaceLabel(data.getPath(), "$TMP");
 			xmlModified.deleteOnExit();
-			JTSATester.run(xmlModified .getName());
+			JTSATester.run(xmlModified.getName());
 		} catch (Exception e) {
-			e.printStackTrace(SettingsKeeper.getSettings().getDebugLogger());
-			;
+			SettingsKeeper.getSettings().getDebugLogger()
+					.handle(e.getMessage());
 		}
 		File tmpFile = new File("data/output.jtsa");
 		tmpFile.deleteOnExit();

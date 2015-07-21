@@ -25,7 +25,7 @@ public class TestingDataHandler<T> implements DataHandler<T> {
 					e.printStackTrace();
 				}
 				SettingsKeeper.getSettings().getDebugLogger()
-						.println("\t\t\t\t\t\t\t\thandled data n°: " + counter);
+						.handle("\t\t\t\t\t\t\t\thandled data n°: " + counter);
 				counter++;
 			}
 		});

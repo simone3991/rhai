@@ -3,6 +3,7 @@ package it.rhai.settings;
 import it.distanciable.sequences.Sequence;
 import it.distanciable.sequences.SequenceRecognizer;
 import it.rhai.model.PowerConsumptionLabel;
+import it.rhai.util.DataHandler;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -59,6 +60,8 @@ public interface RHAISettings {
 	 * 
 	 * @return: a {@link PrintStream} where messages should be printed
 	 */
-	public PrintStream getDebugLogger();
+	public DataHandler<String> getDebugLogger();
+
+	public DataHandler<String> getOutput();
 
 }
