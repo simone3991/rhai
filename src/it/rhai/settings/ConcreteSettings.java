@@ -4,7 +4,6 @@ import it.distanciable.sequences.Sequence;
 import it.rhai.model.PowerConsumptionLabel;
 import it.rhai.util.DataHandler;
 import it.rhai.util.Loggers;
-import it.rhai.util.Outputs;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -136,10 +135,5 @@ public class ConcreteSettings implements RHAISettings {
 	 */
 	public DataHandler<String> getDebugLogger() {
 		return Loggers.getLogger("stdout");
-	}
-
-	@Override
-	public DataHandler<String> getOutput() {
-		return Outputs.getOutput("stdout");
 	}
 }

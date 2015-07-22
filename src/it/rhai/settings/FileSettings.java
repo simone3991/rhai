@@ -4,7 +4,6 @@ import it.distanciable.sequences.Sequence;
 import it.rhai.model.PowerConsumptionLabel;
 import it.rhai.util.DataHandler;
 import it.rhai.util.Loggers;
-import it.rhai.util.Outputs;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -148,10 +147,5 @@ public class FileSettings implements RHAISettings {
 	 */
 	public DataHandler<String> getDebugLogger() {
 		return Loggers.getLogger(properties.getProperty("debug_printer"));
-	}
-
-	@Override
-	public DataHandler<String> getOutput() {
-		return Outputs.getOutput(properties.getProperty("output_displayer"));
 	}
 }

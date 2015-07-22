@@ -11,8 +11,10 @@ import java.util.ArrayList;
 public class Identifier implements DataHandler<Sequence<PowerConsumptionLabel>> {
 
 	private SequenceRecognizer<PowerConsumptionLabel> recognizer;
+	private DataHandler<String> outputDisplayer;
 
-	public Identifier() {
+	public Identifier(DataHandler<String> outputDisplayer) {
+		this.outputDisplayer = outputDisplayer;
 		this.recognizer = new SequenceRecognizer<PowerConsumptionLabel>(null);
 		recognizer.save(SettingsKeeper.getSettings().getLib());
 	}
@@ -26,7 +28,7 @@ public class Identifier implements DataHandler<Sequence<PowerConsumptionLabel>> 
 	public void handle(Sequence<PowerConsumptionLabel> data) {
 		Sequence<PowerConsumptionLabel> real = doIdentify(data).get(0);
 		String appliance = SettingsKeeper.getSettings().getAppliance(real);
-		SettingsKeeper.getSettings().getOutput().handle(appliance);
+		outputDisplayer.handle(appliance);
 	}
 
 	private ArrayList<Sequence<PowerConsumptionLabel>> doIdentify(

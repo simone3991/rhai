@@ -61,7 +61,4 @@ public interface RHAISettings {
 	 * @return: a {@link PrintStream} where messages should be printed
 	 */
 	public DataHandler<String> getDebugLogger();
-
-	public DataHandler<String> getOutput();
-
 }

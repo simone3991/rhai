@@ -11,6 +11,7 @@ import it.rhai.simulation.abstraction.JTSAAbstractor;
 import it.rhai.simulation.abstraction.JTSARenderedAbstractor;
 import it.rhai.simulation.identification.Identifier;
 import it.rhai.simulation.reading.RedirectingReader;
+import it.rhai.util.DataHandler;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,7 +30,14 @@ public class ReaderInvokerTest {
 								new CumulativeAbstractor<PowerConsumptionLabel>(
 										new JTSAAbstractor(
 												new JTSARenderedAbstractor())),
-								new Identifier())), 100);
+								new Identifier(new DataHandler<String>() {
+
+									@Override
+									public void handle(String toBeHandled) {
+										System.out.println(toBeHandled);
+
+									}
+								}))), 100);
 		invoker.start();
 	}
 }

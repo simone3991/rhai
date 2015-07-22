@@ -10,7 +10,8 @@ public class ApplicationStarter {
 
 	public static void main(String[] args) throws Exception {
 		UIManager.setLookAndFeel(new SeaGlassLookAndFeel());
-		Application app = new Application(new FileSearchingFrame());
+		Application app = new Application(new FileSearchingFrame(),
+				new IdentificationFrame());
 		app.start();
 	}
 }

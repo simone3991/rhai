@@ -40,7 +40,6 @@ public class Application {
 	}
 
 	public void setParam(String param, Object value) {
-		System.out.println("added param: "+value.toString());
 		applicationParams.put(param, value);
 	}
 
