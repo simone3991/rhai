@@ -21,7 +21,6 @@ import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Observable;
@@ -49,7 +48,7 @@ public class IdentificationFrame extends JFrame implements ApplicationElement,
 				"settings/settings.properties")));
 		Collection<String> appliances = SettingsKeeper.getSettings()
 				.getAvailableAppliances();
-		Container panel = new JPanel(new GridLayout(appliances.size(), 1));
+		Container panel = new JPanel(new GridLayout(1, appliances.size()));
 		super.setContentPane(panel);
 		int counter = 0;
 		for (String string : appliances) {
@@ -57,7 +56,7 @@ public class IdentificationFrame extends JFrame implements ApplicationElement,
 			panel.add(appliancePanels.get(counter));
 			counter++;
 		}
-		super.setSize(400, 500);
+		super.pack();
 		JFrameUtils.putAtMiddleScreen(this);
 	}
 
@@ -109,7 +108,8 @@ public class IdentificationFrame extends JFrame implements ApplicationElement,
 
 			invoker.addObserver(this);
 			invoker.start();
-		} catch (IOException e) {
+		} catch (Exception e) {
+			application.exit();
 		}
 	}
 
@@ -129,7 +129,7 @@ public class IdentificationFrame extends JFrame implements ApplicationElement,
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		try {
-			Thread.sleep(10000);
+			Thread.sleep(2000);
 		} catch (InterruptedException e) {
 			SettingsKeeper.getSettings().getDebugLogger()
 					.handle(e.getMessage());
