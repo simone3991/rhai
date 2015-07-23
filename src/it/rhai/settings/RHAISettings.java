@@ -7,6 +7,7 @@ import it.rhai.util.DataHandler;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * {@link RHAISettings} represents a generic interface through which all needed
@@ -25,7 +26,7 @@ public interface RHAISettings {
 	 * 
 	 * @return: the whole set of possible sequences
 	 */
-	public ArrayList<Sequence<PowerConsumptionLabel>> getLib();
+	public Collection<Sequence<PowerConsumptionLabel>> getLib();
 
 	/**
 	 * Retuns the tolerance of the identification. This value will be used to
@@ -61,4 +62,11 @@ public interface RHAISettings {
 	 * @return: a {@link PrintStream} where messages should be printed
 	 */
 	public DataHandler<String> getDebugLogger();
+
+	/**
+	 * Returns every identifiable appliance
+	 * 
+	 * @return: a collection of strings representing each appliance
+	 */
+	public Collection<String> getAvailableAppliances();
 }

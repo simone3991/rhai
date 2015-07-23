@@ -1,7 +1,6 @@
 package it.rhai.test;
 
 import it.rhai.model.PowerConsumptionLabel;
-import it.rhai.settings.ConcreteSettings;
 import it.rhai.settings.SettingsKeeper;
 import it.rhai.simulation.abstraction.Abstractor;
 import it.rhai.simulation.abstraction.JTSAAbstractor;
@@ -18,7 +17,7 @@ public class JTSASequencerTest {
 	private static JTSAAbstractor sequencer = new JTSAAbstractor(abstractor);
 
 	static{
-		SettingsKeeper.setSettings(new ConcreteSettings());
+		SettingsKeeper.setSettings(new TestSettings());
 	}
 	
 	@Test

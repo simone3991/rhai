@@ -12,6 +12,7 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Properties;
 
@@ -20,7 +21,7 @@ public class FileSettings implements RHAISettings {
 	private Properties properties = new Properties();
 	private HashMap<String, ArrayList<Sequence<PowerConsumptionLabel>>> appliances = new HashMap<String, ArrayList<Sequence<PowerConsumptionLabel>>>();
 
-	public FileSettings(File settings){
+	public FileSettings(File settings) {
 		try {
 			this.loadParameters(settings);
 		} catch (IOException e) {
@@ -35,7 +36,7 @@ public class FileSettings implements RHAISettings {
 	 * 
 	 * @see it.rhai.settings.RHAISettings#getLib()
 	 */
-	public ArrayList<Sequence<PowerConsumptionLabel>> getLib() {
+	public Collection<Sequence<PowerConsumptionLabel>> getLib() {
 		ArrayList<Sequence<PowerConsumptionLabel>> lib = new ArrayList<Sequence<PowerConsumptionLabel>>();
 		for (ArrayList<Sequence<PowerConsumptionLabel>> list : appliances
 				.values()) {
@@ -71,7 +72,7 @@ public class FileSettings implements RHAISettings {
 					.get(appliance)) {
 				if (sequence.toString()
 						.compareTo(recognizedSequence.toString()) == 0) {
-					return appliance.substring(appliance.lastIndexOf("/") + 1);
+					return appliance;
 				}
 			}
 		}
@@ -88,6 +89,7 @@ public class FileSettings implements RHAISettings {
 			}
 		})) {
 			String appliance = subDir.toString();
+			appliance = appliance.substring(appliance.lastIndexOf("/") + 1);
 			appliances.put(appliance,
 					new ArrayList<Sequence<PowerConsumptionLabel>>());
 			for (File file : subDir.listFiles()) {
@@ -147,5 +149,10 @@ public class FileSettings implements RHAISettings {
 	 */
 	public DataHandler<String> getDebugLogger() {
 		return Loggers.getLogger(properties.getProperty("debug_printer"));
+	}
+
+	@Override
+	public Collection<String> getAvailableAppliances() {
+		return appliances.keySet();
 	}
 }

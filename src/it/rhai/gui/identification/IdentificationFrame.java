@@ -1,8 +1,13 @@
 package it.rhai.gui.identification;
 
+import java.awt.Color;
 import java.awt.Container;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import it.rhai.gui.util.Application;
 import it.rhai.gui.util.ApplicationElement;
@@ -23,19 +28,31 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class IdentificationFrame extends JFrame implements ApplicationElement, DataHandler<String> {
+public class IdentificationFrame extends JFrame implements ApplicationElement,
+		DataHandler<String> {
 
 	private static final long serialVersionUID = 1L;
 	private Application application;
-	private JLabel label;
+	private JLabel sample = new JLabel();
+	private ArrayList<JLabel> labels = new ArrayList<JLabel>();
 
 	public IdentificationFrame() {
 		super("RHAI - Active Appliance");
-		super.setSize(400, 50);
-		this.label = new JLabel("");
-		Container panel = new JPanel();
-		panel.add(label);
+		SettingsKeeper.setSettings(new FileSettings(new File(
+				"settings/settings.properties")));
+		Collection<String> appliances = SettingsKeeper.getSettings()
+				.getAvailableAppliances();
+		Container panel = new JPanel(new GridLayout(appliances.size(), 1));
 		super.setContentPane(panel);
+		int counter = 0;
+		for (String string : appliances) {
+			JLabel label = new JLabel(string);
+			label.setHorizontalAlignment(JLabel.CENTER);
+			labels.add(counter, label);
+			panel.add(label);
+			counter++;
+		}
+		super.setSize(400, 500);
 	}
 
 	@Override
@@ -55,8 +72,6 @@ public class IdentificationFrame extends JFrame implements ApplicationElement, D
 	}
 
 	private void startRHAI() {
-		SettingsKeeper.setSettings(new FileSettings(new File(
-				"settings/settings.properties")));
 		ReaderInvoker invoker;
 		try {
 			invoker = new ReaderInvoker(
@@ -75,6 +90,15 @@ public class IdentificationFrame extends JFrame implements ApplicationElement, D
 
 	@Override
 	public void handle(String toBeHandled) {
-		this.label.setText(toBeHandled);
+		for (JLabel jLabel : labels) {
+			if (jLabel.getText().equals(toBeHandled)) {
+				jLabel.setForeground(Color.RED);
+				jLabel.setFont(new Font(sample.getFont().getName(), sample
+						.getFont().getStyle(), sample.getFont().getSize() * 3));
+			} else {
+				jLabel.setForeground(sample.getForeground());
+				jLabel.setFont(sample.getFont());
+			}
+		}
 	}
 }

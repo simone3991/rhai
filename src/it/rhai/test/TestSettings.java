@@ -1,7 +1,8 @@
-package it.rhai.settings;
+package it.rhai.test;
 
 import it.distanciable.sequences.Sequence;
 import it.rhai.model.PowerConsumptionLabel;
+import it.rhai.settings.RHAISettings;
 import it.rhai.util.DataHandler;
 import it.rhai.util.Loggers;
 
@@ -11,14 +12,15 @@ import java.io.FileFilter;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
-public class ConcreteSettings implements RHAISettings {
+public class TestSettings implements RHAISettings {
 
 	private static final String LIB_DIRECTORY = "lib";
 	private HashMap<String, ArrayList<Sequence<PowerConsumptionLabel>>> appliances = new HashMap<String, ArrayList<Sequence<PowerConsumptionLabel>>>();
 
-	public ConcreteSettings() {
+	public TestSettings() {
 		this.loadLib();
 	}
 
@@ -28,7 +30,7 @@ public class ConcreteSettings implements RHAISettings {
 	 * 
 	 * @see it.rhai.settings.RHAISettings#getLib()
 	 */
-	public ArrayList<Sequence<PowerConsumptionLabel>> getLib() {
+	public Collection<Sequence<PowerConsumptionLabel>> getLib() {
 		ArrayList<Sequence<PowerConsumptionLabel>> lib = new ArrayList<Sequence<PowerConsumptionLabel>>();
 		for (ArrayList<Sequence<PowerConsumptionLabel>> list : appliances
 				.values()) {
@@ -135,5 +137,10 @@ public class ConcreteSettings implements RHAISettings {
 	 */
 	public DataHandler<String> getDebugLogger() {
 		return Loggers.getLogger("stdout");
+	}
+
+	@Override
+	public Collection<String> getAvailableAppliances() {
+		return appliances.keySet();
 	}
 }

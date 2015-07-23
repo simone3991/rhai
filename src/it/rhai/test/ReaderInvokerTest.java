@@ -2,7 +2,6 @@ package it.rhai.test;
 
 import it.rhai.model.PowerConsumptionLabel;
 import it.rhai.model.PowerMeasure;
-import it.rhai.settings.ConcreteSettings;
 import it.rhai.settings.SettingsKeeper;
 import it.rhai.simulation.ReaderInvoker;
 import it.rhai.simulation.abstraction.AbstractorHandler;
@@ -19,7 +18,7 @@ import java.io.IOException;
 public class ReaderInvokerTest {
 
 	static {
-		SettingsKeeper.setSettings(new ConcreteSettings());
+		SettingsKeeper.setSettings(new TestSettings());
 	}
 
 	public static void main(String[] args) throws IOException {

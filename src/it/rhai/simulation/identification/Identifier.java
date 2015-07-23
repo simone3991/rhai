@@ -16,7 +16,9 @@ public class Identifier implements DataHandler<Sequence<PowerConsumptionLabel>> 
 	public Identifier(DataHandler<String> outputDisplayer) {
 		this.outputDisplayer = outputDisplayer;
 		this.recognizer = new SequenceRecognizer<PowerConsumptionLabel>(null);
-		recognizer.save(SettingsKeeper.getSettings().getLib());
+		recognizer
+				.save((ArrayList<Sequence<PowerConsumptionLabel>>) SettingsKeeper
+						.getSettings().getLib());
 	}
 
 	@Override

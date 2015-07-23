@@ -4,13 +4,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import it.distanciable.sequences.Sequence;
 import it.rhai.model.PowerConsumptionLabel;
-import it.rhai.settings.ConcreteSettings;
 
 import org.junit.Test;
 
 public class SettingsTest {
 
-	private static ConcreteSettings settings = new ConcreteSettings();
+	private static TestSettings settings = new TestSettings();
 
 	@Test
 	public void testGetLib() {
