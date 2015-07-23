@@ -5,9 +5,12 @@ import it.distanciable.sequences.SequenceRecognizer;
 import it.rhai.model.PowerConsumptionLabel;
 import it.rhai.util.DataHandler;
 
+import java.awt.Image;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collection;
+
+import javax.swing.ImageIcon;
 
 /**
  * {@link RHAISettings} represents a generic interface through which all needed
@@ -69,4 +72,14 @@ public interface RHAISettings {
 	 * @return: a collection of strings representing each appliance
 	 */
 	public Collection<String> getAvailableAppliances();
+
+	/**
+	 * Returns an icon representation for a certain appliance
+	 * 
+	 * @param appliance
+	 *            : the appliance whose representation is required
+	 * 
+	 * @return: an {@link ImageIcon} instance representing that appliance
+	 */
+	public Image getIcon(String appliance);
 }

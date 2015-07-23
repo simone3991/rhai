@@ -1,7 +1,7 @@
 package it.rhai.gui.identification;
 
-import it.rhai.gui.util.Application;
-import it.rhai.gui.util.ApplicationElement;
+import it.rhai.gui.Application;
+import it.rhai.gui.ApplicationElement;
 import it.rhai.gui.util.JFrameUtils;
 
 import java.awt.BorderLayout;

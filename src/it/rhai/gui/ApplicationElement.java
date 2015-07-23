@@ -1,4 +1,5 @@
-package it.rhai.gui.util;
+package it.rhai.gui;
+
 
 /**
  * A generic layer of an {@link Application}

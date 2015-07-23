@@ -1,18 +1,7 @@
 package it.rhai.gui.identification;
 
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Observable;
-import java.util.Observer;
-
-import it.rhai.gui.util.Application;
-import it.rhai.gui.util.ApplicationElement;
+import it.rhai.gui.Application;
+import it.rhai.gui.ApplicationElement;
 import it.rhai.gui.util.JFrameUtils;
 import it.rhai.model.PowerConsumptionLabel;
 import it.rhai.model.PowerMeasure;
@@ -27,6 +16,19 @@ import it.rhai.simulation.identification.Identifier;
 import it.rhai.simulation.reading.RedirectingReader;
 import it.rhai.util.DataHandler;
 
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Observable;
+import java.util.Observer;
+
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -35,9 +37,11 @@ public class IdentificationFrame extends JFrame implements ApplicationElement,
 		DataHandler<String>, Observer {
 
 	private static final long serialVersionUID = 1L;
+	private static final Color DEFAULT_COLOR = Color.GRAY;
+	private static final int DEFAULT_THICKNESS = 5;
+	private static final Color ACTIVE_COLOR = Color.GREEN;
 	private Application application;
-	private JLabel sample = new JLabel();
-	private ArrayList<JLabel> labels = new ArrayList<JLabel>();
+	private ArrayList<JPanel> appliancePanels = new ArrayList<JPanel>();
 
 	public IdentificationFrame() {
 		super("RHAI - Active Appliance");
@@ -49,14 +53,30 @@ public class IdentificationFrame extends JFrame implements ApplicationElement,
 		super.setContentPane(panel);
 		int counter = 0;
 		for (String string : appliances) {
-			JLabel label = new JLabel(string);
-			label.setHorizontalAlignment(JLabel.CENTER);
-			labels.add(counter, label);
-			panel.add(label);
+			appliancePanels.add(counter, buildAppliancePanel(string));
+			panel.add(appliancePanels.get(counter));
 			counter++;
 		}
 		super.setSize(400, 500);
 		JFrameUtils.putAtMiddleScreen(this);
+	}
+
+	private JPanel buildAppliancePanel(String string) {
+		JPanel panel = new JPanel();
+		panel.setToolTipText(string);
+		panel.setSize(200, 200);
+		Image image = SettingsKeeper
+				.getSettings()
+				.getIcon(string)
+				.getScaledInstance(panel.getWidth(), panel.getHeight(),
+						Image.SCALE_SMOOTH);
+		ImageIcon icon = new ImageIcon(image);
+		JLabel label = new JLabel(icon);
+		label.setSize(panel.getSize());
+		panel.add(label);
+		panel.setBorder(BorderFactory.createLineBorder(DEFAULT_COLOR,
+				DEFAULT_THICKNESS));
+		return panel;
 	}
 
 	@Override
@@ -95,14 +115,13 @@ public class IdentificationFrame extends JFrame implements ApplicationElement,
 
 	@Override
 	public void handle(String toBeHandled) {
-		for (JLabel jLabel : labels) {
-			if (jLabel.getText().equals(toBeHandled)) {
-				jLabel.setForeground(Color.RED);
-				jLabel.setFont(new Font(sample.getFont().getName(), sample
-						.getFont().getStyle(), sample.getFont().getSize() * 3));
+		for (JPanel jPanel : appliancePanels) {
+			if (jPanel.getToolTipText().equals(toBeHandled)) {
+				jPanel.setBorder(BorderFactory.createLineBorder(ACTIVE_COLOR,
+						DEFAULT_THICKNESS));
 			} else {
-				jLabel.setForeground(sample.getForeground());
-				jLabel.setFont(sample.getFont());
+				jPanel.setBorder(BorderFactory.createLineBorder(DEFAULT_COLOR,
+						DEFAULT_THICKNESS));
 			}
 		}
 	}
@@ -110,7 +129,7 @@ public class IdentificationFrame extends JFrame implements ApplicationElement,
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		try {
-			Thread.sleep(2000);
+			Thread.sleep(10000);
 		} catch (InterruptedException e) {
 			SettingsKeeper.getSettings().getDebugLogger()
 					.handle(e.getMessage());

@@ -5,6 +5,7 @@ import it.rhai.model.PowerConsumptionLabel;
 import it.rhai.util.DataHandler;
 import it.rhai.util.Loggers;
 
+import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
@@ -16,10 +17,13 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Properties;
 
+import javax.imageio.ImageIO;
+
 public class FileSettings implements RHAISettings {
 
 	private Properties properties = new Properties();
 	private HashMap<String, ArrayList<Sequence<PowerConsumptionLabel>>> appliances = new HashMap<String, ArrayList<Sequence<PowerConsumptionLabel>>>();
+	private HashMap<String, Image> icons = new HashMap<String, Image>();
 
 	public FileSettings(File settings) {
 		try {
@@ -92,6 +96,11 @@ public class FileSettings implements RHAISettings {
 			appliance = appliance.substring(appliance.lastIndexOf("/") + 1);
 			appliances.put(appliance,
 					new ArrayList<Sequence<PowerConsumptionLabel>>());
+			try {
+				icons.put(appliance,
+						ImageIO.read(new File("data/icons/" + appliance + ".png")));
+			} catch (IOException e1) {
+			}
 			for (File file : subDir.listFiles()) {
 				try {
 					appliances.get(appliance).add(getSequenceFromFile(file));
@@ -154,5 +163,10 @@ public class FileSettings implements RHAISettings {
 	@Override
 	public Collection<String> getAvailableAppliances() {
 		return appliances.keySet();
+	}
+
+	@Override
+	public Image getIcon(String appliance) {
+		return icons.get(appliance);
 	}
 }

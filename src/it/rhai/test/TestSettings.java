@@ -6,6 +6,7 @@ import it.rhai.settings.RHAISettings;
 import it.rhai.util.DataHandler;
 import it.rhai.util.Loggers;
 
+import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
@@ -142,5 +143,10 @@ public class TestSettings implements RHAISettings {
 	@Override
 	public Collection<String> getAvailableAppliances() {
 		return appliances.keySet();
+	}
+
+	@Override
+	public Image getIcon(String appliance) {
+		return null;
 	}
 }

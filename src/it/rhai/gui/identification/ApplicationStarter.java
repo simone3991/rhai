@@ -1,6 +1,6 @@
 package it.rhai.gui.identification;
 
-import it.rhai.gui.util.Application;
+import it.rhai.gui.Application;
 
 import javax.swing.UIManager;
 

@@ -1,4 +1,4 @@
-package it.rhai.gui.util;
+package it.rhai.gui;
 
 import java.util.HashMap;
 
@@ -26,9 +26,7 @@ public class Application {
 	 */
 	public Application(ApplicationElement... layers) {
 		this.elements = layers;
-		for (ApplicationElement element : layers) {
-			element.setApplication(this);
-		}
+		prepareElements();
 	}
 
 	/**
@@ -91,5 +89,11 @@ public class Application {
 	 */
 	public Object getParam(String param) {
 		return applicationParams.get(param);
+	}
+	
+	private void prepareElements() {
+		for (ApplicationElement element : elements) {
+			element.setApplication(this);
+		}
 	}
 }
