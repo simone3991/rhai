@@ -8,9 +8,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Observable;
+import java.util.Observer;
 
 import it.rhai.gui.util.Application;
 import it.rhai.gui.util.ApplicationElement;
+import it.rhai.gui.util.JFrameUtils;
 import it.rhai.model.PowerConsumptionLabel;
 import it.rhai.model.PowerMeasure;
 import it.rhai.settings.FileSettings;
@@ -29,7 +32,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class IdentificationFrame extends JFrame implements ApplicationElement,
-		DataHandler<String> {
+		DataHandler<String>, Observer {
 
 	private static final long serialVersionUID = 1L;
 	private Application application;
@@ -53,6 +56,7 @@ public class IdentificationFrame extends JFrame implements ApplicationElement,
 			counter++;
 		}
 		super.setSize(400, 500);
+		JFrameUtils.putAtMiddleScreen(this);
 	}
 
 	@Override
@@ -83,6 +87,7 @@ public class IdentificationFrame extends JFrame implements ApplicationElement,
 													new JTSARenderedAbstractor())),
 									new Identifier(this))), 100);
 
+			invoker.addObserver(this);
 			invoker.start();
 		} catch (IOException e) {
 		}
@@ -100,5 +105,16 @@ public class IdentificationFrame extends JFrame implements ApplicationElement,
 				jLabel.setFont(sample.getFont());
 			}
 		}
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			SettingsKeeper.getSettings().getDebugLogger()
+					.handle(e.getMessage());
+		}
+		application.next();
 	}
 }

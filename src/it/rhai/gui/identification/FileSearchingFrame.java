@@ -2,13 +2,13 @@ package it.rhai.gui.identification;
 
 import it.rhai.gui.util.Application;
 import it.rhai.gui.util.ApplicationElement;
+import it.rhai.gui.util.JFrameUtils;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -37,7 +37,7 @@ public class FileSearchingFrame extends JFrame implements ApplicationElement {
 		JComponent.setDefaultLocale(Locale.ENGLISH);
 		super.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.buildMe();
-		this.putAtMiddleScreen();
+		JFrameUtils.putAtMiddleScreen(this);
 	}
 
 	private void buildMe() {
@@ -128,12 +128,6 @@ public class FileSearchingFrame extends JFrame implements ApplicationElement {
 			}
 		});
 		return inputField;
-	}
-
-	private void putAtMiddleScreen() {
-		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		super.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height
-				/ 2 - this.getSize().height / 2);
 	}
 
 	@Override

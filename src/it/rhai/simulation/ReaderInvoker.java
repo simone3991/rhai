@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Observable;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -20,7 +21,7 @@ import java.util.TimerTask;
  * @author simone
  *
  */
-public class ReaderInvoker {
+public class ReaderInvoker extends Observable {
 
 	private ArrayList<PowerMeasure> data = new ArrayList<PowerMeasure>();
 	private Timer timer = new Timer("invoker");
@@ -61,6 +62,8 @@ public class ReaderInvoker {
 				nextData++;
 				if (nextData == data.size()) {
 					timer.cancel();
+					setChanged();
+					notifyObservers();
 				}
 			}
 		}, samplingTime, samplingTime);
