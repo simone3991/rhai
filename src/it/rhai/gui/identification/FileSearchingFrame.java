@@ -142,12 +142,12 @@ public class FileSearchingFrame extends JFrame implements ApplicationElement {
 	}
 
 	@Override
-	public void setCurrent() {
+	public void turnOn() {
 		setVisible(true);
 	}
 
 	@Override
-	public void setOld() {
+	public void turnOff() {
 		setVisible(false);
 	}
 }

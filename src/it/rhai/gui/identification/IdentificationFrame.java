@@ -31,7 +31,7 @@ public class IdentificationFrame extends JFrame implements ApplicationElement, D
 
 	public IdentificationFrame() {
 		super("RHAI - Active Appliance");
-		super.setSize(100, 50);
+		super.setSize(400, 50);
 		this.label = new JLabel("");
 		Container panel = new JPanel();
 		panel.add(label);
@@ -44,13 +44,13 @@ public class IdentificationFrame extends JFrame implements ApplicationElement, D
 	}
 
 	@Override
-	public void setCurrent() {
+	public void turnOn() {
 		super.setVisible(true);
 		startRHAI();
 	}
 
 	@Override
-	public void setOld() {
+	public void turnOff() {
 		super.setVisible(false);
 	}
 
