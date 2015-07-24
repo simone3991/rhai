@@ -6,6 +6,7 @@ import it.rhai.gui.util.JFrameUtils;
 import it.rhai.settings.FileSettings;
 import it.rhai.settings.SettingsKeeper;
 import it.rhai.simulation.ApplianceAdder;
+import it.rhai.util.FileUtils;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -128,7 +129,7 @@ public class ApplianceAdderFrame extends JFrame implements ApplicationElement {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser chooser = new JFileChooser();
 				FileNameExtensionFilter filter = new FileNameExtensionFilter(
-						"Source Data Files", "png", "jpg");
+						"Images", "png", "jpg");
 				chooser.setFileFilter(filter);
 				handleChoice(chooser);
 			}
@@ -193,8 +194,11 @@ public class ApplianceAdderFrame extends JFrame implements ApplicationElement {
 			public void actionPerformed(ActionEvent e) {
 				ApplianceAdder adder = new ApplianceAdder();
 				try {
-					adder.addAppliance("tmp", new File(applianceFile),
-							new File(iconFile));
+					File file = new File(applianceFile);
+					adder.addAppliance(
+							file.getName().replace(
+									"." + FileUtils.getExtension(file), ""),
+							file, new File(iconFile));
 				} catch (IOException e1) {
 					SettingsKeeper.getSettings().getDebugLogger()
 							.handle(e1.getMessage());
