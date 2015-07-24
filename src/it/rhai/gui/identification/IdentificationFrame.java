@@ -115,6 +115,7 @@ public class IdentificationFrame extends JFrame implements ApplicationElement,
 
 	@Override
 	public void handle(String toBeHandled) {
+		System.out.println(toBeHandled);
 		for (JPanel jPanel : appliancePanels) {
 			if (jPanel.getToolTipText().equals(toBeHandled)) {
 				jPanel.setBorder(BorderFactory.createLineBorder(ACTIVE_COLOR,
