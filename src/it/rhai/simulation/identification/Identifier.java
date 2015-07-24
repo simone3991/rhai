@@ -3,6 +3,7 @@ package it.rhai.simulation.identification;
 import it.distanciable.sequences.Sequence;
 import it.distanciable.sequences.SequenceRecognizer;
 import it.rhai.model.PowerConsumptionLabel;
+import it.rhai.model.RealTimeDistanciator;
 import it.rhai.settings.SettingsKeeper;
 import it.rhai.util.DataHandler;
 
@@ -15,7 +16,8 @@ public class Identifier implements DataHandler<Sequence<PowerConsumptionLabel>> 
 
 	public Identifier(DataHandler<String> outputDisplayer) {
 		this.outputDisplayer = outputDisplayer;
-		this.recognizer = new SequenceRecognizer<PowerConsumptionLabel>(null);
+		this.recognizer = new SequenceRecognizer<PowerConsumptionLabel>(
+				new RealTimeDistanciator<PowerConsumptionLabel>());
 		recognizer
 				.save((ArrayList<Sequence<PowerConsumptionLabel>>) SettingsKeeper
 						.getSettings().getLib());

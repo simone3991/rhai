@@ -58,14 +58,12 @@ public class TestSettings implements RHAISettings {
 	 * it.rhai.settings.RHAISettings#getAppliance(it.distanciable.sequences.
 	 * Sequence)
 	 */
-	// TODO: change to Sequence#equals()
 	public String getAppliance(
 			Sequence<PowerConsumptionLabel> recognizedSequence) {
 		for (String appliance : appliances.keySet()) {
 			for (Sequence<PowerConsumptionLabel> sequence : appliances
 					.get(appliance)) {
-				if (sequence.toString()
-						.compareTo(recognizedSequence.toString()) == 0) {
+				if (sequence.equals(recognizedSequence)) {
 					return appliance.substring(appliance.lastIndexOf("/") + 1);
 				}
 			}
@@ -103,9 +101,6 @@ public class TestSettings implements RHAISettings {
 		return toSequence(line);
 	}
 
-	/*
-	 * TODO: move to Sequence#parseSequence()
-	 */
 	private Sequence<PowerConsumptionLabel> toSequence(String line) {
 		String[] elements = line.trim().split("-");
 		Sequence<PowerConsumptionLabel> sequence = new Sequence<PowerConsumptionLabel>(
