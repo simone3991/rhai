@@ -1,7 +1,0 @@
-active appliance: forno
-active appliance: forno
-active appliance: forno
-active appliance: forno
-active appliance: forno
-active appliance: forno
-active appliance: lavatrice
