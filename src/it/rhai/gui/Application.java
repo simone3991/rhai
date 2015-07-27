@@ -57,7 +57,7 @@ public class Application {
 	 * Restarts the app: the first layer will thus be loaded
 	 */
 	public void restart() {
-		elements[currentElement-1].turnOff();
+		elements[currentElement - 1].turnOff();
 		start();
 	}
 
@@ -90,7 +90,7 @@ public class Application {
 	public Object getParam(String param) {
 		return applicationParams.get(param);
 	}
-	
+
 	private void prepareElements() {
 		for (ApplicationElement element : elements) {
 			element.setApplication(this);

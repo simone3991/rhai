@@ -32,7 +32,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class IdentificationFrame extends JFrame implements ApplicationElement,
+public class RealTimeIdentifierFrame extends JFrame implements ApplicationElement,
 		DataHandler<String>, Observer {
 
 	private static final long serialVersionUID = 1L;
@@ -42,7 +42,7 @@ public class IdentificationFrame extends JFrame implements ApplicationElement,
 	private Application application;
 	private ArrayList<JPanel> appliancePanels = new ArrayList<JPanel>();
 
-	public IdentificationFrame() {
+	public RealTimeIdentifierFrame() {
 		super("RHAI - Active Appliance");
 		SettingsKeeper.setSettings(new FileSettings(new File(
 				"settings/settings.properties")));
@@ -58,6 +58,7 @@ public class IdentificationFrame extends JFrame implements ApplicationElement,
 		}
 		super.pack();
 		JFrameUtils.putAtMiddleScreen(this);
+		super.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
 	private JPanel buildAppliancePanel(String string) {
@@ -104,7 +105,7 @@ public class IdentificationFrame extends JFrame implements ApplicationElement,
 									new CumulativeAbstractor<PowerConsumptionLabel>(
 											new JTSAAbstractor(
 													new JTSARenderedAbstractor())),
-									new Identifier(this))), 100);
+									new Identifier(this))), 3000);
 
 			invoker.addObserver(this);
 			invoker.start();
