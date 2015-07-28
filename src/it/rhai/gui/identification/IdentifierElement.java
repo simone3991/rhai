@@ -11,7 +11,6 @@ import it.rhai.simulation.abstraction.CumulativeAbstractor;
 import it.rhai.simulation.abstraction.JTSAAbstractor;
 import it.rhai.simulation.abstraction.JTSARenderedAbstractor;
 import it.rhai.simulation.identification.Identifier;
-import it.rhai.simulation.reading.Reader;
 import it.rhai.simulation.reading.RedirectingReader;
 import it.rhai.util.DataHandler;
 
@@ -51,11 +50,13 @@ public class IdentifierElement implements ApplicationElement,
 	}
 
 	private void start() {
-		Reader<PowerMeasure> reader = new RedirectingReader<PowerMeasure>(
+		RedirectingReader<PowerMeasure> reader = new RedirectingReader<PowerMeasure>(
 				new AbstractorHandler<PowerMeasure, PowerConsumptionLabel>(
 						new CumulativeAbstractor<PowerConsumptionLabel>(
 								new JTSAAbstractor(new JTSARenderedAbstractor())),
 						new Identifier(this)));
+		reader.setMaxLength(SettingsKeeper.getSettings().getTAbstraction()
+				/ computeSamplingTime());
 		while (nextData < data.size()) {
 			reader.read(data.get(nextData));
 			nextData++;
@@ -75,6 +76,11 @@ public class IdentifierElement implements ApplicationElement,
 
 	@Override
 	public void handle(String toBeHandled) {
-		//System.out.println(toBeHandled);
+		System.out.println(toBeHandled);
+	}
+	
+	private int computeSamplingTime() {
+		return (int) ((data.get(data.size() - 1).getDate().getTimeInMillis() - data
+				.get(0).getDate().getTimeInMillis()) / ((data.size() - 1) * 1000));
 	}
 }

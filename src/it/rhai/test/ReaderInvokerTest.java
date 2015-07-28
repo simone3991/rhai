@@ -36,7 +36,7 @@ public class ReaderInvokerTest {
 										System.out.println(toBeHandled);
 
 									}
-								}))), 100);
+								}))));
 		invoker.start();
 	}
 }

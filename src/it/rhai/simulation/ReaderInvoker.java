@@ -13,10 +13,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * This class simulates a real-time data acquisition by establishing a fixed
- * samplig time and then invoking a reader each sampling time in order to
- * simulate the real-time reading. The data are pre-loaded from a source data
- * file
+ * This class simulates a real-time data acquisition by invoking a reader each
+ * sampling time in order to simulate the real-time reading. The data are
+ * pre-loaded from a source data file, where the sampling time is desumed from
  * 
  * @author simone
  *
@@ -35,17 +34,13 @@ public class ReaderInvoker extends Observable {
 	 *            : the file where the data will be taken from
 	 * @param reader
 	 *            : the reader to invoke
-	 * @param samplingTime
-	 *            : the simulated sampling time, i.e. the delay that the invoker
-	 *            will wait to call thre reader
 	 * @throws IOException
 	 *             : if file cannot be opened
 	 */
-	public ReaderInvoker(File file, final Reader<PowerMeasure> reader,
-			int samplingTime) throws IOException {
+	public ReaderInvoker(File file, final Reader<PowerMeasure> reader)
+			throws IOException {
 		loadData(file);
 		this.reader = reader;
-		this.samplingTime = samplingTime;
 	}
 
 	/**
@@ -76,5 +71,15 @@ public class ReaderInvoker extends Observable {
 			data.add(PowerMeasure.parsePowerMeasure(line));
 		}
 		reader.close();
+		samplingTime = computeSamplingTime();
+	}
+
+	private int computeSamplingTime() {
+		return (int) ((data.get(data.size() - 1).getDate().getTimeInMillis() - data
+				.get(0).getDate().getTimeInMillis()) / ((data.size() - 1) * 1000));
+	}
+	
+	public int getSamplingTime() {
+		return samplingTime;
 	}
 }

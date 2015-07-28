@@ -1,7 +1,6 @@
 package it.rhai.simulation.reading;
 
 import it.rhai.settings.RHAISettings;
-import it.rhai.settings.SettingsKeeper;
 import it.rhai.util.DataHandler;
 
 import java.util.ArrayList;
@@ -29,11 +28,16 @@ public class RedirectingReader<T> implements Reader<T> {
 	 * 
 	 * @param handler
 	 *            : the object this reader will redirect the data to
+	 * @param redirectingLength
+	 *            : the length of data that will be delivered to the handler
 	 */
 	public RedirectingReader(DataHandler<Collection<T>> handler) {
 		this.handler = handler;
-		this.maxLength = SettingsKeeper.getSettings().getTAbstraction();
 		data = new ArrayList<T>(maxLength);
+	}
+
+	public void setMaxLength(int redirectingLength) {
+		this.maxLength = redirectingLength;
 	}
 
 	/*

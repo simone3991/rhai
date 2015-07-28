@@ -74,9 +74,12 @@ public class FileSettings implements RHAISettings {
 		for (String appliance : appliances.keySet()) {
 			for (Sequence<PowerConsumptionLabel> sequence : appliances
 					.get(appliance)) {
-				if (sequence.toString()
-						.compareTo(recognizedSequence.toString()) == 0) {
-					return appliance;
+				try {
+					if (sequence.toString()
+							.compareTo(recognizedSequence.toString()) == 0) {
+						return appliance;
+					}
+				} catch (NullPointerException e) {
 				}
 			}
 		}

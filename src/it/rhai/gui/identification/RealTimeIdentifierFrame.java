@@ -32,8 +32,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class RealTimeIdentifierFrame extends JFrame implements ApplicationElement,
-		DataHandler<String>, Observer {
+public class RealTimeIdentifierFrame extends JFrame implements
+		ApplicationElement, DataHandler<String>, Observer {
 
 	private static final long serialVersionUID = 1L;
 	private static final Color DEFAULT_COLOR = Color.GRAY;
@@ -98,15 +98,16 @@ public class RealTimeIdentifierFrame extends JFrame implements ApplicationElemen
 	private void startRHAI() {
 		ReaderInvoker invoker;
 		try {
-			invoker = new ReaderInvoker(
-					new File((String) application.getParam("file-path")),
-					new RedirectingReader<PowerMeasure>(
-							new AbstractorHandler<PowerMeasure, PowerConsumptionLabel>(
-									new CumulativeAbstractor<PowerConsumptionLabel>(
-											new JTSAAbstractor(
-													new JTSARenderedAbstractor())),
-									new Identifier(this))), 3000);
-
+			RedirectingReader<PowerMeasure> reader = new RedirectingReader<PowerMeasure>(
+					new AbstractorHandler<PowerMeasure, PowerConsumptionLabel>(
+							new CumulativeAbstractor<PowerConsumptionLabel>(
+									new JTSAAbstractor(
+											new JTSARenderedAbstractor())),
+							new Identifier(this)));
+			invoker = new ReaderInvoker(new File(
+					(String) application.getParam("file-path")), reader);
+			reader.setMaxLength(SettingsKeeper.getSettings().getTAbstraction()
+					/ invoker.getSamplingTime());
 			invoker.addObserver(this);
 			invoker.start();
 		} catch (Exception e) {

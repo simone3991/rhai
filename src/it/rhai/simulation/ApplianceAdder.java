@@ -3,11 +3,11 @@ package it.rhai.simulation;
 import it.distanciable.sequences.Sequence;
 import it.rhai.model.PowerConsumptionLabel;
 import it.rhai.model.PowerMeasure;
+import it.rhai.settings.SettingsKeeper;
 import it.rhai.simulation.abstraction.AbstractorHandler;
 import it.rhai.simulation.abstraction.CumulativeAbstractor;
 import it.rhai.simulation.abstraction.JTSAAbstractor;
 import it.rhai.simulation.abstraction.JTSARenderedAbstractor;
-import it.rhai.simulation.reading.Reader;
 import it.rhai.simulation.reading.RedirectingReader;
 import it.rhai.util.DataHandler;
 
@@ -32,7 +32,7 @@ public class ApplianceAdder {
 	public void addAppliance(String appliance, File sourceFile,
 			File applianceIcon) throws IOException {
 		this.loadData(sourceFile);
-		Reader<PowerMeasure> reader = new RedirectingReader<PowerMeasure>(
+		RedirectingReader<PowerMeasure> reader = new RedirectingReader<PowerMeasure>(
 				new AbstractorHandler<PowerMeasure, PowerConsumptionLabel>(
 						new CumulativeAbstractor<PowerConsumptionLabel>(
 								new JTSAAbstractor(new JTSARenderedAbstractor())),
@@ -44,6 +44,7 @@ public class ApplianceAdder {
 								sequence = toBeHandled;
 							}
 						}));
+		reader.setMaxLength(computeToBeAbstracted());
 		while (nextData < data.size()) {
 			reader.read(data.get(nextData));
 			nextData++;
@@ -56,13 +57,23 @@ public class ApplianceAdder {
 		}
 	}
 
+	private int computeToBeAbstracted() {
+		return SettingsKeeper.getSettings().getTAbstraction()
+				/ computeSamplingTime();
+	}
+
+	private int computeSamplingTime() {
+		return (int) ((data.get(data.size() - 1).getDate().getTimeInMillis() - data
+				.get(0).getDate().getTimeInMillis()) / ((data.size() - 1) * 1000));
+	}
+
 	private void doAddAppliance(String appliance) throws IOException {
 		File dir = new File("lib/" + appliance);
 		if ((!dir.exists()) || !(dir.isDirectory())) {
 			dir.mkdirs();
 		}
 		BufferedWriter writer = new BufferedWriter(new FileWriter(new File(
-				"lib/" + dir.getName()+ "/"
+				"lib/" + dir.getName() + "/"
 						+ Calendar.getInstance().getTime().toString().trim()
 						+ ".dat")));
 		writer.write(sequence.toString());
