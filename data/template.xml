@@ -3,11 +3,11 @@
 	<block id="Levelizer" type="pipeline" note=""
 		dataType1="file_BASIC_TS_CSV_READER" dataIn1="$TMP">
 		<step order="1" title="doGetLevels"
-			parameters="/home/simone/Documenti/Software Development/Java/Running Household Appliances Identificator/parameters/levels.properties"
+			parameters="/home/simone/Documenti/Software Development/Java/Running Household Appliances Identificator/data/parameters/levels.properties"
 			type="BASIC" subtype="BASIC_QUALITATIVE">
 		</step>
 		<step order="2" title="aggregate"
-			parameters="/home/simone/Documenti/Software Development/Java/Running Household Appliances Identificator/parameters/aggregation.properties"
+			parameters="/home/simone/Documenti/Software Development/Java/Running Household Appliances Identificator/data/parameters/aggregation.properties"
 			type="AGGREGATION" subtype="AGGREGATION_LEVELSAGGREGATION">
 		</step>
 		<renderer type="CSV" label="data/output.jtsa" granularity="SECONDS"

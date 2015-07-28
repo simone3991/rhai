@@ -45,7 +45,7 @@ public class RealTimeIdentifierFrame extends JFrame implements
 	public RealTimeIdentifierFrame() {
 		super("RHAI - Active Appliance");
 		SettingsKeeper.setSettings(new FileSettings(new File(
-				"settings/settings.properties")));
+				"data/settings/settings.properties")));
 		Collection<String> appliances = SettingsKeeper.getSettings()
 				.getAvailableAppliances();
 		Container panel = new JPanel(new GridLayout(1, appliances.size()));

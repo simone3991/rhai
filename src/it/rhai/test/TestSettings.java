@@ -18,7 +18,7 @@ import java.util.HashMap;
 
 public class TestSettings implements RHAISettings {
 
-	private static final String LIB_DIRECTORY = "lib";
+	private static final String LIB_DIRECTORY = "data/lib";
 	private HashMap<String, ArrayList<Sequence<PowerConsumptionLabel>>> appliances = new HashMap<String, ArrayList<Sequence<PowerConsumptionLabel>>>();
 
 	public TestSettings() {

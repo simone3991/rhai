@@ -75,8 +75,8 @@ public class FileSettings implements RHAISettings {
 			for (Sequence<PowerConsumptionLabel> sequence : appliances
 					.get(appliance)) {
 				try {
-					if (sequence.toString()
-							.compareTo(recognizedSequence.toString()) == 0) {
+					if (sequence.toString().compareTo(
+							recognizedSequence.toString()) == 0) {
 						return appliance;
 					}
 				} catch (NullPointerException e) {
@@ -100,8 +100,10 @@ public class FileSettings implements RHAISettings {
 			appliances.put(appliance,
 					new ArrayList<Sequence<PowerConsumptionLabel>>());
 			try {
-				icons.put(appliance,
-						ImageIO.read(new File("data/icons/" + appliance + ".png")));
+				icons.put(
+						appliance,
+						ImageIO.read(new File("data/icons/" + appliance
+								+ ".png")));
 			} catch (IOException e1) {
 			}
 			for (File file : subDir.listFiles()) {
@@ -140,7 +142,7 @@ public class FileSettings implements RHAISettings {
 	}
 
 	private void loadParameters(File settings) throws IOException {
-		properties.load(new FileInputStream("settings/settings.properties"));
+		properties.load(new FileInputStream(settings.getAbsolutePath()));
 	}
 
 	@Override

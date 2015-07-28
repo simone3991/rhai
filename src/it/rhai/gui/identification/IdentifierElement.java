@@ -37,7 +37,7 @@ public class IdentifierElement implements ApplicationElement,
 		try {
 			this.loadData(new File((String) application.getParam("file-path")));
 			SettingsKeeper.setSettings(new FileSettings(new File(
-					"settings/settings.properties")));
+					"data/settings/settings.properties")));
 		} catch (IOException e) {
 			SettingsKeeper.getSettings().getDebugLogger()
 					.handle(e.getMessage());
