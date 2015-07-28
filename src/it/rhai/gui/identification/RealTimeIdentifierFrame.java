@@ -107,7 +107,7 @@ public class RealTimeIdentifierFrame extends JFrame implements
 			invoker = new ReaderInvoker(new File(
 					(String) application.getParam("file-path")), reader);
 			reader.setMaxLength(SettingsKeeper.getSettings().getTAbstraction()
-					/ invoker.getSamplingTime());
+					/ (invoker.getSamplingTime()/1000));
 			invoker.addObserver(this);
 			invoker.start();
 		} catch (Exception e) {

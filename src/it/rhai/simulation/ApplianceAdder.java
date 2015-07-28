@@ -68,12 +68,12 @@ public class ApplianceAdder {
 	}
 
 	private void doAddAppliance(String appliance) throws IOException {
-		File dir = new File("lib/" + appliance);
+		File dir = new File("data/lib/" + appliance);
 		if ((!dir.exists()) || !(dir.isDirectory())) {
 			dir.mkdirs();
 		}
 		BufferedWriter writer = new BufferedWriter(new FileWriter(new File(
-				"lib/" + dir.getName() + "/"
+				"data/lib/" + dir.getName() + "/"
 						+ Calendar.getInstance().getTime().toString().trim()
 						+ ".dat")));
 		writer.write(sequence.toString());

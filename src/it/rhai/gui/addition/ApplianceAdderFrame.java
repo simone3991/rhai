@@ -41,7 +41,7 @@ public class ApplianceAdderFrame extends JFrame implements ApplicationElement {
 
 	public ApplianceAdderFrame() {
 		SettingsKeeper.setSettings(new FileSettings(new File(
-				"settings/settings.properties")));
+				"data/settings/settings.properties")));
 		JComponent.setDefaultLocale(Locale.ENGLISH);
 		super.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.buildMe();

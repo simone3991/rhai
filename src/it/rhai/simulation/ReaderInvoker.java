@@ -76,7 +76,7 @@ public class ReaderInvoker extends Observable {
 
 	private int computeSamplingTime() {
 		return (int) ((data.get(data.size() - 1).getDate().getTimeInMillis() - data
-				.get(0).getDate().getTimeInMillis()) / ((data.size() - 1) * 1000));
+				.get(0).getDate().getTimeInMillis()) / ((data.size() - 1)));
 	}
 	
 	public int getSamplingTime() {

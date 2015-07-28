@@ -55,13 +55,14 @@ public class IdentifierElement implements ApplicationElement,
 						new CumulativeAbstractor<PowerConsumptionLabel>(
 								new JTSAAbstractor(new JTSARenderedAbstractor())),
 						new Identifier(this)));
-		reader.setMaxLength(SettingsKeeper.getSettings().getTAbstraction()
-				/ computeSamplingTime());
+		int length = SettingsKeeper.getSettings().getTAbstraction()
+				/ (computeSamplingTime() / 1000);
+		reader.setMaxLength(length);
 		while (nextData < data.size()) {
 			reader.read(data.get(nextData));
 			nextData++;
 		}
-		application.exit(); //TODO: if next() collapses: why?
+		application.exit(); // TODO: if next() collapses: why?
 	}
 
 	private void loadData(File file) throws IOException {
@@ -78,9 +79,9 @@ public class IdentifierElement implements ApplicationElement,
 	public void handle(String toBeHandled) {
 		System.out.println(toBeHandled);
 	}
-	
+
 	private int computeSamplingTime() {
 		return (int) ((data.get(data.size() - 1).getDate().getTimeInMillis() - data
-				.get(0).getDate().getTimeInMillis()) / ((data.size() - 1) * 1000));
+				.get(0).getDate().getTimeInMillis()) / ((data.size() - 1)));
 	}
 }
