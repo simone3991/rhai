@@ -15,16 +15,16 @@ public class RHAILabelsTest {
 	public void test() throws Exception {
 		assertEquals(
 				1,
-				RHAILabels.forName("low").distanceFrom(
-						RHAILabels.forName("medium")));
+				RHAILabels.forName("ll").distanceFrom(
+						RHAILabels.forName("lm")));
 	}
 
 	@Test
 	public void test2() throws Exception {
 		ArrayList<RHAILabel> labels = new ArrayList<RHAILabel>();
-		labels.add(RHAILabels.forName("low"));
-		labels.add(RHAILabels.forName("high"));
-		assertEquals(RHAILabels.forName("medium"), RHAILabels.smooth(labels));
+		labels.add(RHAILabels.forName("ll"));
+		labels.add(RHAILabels.forName("mm"));
+		assertEquals(RHAILabels.forName("lm"), RHAILabels.smooth(labels));
 	}
 
 }

@@ -4,10 +4,14 @@ import it.distanciable.Copiable;
 import it.distanciable.Distanciable;
 import it.distanciable.Distanciator;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Properties;
 
 public class RHAILabels {
 
@@ -55,7 +59,7 @@ public class RHAILabels {
 			RHAILabel other = (RHAILabel) obj;
 			return name.equals(other.name);
 		}
-		
+
 		@Override
 		public String toString() {
 			return name;
@@ -65,9 +69,18 @@ public class RHAILabels {
 	private static HashSet<RHAILabel> labels = new HashSet<RHAILabel>();
 
 	static {
-		labels.add(new RHAILabel("low", 1));
-		labels.add(new RHAILabel("high", 3));
-		labels.add(new RHAILabel("medium", 2));
+		Properties prop = new Properties();
+		try {
+			prop.load(new FileInputStream(new File(
+					"data/parameters/levels.properties")));
+			String line = prop.getProperty("label");
+			String[] labelsString = line.split(",");
+			for (int i = 0; i < labelsString.length; i++) {
+				labels.add(new RHAILabel(labelsString[i], i + 1));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private RHAILabels() {

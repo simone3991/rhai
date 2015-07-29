@@ -18,13 +18,13 @@ public class RealTimeDistanciatorTest {
 	public void testComputeDistance() {
 		Sequence<RHAILabel> sequence1 = new Sequence<RHAILabel>(
 				3);
-		sequence1.addElement(RHAILabels.forName("high"));
-		sequence1.addElement(RHAILabels.forName("medium"));
-		sequence1.addElement(RHAILabels.forName("low"));
+		sequence1.addElement(RHAILabels.forName("hh"));
+		sequence1.addElement(RHAILabels.forName("mm"));
+		sequence1.addElement(RHAILabels.forName("ll"));
 		Sequence<RHAILabel> sequence2 = new Sequence<RHAILabel>(
 				2);
-		sequence2.addElement(RHAILabels.forName("high"));
-		sequence2.addElement(RHAILabels.forName("medium"));
+		sequence2.addElement(RHAILabels.forName("hh"));
+		sequence2.addElement(RHAILabels.forName("mm"));
 		assertEquals(0, sequence1.distanceFrom(sequence2, distanciator));
 		assertTrue(sequence1.distanceFrom(sequence2) > sequence1.distanceFrom(
 				sequence2, distanciator));
