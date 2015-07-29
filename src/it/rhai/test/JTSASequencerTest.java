@@ -1,6 +1,6 @@
 package it.rhai.test;
 
-import it.rhai.model.PowerConsumptionLabel;
+import it.rhai.model.RHAILabels.RHAILabel;
 import it.rhai.settings.SettingsKeeper;
 import it.rhai.simulation.abstraction.Abstractor;
 import it.rhai.simulation.abstraction.JTSAAbstractor;
@@ -13,7 +13,7 @@ import org.junit.Test;
 
 public class JTSASequencerTest {
 
-	private static Abstractor<PowerConsumptionLabel> abstractor = new JTSARenderedAbstractor();
+	private static Abstractor<RHAILabel> abstractor = new JTSARenderedAbstractor();
 	private static JTSAAbstractor sequencer = new JTSAAbstractor(abstractor);
 
 	static{

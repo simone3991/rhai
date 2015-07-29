@@ -2,8 +2,8 @@ package it.rhai.gui.identification;
 
 import it.rhai.gui.Application;
 import it.rhai.gui.ApplicationElement;
-import it.rhai.model.PowerConsumptionLabel;
 import it.rhai.model.PowerMeasure;
+import it.rhai.model.RHAILabels.RHAILabel;
 import it.rhai.settings.FileSettings;
 import it.rhai.settings.SettingsKeeper;
 import it.rhai.simulation.abstraction.AbstractorHandler;
@@ -28,11 +28,19 @@ public class IdentifierElement implements ApplicationElement,
 	private int nextData = 0;
 
 	@Override
+	/*
+	 * (non-Javadoc)
+	 * @see it.rhai.gui.ApplicationElement#setApplication(it.rhai.gui.Application)
+	 */
 	public void setApplication(Application application) {
 		this.application = application;
 	}
 
 	@Override
+	/*
+	 * (non-Javadoc)
+	 * @see it.rhai.gui.ApplicationElement#turnOn()
+	 */
 	public void turnOn() {
 		try {
 			this.loadData(new File((String) application.getParam("file-path")));
@@ -46,13 +54,17 @@ public class IdentifierElement implements ApplicationElement,
 	}
 
 	@Override
+	/*
+	 * (non-Javadoc)
+	 * @see it.rhai.gui.ApplicationElement#turnOff()
+	 */
 	public void turnOff() {
 	}
 
 	private void start() {
 		RedirectingReader<PowerMeasure> reader = new RedirectingReader<PowerMeasure>(
-				new AbstractorHandler<PowerMeasure, PowerConsumptionLabel>(
-						new CumulativeAbstractor<PowerConsumptionLabel>(
+				new AbstractorHandler<PowerMeasure, RHAILabel>(
+						new CumulativeAbstractor<RHAILabel>(
 								new JTSAAbstractor(new JTSARenderedAbstractor())),
 						new Identifier(this)));
 		int length = SettingsKeeper.getSettings().getTAbstraction()
@@ -76,6 +88,10 @@ public class IdentifierElement implements ApplicationElement,
 	}
 
 	@Override
+	/*
+	 * (non-Javadoc)
+	 * @see it.rhai.util.DataHandler#handle(java.lang.Object)
+	 */
 	public void handle(String toBeHandled) {
 		System.out.println(toBeHandled);
 	}

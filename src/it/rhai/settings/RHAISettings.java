@@ -2,7 +2,7 @@ package it.rhai.settings;
 
 import it.distanciable.sequences.Sequence;
 import it.distanciable.sequences.SequenceRecognizer;
-import it.rhai.model.PowerConsumptionLabel;
+import it.rhai.model.RHAILabels.RHAILabel;
 import it.rhai.util.DataHandler;
 
 import java.awt.Image;
@@ -29,7 +29,7 @@ public interface RHAISettings {
 	 * 
 	 * @return: the whole set of possible sequences
 	 */
-	public Collection<Sequence<PowerConsumptionLabel>> getLib();
+	public Collection<Sequence<RHAILabel>> getLib();
 
 	/**
 	 * Retuns the tolerance of the identification. This value will be used to
@@ -43,13 +43,13 @@ public interface RHAISettings {
 
 	/**
 	 * Returns the proper appliance for a specified sequence of
-	 * {@link PowerConsumptionLabel} instances
+	 * {@link RHAILabel} instances
 	 * 
 	 * @param sequence
 	 *            : the applsiance's sequence
 	 * @return: a string representation for the appliance
 	 */
-	public String getAppliance(Sequence<PowerConsumptionLabel> sequence);
+	public String getAppliance(Sequence<RHAILabel> sequence);
 
 	/**
 	 * Returns the exact number of data to be redirected to the Abstractor

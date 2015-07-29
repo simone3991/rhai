@@ -1,7 +1,8 @@
 package it.rhai.test;
 
 import it.distanciable.sequences.Sequence;
-import it.rhai.model.PowerConsumptionLabel;
+import it.rhai.model.RHAILabels;
+import it.rhai.model.RHAILabels.RHAILabel;
 import it.rhai.settings.RHAISettings;
 import it.rhai.util.DataHandler;
 import it.rhai.util.Loggers;
@@ -19,7 +20,7 @@ import java.util.HashMap;
 public class TestSettings implements RHAISettings {
 
 	private static final String LIB_DIRECTORY = "data/lib";
-	private HashMap<String, ArrayList<Sequence<PowerConsumptionLabel>>> appliances = new HashMap<String, ArrayList<Sequence<PowerConsumptionLabel>>>();
+	private HashMap<String, ArrayList<Sequence<RHAILabel>>> appliances = new HashMap<String, ArrayList<Sequence<RHAILabel>>>();
 
 	public TestSettings() {
 		this.loadLib();
@@ -31,10 +32,9 @@ public class TestSettings implements RHAISettings {
 	 * 
 	 * @see it.rhai.settings.RHAISettings#getLib()
 	 */
-	public Collection<Sequence<PowerConsumptionLabel>> getLib() {
-		ArrayList<Sequence<PowerConsumptionLabel>> lib = new ArrayList<Sequence<PowerConsumptionLabel>>();
-		for (ArrayList<Sequence<PowerConsumptionLabel>> list : appliances
-				.values()) {
+	public Collection<Sequence<RHAILabel>> getLib() {
+		ArrayList<Sequence<RHAILabel>> lib = new ArrayList<Sequence<RHAILabel>>();
+		for (ArrayList<Sequence<RHAILabel>> list : appliances.values()) {
 			lib.addAll(list);
 		}
 		return lib;
@@ -58,11 +58,9 @@ public class TestSettings implements RHAISettings {
 	 * it.rhai.settings.RHAISettings#getAppliance(it.distanciable.sequences.
 	 * Sequence)
 	 */
-	public String getAppliance(
-			Sequence<PowerConsumptionLabel> recognizedSequence) {
+	public String getAppliance(Sequence<RHAILabel> recognizedSequence) {
 		for (String appliance : appliances.keySet()) {
-			for (Sequence<PowerConsumptionLabel> sequence : appliances
-					.get(appliance)) {
+			for (Sequence<RHAILabel> sequence : appliances.get(appliance)) {
 				if (sequence.equals(recognizedSequence)) {
 					return appliance.substring(appliance.lastIndexOf("/") + 1);
 				}
@@ -81,8 +79,7 @@ public class TestSettings implements RHAISettings {
 			}
 		})) {
 			String appliance = subDir.toString();
-			appliances.put(appliance,
-					new ArrayList<Sequence<PowerConsumptionLabel>>());
+			appliances.put(appliance, new ArrayList<Sequence<RHAILabel>>());
 			for (File file : subDir.listFiles()) {
 				try {
 					appliances.get(appliance).add(getSequenceFromFile(file));
@@ -93,7 +90,7 @@ public class TestSettings implements RHAISettings {
 		}
 	}
 
-	private Sequence<PowerConsumptionLabel> getSequenceFromFile(File file)
+	private Sequence<RHAILabel> getSequenceFromFile(File file)
 			throws IOException {
 		BufferedReader reader = new BufferedReader(new FileReader(file));
 		String line = reader.readLine();
@@ -101,13 +98,12 @@ public class TestSettings implements RHAISettings {
 		return toSequence(line);
 	}
 
-	private Sequence<PowerConsumptionLabel> toSequence(String line) {
+	private Sequence<RHAILabel> toSequence(String line) {
 		String[] elements = line.trim().split("-");
-		Sequence<PowerConsumptionLabel> sequence = new Sequence<PowerConsumptionLabel>(
-				elements.length);
+		Sequence<RHAILabel> sequence = new Sequence<RHAILabel>(elements.length);
 		for (String string : elements) {
 			try {
-				sequence.addElement(PowerConsumptionLabel.valueOf(string.trim()));
+				sequence.addElement(RHAILabels.forName(string.trim()));
 			} catch (IllegalArgumentException exception) {
 				exception.printStackTrace();
 			}

@@ -1,8 +1,8 @@
 package it.rhai.simulation;
 
 import it.distanciable.sequences.Sequence;
-import it.rhai.model.PowerConsumptionLabel;
 import it.rhai.model.PowerMeasure;
+import it.rhai.model.RHAILabels.RHAILabel;
 import it.rhai.settings.SettingsKeeper;
 import it.rhai.simulation.abstraction.AbstractorHandler;
 import it.rhai.simulation.abstraction.CumulativeAbstractor;
@@ -27,20 +27,20 @@ public class ApplianceAdder {
 
 	private ArrayList<PowerMeasure> data = new ArrayList<PowerMeasure>();
 	private int nextData = 0;
-	protected Sequence<PowerConsumptionLabel> sequence;
+	protected Sequence<RHAILabel> sequence;
 
 	public void addAppliance(String appliance, File sourceFile,
 			File applianceIcon) throws IOException {
 		this.loadData(sourceFile);
 		RedirectingReader<PowerMeasure> reader = new RedirectingReader<PowerMeasure>(
-				new AbstractorHandler<PowerMeasure, PowerConsumptionLabel>(
-						new CumulativeAbstractor<PowerConsumptionLabel>(
+				new AbstractorHandler<PowerMeasure, RHAILabel>(
+						new CumulativeAbstractor<RHAILabel>(
 								new JTSAAbstractor(new JTSARenderedAbstractor())),
-						new DataHandler<Sequence<PowerConsumptionLabel>>() {
+						new DataHandler<Sequence<RHAILabel>>() {
 
 							@Override
 							public void handle(
-									Sequence<PowerConsumptionLabel> toBeHandled) {
+									Sequence<RHAILabel> toBeHandled) {
 								sequence = toBeHandled;
 							}
 						}));

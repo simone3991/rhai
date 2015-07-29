@@ -1,7 +1,7 @@
 package it.rhai.test;
 
-import it.rhai.model.PowerConsumptionLabel;
 import it.rhai.model.PowerMeasure;
+import it.rhai.model.RHAILabels.RHAILabel;
 import it.rhai.settings.SettingsKeeper;
 import it.rhai.simulation.ReaderInvoker;
 import it.rhai.simulation.abstraction.AbstractorHandler;
@@ -25,8 +25,8 @@ public class ReaderInvokerTest {
 		ReaderInvoker invoker = new ReaderInvoker(
 				new File("data/testing.dat"),
 				new RedirectingReader<PowerMeasure>(
-						new AbstractorHandler<PowerMeasure, PowerConsumptionLabel>(
-								new CumulativeAbstractor<PowerConsumptionLabel>(
+						new AbstractorHandler<PowerMeasure, RHAILabel>(
+								new CumulativeAbstractor<RHAILabel>(
 										new JTSAAbstractor(
 												new JTSARenderedAbstractor())),
 								new Identifier(new DataHandler<String>() {

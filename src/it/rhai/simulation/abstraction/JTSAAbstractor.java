@@ -2,7 +2,7 @@ package it.rhai.simulation.abstraction;
 
 import it.bmi.jtsa.test.JTSATester;
 import it.distanciable.sequences.Sequence;
-import it.rhai.model.PowerConsumptionLabel;
+import it.rhai.model.RHAILabels.RHAILabel;
 import it.rhai.settings.SettingsKeeper;
 import it.rhai.util.FileUtils;
 
@@ -16,11 +16,11 @@ import java.io.IOException;
  * @author simone
  *
  */
-public class JTSAAbstractor implements Abstractor<PowerConsumptionLabel> {
+public class JTSAAbstractor implements Abstractor<RHAILabel> {
 
-	private Abstractor<PowerConsumptionLabel> outputAbstractor;
+	private Abstractor<RHAILabel> outputAbstractor;
 
-	public JTSAAbstractor(Abstractor<PowerConsumptionLabel> outputAbstractor) {
+	public JTSAAbstractor(Abstractor<RHAILabel> outputAbstractor) {
 		this.outputAbstractor = outputAbstractor;
 	}
 
@@ -30,7 +30,7 @@ public class JTSAAbstractor implements Abstractor<PowerConsumptionLabel> {
 	 * 
 	 * @see it.rhai.identification.Sequencer#buildSequence(java.io.File)
 	 */
-	public Sequence<PowerConsumptionLabel> buildSequence(File data)
+	public Sequence<RHAILabel> buildSequence(File data)
 			throws IOException {
 		try {
 			File xmlModified = FileUtils.replaceLabel(data.getPath(), "$TMP",
@@ -38,8 +38,7 @@ public class JTSAAbstractor implements Abstractor<PowerConsumptionLabel> {
 			xmlModified.deleteOnExit();
 			JTSATester.run(xmlModified.getName());
 		} catch (Exception e) {
-			SettingsKeeper.getSettings().getDebugLogger()
-					.handle(e.getMessage());
+			e.printStackTrace();
 		}
 		File tmpFile = new File("data/output.jtsa");
 		tmpFile.deleteOnExit();

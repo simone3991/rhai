@@ -3,8 +3,8 @@ package it.rhai.gui.identification;
 import it.rhai.gui.Application;
 import it.rhai.gui.ApplicationElement;
 import it.rhai.gui.util.JFrameUtils;
-import it.rhai.model.PowerConsumptionLabel;
 import it.rhai.model.PowerMeasure;
+import it.rhai.model.RHAILabels.RHAILabel;
 import it.rhai.settings.FileSettings;
 import it.rhai.settings.SettingsKeeper;
 import it.rhai.simulation.ReaderInvoker;
@@ -99,8 +99,8 @@ public class RealTimeIdentifierFrame extends JFrame implements
 		ReaderInvoker invoker;
 		try {
 			RedirectingReader<PowerMeasure> reader = new RedirectingReader<PowerMeasure>(
-					new AbstractorHandler<PowerMeasure, PowerConsumptionLabel>(
-							new CumulativeAbstractor<PowerConsumptionLabel>(
+					new AbstractorHandler<PowerMeasure, RHAILabel>(
+							new CumulativeAbstractor<RHAILabel>(
 									new JTSAAbstractor(
 											new JTSARenderedAbstractor())),
 							new Identifier(this)));

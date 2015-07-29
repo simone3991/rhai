@@ -2,7 +2,8 @@ package it.rhai.simulation.abstraction;
 
 import it.bmi.jtsa.engine.renderer.basic.implementation.RendererCSV;
 import it.distanciable.sequences.Sequence;
-import it.rhai.model.PowerConsumptionLabel;
+import it.rhai.model.RHAILabels;
+import it.rhai.model.RHAILabels.RHAILabel;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -20,7 +21,7 @@ import java.util.StringTokenizer;
  *
  */
 public class JTSARenderedAbstractor implements
-		Abstractor<PowerConsumptionLabel> {
+		Abstractor<RHAILabel> {
 
 	@Override
 	/*
@@ -28,27 +29,27 @@ public class JTSARenderedAbstractor implements
 	 * 
 	 * @see it.rhai.abstraction.Abstractor#buildSequence(java.io.File)
 	 */
-	public Sequence<PowerConsumptionLabel> buildSequence(File data)
+	public Sequence<RHAILabel> buildSequence(File data)
 			throws IOException {
 		BufferedReader reader = new BufferedReader(new FileReader(data));
-		ArrayList<PowerConsumptionLabel> labels = getSequence(reader);
+		ArrayList<RHAILabel> labels = getSequence(reader);
 		reader.close();
-		Sequence<PowerConsumptionLabel> sequence = toOneLabel(labels);
+		Sequence<RHAILabel> sequence = toOneLabel(labels);
 		return sequence;
 	}
 
-	private Sequence<PowerConsumptionLabel> toOneLabel(
-			ArrayList<PowerConsumptionLabel> labels) {
-		Sequence<PowerConsumptionLabel> sequence = new Sequence<PowerConsumptionLabel>(
+	private Sequence<RHAILabel> toOneLabel(
+			ArrayList<RHAILabel> labels) {
+		Sequence<RHAILabel> sequence = new Sequence<RHAILabel>(
 				1);
-		sequence.addElement(PowerConsumptionLabel.smooth(labels));
+		sequence.addElement(RHAILabels.smooth(labels));
 		return sequence;
 	}
 
-	private ArrayList<PowerConsumptionLabel> getSequence(BufferedReader reader)
+	private ArrayList<RHAILabel> getSequence(BufferedReader reader)
 			throws IOException {
 		String line = reader.readLine();
-		ArrayList<PowerConsumptionLabel> labels = new ArrayList<PowerConsumptionLabel>();
+		ArrayList<RHAILabel> labels = new ArrayList<RHAILabel>();
 		while ((line = reader.readLine()) != null) {
 			addAllSubSequence(line, labels);
 		}
@@ -56,11 +57,11 @@ public class JTSARenderedAbstractor implements
 	}
 
 	private void addAllSubSequence(String line,
-			ArrayList<PowerConsumptionLabel> labels) {
+			ArrayList<RHAILabel> labels) {
 		StringTokenizer tokenizer = new StringTokenizer(line, ";");
 		int period = -Integer.parseInt(tokenizer.nextToken())
 				+ Integer.parseInt(tokenizer.nextToken());
-		PowerConsumptionLabel label = PowerConsumptionLabel.valueOf(tokenizer
+		RHAILabel label = RHAILabels.forName(tokenizer
 				.nextToken());
 		for (int i = 0; i < period; i++) {
 			labels.add(label);

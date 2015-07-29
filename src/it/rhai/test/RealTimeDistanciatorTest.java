@@ -4,26 +4,27 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import it.distanciable.Distanciator;
 import it.distanciable.sequences.Sequence;
-import it.rhai.model.PowerConsumptionLabel;
+import it.rhai.model.RHAILabels;
+import it.rhai.model.RHAILabels.RHAILabel;
 import it.rhai.model.RealTimeDistanciator;
 
 import org.junit.Test;
 
 public class RealTimeDistanciatorTest {
 
-	private Distanciator<Sequence<PowerConsumptionLabel>> distanciator = new RealTimeDistanciator<PowerConsumptionLabel>();
+	private Distanciator<Sequence<RHAILabel>> distanciator = new RealTimeDistanciator<RHAILabel>();
 
 	@Test
 	public void testComputeDistance() {
-		Sequence<PowerConsumptionLabel> sequence1 = new Sequence<PowerConsumptionLabel>(
+		Sequence<RHAILabel> sequence1 = new Sequence<RHAILabel>(
 				3);
-		sequence1.addElement(PowerConsumptionLabel.high);
-		sequence1.addElement(PowerConsumptionLabel.mediumhigh);
-		sequence1.addElement(PowerConsumptionLabel.low);
-		Sequence<PowerConsumptionLabel> sequence2 = new Sequence<PowerConsumptionLabel>(
+		sequence1.addElement(RHAILabels.forName("high"));
+		sequence1.addElement(RHAILabels.forName("medium"));
+		sequence1.addElement(RHAILabels.forName("low"));
+		Sequence<RHAILabel> sequence2 = new Sequence<RHAILabel>(
 				2);
-		sequence2.addElement(PowerConsumptionLabel.high);
-		sequence2.addElement(PowerConsumptionLabel.mediumhigh);
+		sequence2.addElement(RHAILabels.forName("high"));
+		sequence2.addElement(RHAILabels.forName("medium"));
 		assertEquals(0, sequence1.distanceFrom(sequence2, distanciator));
 		assertTrue(sequence1.distanceFrom(sequence2) > sequence1.distanceFrom(
 				sequence2, distanciator));
