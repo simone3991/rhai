@@ -2,7 +2,7 @@ package it.rhai.settings;
 
 import it.distanciable.sequences.Sequence;
 import it.distanciable.sequences.SequenceRecognizer;
-import it.rhai.model.RHAILabels.RHAILabel;
+import it.rhai.model.RHAILabelEnum.RHAILabel;
 import it.rhai.util.DataHandler;
 
 import java.awt.Image;

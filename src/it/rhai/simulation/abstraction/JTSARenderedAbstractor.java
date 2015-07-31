@@ -2,8 +2,8 @@ package it.rhai.simulation.abstraction;
 
 import it.bmi.jtsa.engine.renderer.basic.implementation.RendererCSV;
 import it.distanciable.sequences.Sequence;
-import it.rhai.model.RHAILabels;
-import it.rhai.model.RHAILabels.RHAILabel;
+import it.rhai.model.RHAILabelEnum;
+import it.rhai.model.RHAILabelEnum.RHAILabel;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -42,7 +42,7 @@ public class JTSARenderedAbstractor implements
 			ArrayList<RHAILabel> labels) {
 		Sequence<RHAILabel> sequence = new Sequence<RHAILabel>(
 				1);
-		sequence.addElement(RHAILabels.smooth(labels));
+		sequence.addElement(RHAILabelEnum.smooth(labels));
 		return sequence;
 	}
 
@@ -61,7 +61,7 @@ public class JTSARenderedAbstractor implements
 		StringTokenizer tokenizer = new StringTokenizer(line, ";");
 		int period = -Integer.parseInt(tokenizer.nextToken())
 				+ Integer.parseInt(tokenizer.nextToken());
-		RHAILabel label = RHAILabels.forName(tokenizer
+		RHAILabel label = RHAILabelEnum.valueOf(tokenizer
 				.nextToken());
 		for (int i = 0; i < period; i++) {
 			labels.add(label);

@@ -4,7 +4,7 @@ import it.rhai.gui.Application;
 import it.rhai.gui.ApplicationElement;
 import it.rhai.gui.util.JFrameUtils;
 import it.rhai.model.PowerMeasure;
-import it.rhai.model.RHAILabels.RHAILabel;
+import it.rhai.model.RHAILabelEnum.RHAILabel;
 import it.rhai.settings.FileSettings;
 import it.rhai.settings.SettingsKeeper;
 import it.rhai.simulation.ReaderInvoker;

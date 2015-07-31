@@ -67,6 +67,6 @@ public class TXTSourceFileAdapter {
 
 	public static void main(String[] args) throws IOException {
 		adapt(new File(
-				"/home/simone/Scaricati/carichi_elettrici/LavatriceRiscaldamento.txt"));
+				"/home/simone/Scaricati/carichi_elettrici/FrigoCucina.txt"));
 	}
 }

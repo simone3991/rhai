@@ -1,7 +1,7 @@
 package it.rhai.test;
 
 import it.rhai.model.PowerMeasure;
-import it.rhai.model.RHAILabels.RHAILabel;
+import it.rhai.model.RHAILabelEnum.RHAILabel;
 import it.rhai.settings.SettingsKeeper;
 import it.rhai.simulation.ReaderInvoker;
 import it.rhai.simulation.abstraction.AbstractorHandler;

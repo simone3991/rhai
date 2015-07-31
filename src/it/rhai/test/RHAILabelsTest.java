@@ -1,11 +1,10 @@
 package it.rhai.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import it.rhai.model.RHAILabelEnum;
+import it.rhai.model.RHAILabelEnum.RHAILabel;
 
 import java.util.ArrayList;
-
-import it.rhai.model.RHAILabels;
-import it.rhai.model.RHAILabels.RHAILabel;
 
 import org.junit.Test;
 
@@ -15,16 +14,21 @@ public class RHAILabelsTest {
 	public void test() throws Exception {
 		assertEquals(
 				1,
-				RHAILabels.forName("ll").distanceFrom(
-						RHAILabels.forName("lm")));
+				RHAILabelEnum.valueOf("ll").distanceFrom(
+						RHAILabelEnum.valueOf("lm")));
 	}
 
 	@Test
 	public void test2() throws Exception {
 		ArrayList<RHAILabel> labels = new ArrayList<RHAILabel>();
-		labels.add(RHAILabels.forName("ll"));
-		labels.add(RHAILabels.forName("mm"));
-		assertEquals(RHAILabels.forName("lm"), RHAILabels.smooth(labels));
+		labels.add(RHAILabelEnum.valueOf("ll"));
+		labels.add(RHAILabelEnum.valueOf("mm"));
+		assertEquals(RHAILabelEnum.valueOf("lm"), RHAILabelEnum.smooth(labels));
+	}
+
+	@Test
+	public void test3() throws Exception {
+		assertEquals(5, RHAILabelEnum.values().length);
 	}
 
 }

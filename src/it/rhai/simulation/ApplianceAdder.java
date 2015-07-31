@@ -2,7 +2,7 @@ package it.rhai.simulation;
 
 import it.distanciable.sequences.Sequence;
 import it.rhai.model.PowerMeasure;
-import it.rhai.model.RHAILabels.RHAILabel;
+import it.rhai.model.RHAILabelEnum.RHAILabel;
 import it.rhai.settings.SettingsKeeper;
 import it.rhai.simulation.abstraction.AbstractorHandler;
 import it.rhai.simulation.abstraction.CumulativeAbstractor;

@@ -1,8 +1,8 @@
 package it.rhai.test;
 
 import it.distanciable.sequences.Sequence;
-import it.rhai.model.RHAILabels;
-import it.rhai.model.RHAILabels.RHAILabel;
+import it.rhai.model.RHAILabelEnum;
+import it.rhai.model.RHAILabelEnum.RHAILabel;
 import it.rhai.settings.RHAISettings;
 import it.rhai.util.DataHandler;
 import it.rhai.util.Loggers;
@@ -103,7 +103,7 @@ public class TestSettings implements RHAISettings {
 		Sequence<RHAILabel> sequence = new Sequence<RHAILabel>(elements.length);
 		for (String string : elements) {
 			try {
-				sequence.addElement(RHAILabels.forName(string.trim()));
+				sequence.addElement(RHAILabelEnum.valueOf(string.trim()));
 			} catch (IllegalArgumentException exception) {
 				exception.printStackTrace();
 			}

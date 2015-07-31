@@ -1,6 +1,6 @@
 package it.rhai.test;
 
-import it.rhai.model.RHAILabels.RHAILabel;
+import it.rhai.model.RHAILabelEnum.RHAILabel;
 import it.rhai.settings.SettingsKeeper;
 import it.rhai.simulation.abstraction.Abstractor;
 import it.rhai.simulation.abstraction.JTSAAbstractor;

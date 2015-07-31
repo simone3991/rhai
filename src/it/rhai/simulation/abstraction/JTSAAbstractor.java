@@ -2,7 +2,7 @@ package it.rhai.simulation.abstraction;
 
 import it.bmi.jtsa.test.JTSATester;
 import it.distanciable.sequences.Sequence;
-import it.rhai.model.RHAILabels.RHAILabel;
+import it.rhai.model.RHAILabelEnum.RHAILabel;
 import it.rhai.util.FileUtils;
 
 import java.io.File;
