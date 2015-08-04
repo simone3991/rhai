@@ -4,9 +4,9 @@ import java.util.HashMap;
 
 /**
  * A generic Java Application. This class provides multiple
- * {@link ApplicationElement} app's architecture, and manage to handle theese
- * layers. In order to let the app work, it also provides param connection
- * between a layer and another
+ * {@link ApplicationElement} architecture, and manage to handle theese layers.
+ * In order to let the app work, it also provides param connection between a
+ * layer and another
  * 
  * @author simone
  *
@@ -18,7 +18,8 @@ public class Application {
 	private int currentElement;
 
 	/**
-	 * Creates a new app, with a certain set of layers
+	 * Creates a new app, with a certain set of layers. The order of the given
+	 * array is very relevant: the layers will be activated in that order
 	 * 
 	 * @param layers
 	 *            : the {@link ApplicationElement} instances that, in order,

@@ -1,16 +1,16 @@
 package it.rhai.gui;
 
-
 /**
  * A generic layer of an {@link Application}
  * 
  * @author simone
+ * @see Application
  *
  */
 public interface ApplicationElement {
 
 	/**
-	 * Sets the parent application
+	 * Sets the container application
 	 * 
 	 * @param application
 	 *            : the app this layer belongs to

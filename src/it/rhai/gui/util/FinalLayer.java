@@ -12,7 +12,8 @@ import javax.swing.JPanel;
 
 /**
  * This implementation of {@link ApplicationElement} interface allows the user
- * to either restart or close the application, with two simple buttons
+ * to either restart or close the application, with two simple {@link JButton}
+ * instances in a {@link JFrame}
  * 
  * @author simone
  *
@@ -52,16 +53,28 @@ public class FinalLayer extends JFrame implements ApplicationElement {
 	}
 
 	@Override
+	/*
+	 * (non-Javadoc)
+	 * @see it.rhai.gui.ApplicationElement#setApplication(it.rhai.gui.Application)
+	 */
 	public void setApplication(Application application) {
 		this.app = application;
 	}
 
 	@Override
+	/*
+	 * (non-Javadoc)
+	 * @see it.rhai.gui.ApplicationElement#turnOn()
+	 */
 	public void turnOn() {
 		super.setVisible(true);
 	}
 
 	@Override
+	/*
+	 * (non-Javadoc)
+	 * @see it.rhai.gui.ApplicationElement#turnOff()
+	 */
 	public void turnOff() {
 		super.setVisible(false);
 	}
