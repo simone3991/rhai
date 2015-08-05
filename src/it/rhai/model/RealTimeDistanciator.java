@@ -11,7 +11,9 @@ import it.distanciable.sequences.Sequence;
  * not the same as the given one (neither the first or the second one), the
  * distance between them and the given "a - b - c" should constantly be 0,
  * because the received one is perfectly equal to the corresponding part of the
- * given one
+ * given one. Warning: calling {@link #computeDistance(Sequence, Sequence)} will
+ * consider the first as the partial sequence and the second parameter as the
+ * complete one. Since that, this distance computation is not commutative
  * 
  * @author simone
  *
@@ -29,9 +31,9 @@ public class RealTimeDistanciator<T> implements Distanciator<Sequence<T>> {
 	 * @see it.distanciable.Distanciator#computeDistance(java.lang.Object,
 	 * java.lang.Object)
 	 */
-	public int computeDistance(Sequence<T> aSequence,
-			Sequence<T> anotherSequence) {
-		findSequencesRoles(aSequence, anotherSequence);
+	public int computeDistance(Sequence<T> partial, Sequence<T> complete) {
+		this.complete = complete;
+		this.received = partial;
 		Sequence<T> partOfComplete = cutFutureSequenceToPresent();
 		return received.distanceFrom(partOfComplete);
 	}
@@ -40,20 +42,12 @@ public class RealTimeDistanciator<T> implements Distanciator<Sequence<T>> {
 		Sequence<T> partOfComplete = new Sequence<T>(received.getSequence()
 				.size());
 		for (int i = 0; i < received.getSequence().size(); i++) {
-			partOfComplete.addElement(complete.get(i));
+			try {
+				partOfComplete.addElement(complete.get(i));
+			} catch (IndexOutOfBoundsException e) {
+				partOfComplete.addElement(null);
+			}
 		}
 		return partOfComplete;
-	}
-
-	private void findSequencesRoles(Sequence<T> aSequence,
-			Sequence<T> anotherSequence) {
-		if (aSequence.getSequence().size() > anotherSequence.getSequence()
-				.size()) {
-			complete = aSequence;
-			received = anotherSequence;
-		} else {
-			complete = anotherSequence;
-			received = aSequence;
-		}
 	}
 }

@@ -125,7 +125,7 @@ public class RHAILabelEnum {
 
 	/**
 	 * Returns the {@link RHAILabel} element that is identified by the given
-	 * string, if exists. Otherwise, return null
+	 * string, if exists. Otherwise, returns <code>null</code>
 	 * 
 	 * @param label
 	 *            : the textual representation of the desired {@link RHAILabel}

@@ -8,12 +8,13 @@ import java.util.StringTokenizer;
 
 /**
  * This class represents a single element of power measure, thus identified by
- * its value and its date
+ * its value and its date. It implements {@link Comparable} to allow natural
+ * sorting: two measures are compared according to their date
  * 
  * @author simone
  *
  */
-public class PowerMeasure {
+public class PowerMeasure implements Comparable<PowerMeasure> {
 
 	private Calendar date;
 	private Double value;
@@ -53,7 +54,7 @@ public class PowerMeasure {
 
 	/**
 	 * Parses a string into a measure. To properly work, the input string must
-	 * be like "01/01/1950 156.25"
+	 * be like "gg/mm/yyyy value"
 	 * 
 	 * @param line
 	 *            : the string to be parsed
@@ -81,10 +82,38 @@ public class PowerMeasure {
 	@Override
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
 		DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		return format.format(date.getTime()) + "\t" + value;
+	}
+
+	@Override
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
+	public int compareTo(PowerMeasure other) {
+		return date.compareTo(other.date);
+	}
+
+	@Override
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	public boolean equals(Object other) {
+		PowerMeasure otherMeasure;
+		try {
+			otherMeasure = (PowerMeasure) other;
+		} catch (ClassCastException exception) {
+			return false;
+		}
+		return (date.getTimeInMillis() == otherMeasure.date.getTimeInMillis())
+				&& (value == otherMeasure.value);
 	}
 }

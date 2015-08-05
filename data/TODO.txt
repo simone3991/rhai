@@ -1,2 +1,0 @@
--- dedurre il parametro di invoking 
--- da t_sampling e t_asbtraction
