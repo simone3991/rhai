@@ -7,9 +7,10 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * This DP Decorator oriented implementation of {@link Abstractor} interface
- * redirects the effective abstraction to a different concrete, but gives as
- * output a sequence built as the sum of every sequence built since creation
+ * This DP Decorator oriented implementation of {@link Abstractor} creates a
+ * {@link Sequence} that is the cumulative result of the sequences built since
+ * creation. The effective abstraction of the single {@link Sequence} instance
+ * is anyway delegated to another concrete {@link Abstractor}
  * 
  * @author simone
  *

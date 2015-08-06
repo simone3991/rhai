@@ -1,6 +1,5 @@
 package it.rhai.simulation.abstraction;
 
-import it.distanciable.Distanciable;
 import it.distanciable.sequences.Sequence;
 import it.rhai.util.DataHandler;
 
@@ -25,8 +24,7 @@ import java.util.Collection;
  * @param <K>: the type of the sequence to be extracted, and, therefore, the
  *        type of the data to be handled after this block
  */
-public class AbstractorHandler<T, K extends Distanciable<K>> implements
-		DataHandler<Collection<T>> {
+public class AbstractorHandler<T, K> implements DataHandler<Collection<T>> {
 
 	private static final String TMP_FILENAME = "data/tmp.out";
 	private Abstractor<K> abstractor;
@@ -36,10 +34,10 @@ public class AbstractorHandler<T, K extends Distanciable<K>> implements
 	 * Creates a new instance of this class
 	 * 
 	 * @param abstractor
-	 *            : the effective abstractor to be used
+	 *            : the effective abstractor to be used, not <code>null</code>
 	 * @param handlerOut
 	 *            : the {@link DataHandler} instance that will handle the
-	 *            extracted sequence
+	 *            extracted sequence, not <code>null</code>
 	 */
 	public AbstractorHandler(Abstractor<K> abstractor,
 			DataHandler<Sequence<K>> handlerOut) {
@@ -56,20 +54,23 @@ public class AbstractorHandler<T, K extends Distanciable<K>> implements
 	 */
 	public void handle(Collection<T> data) {
 		try {
-			File file = new File(TMP_FILENAME);
-			BufferedWriter writer = new BufferedWriter(new FileWriter(file,
-					false));
-			for (T powerMeasure : data) {
-				writer.write(powerMeasure.toString());
-				writer.newLine();
-			}
-			writer.close();
-			File tmpFile = new File(TMP_FILENAME);
-			tmpFile.deleteOnExit();
-			Sequence<K> sequence = abstractor.buildSequence(tmpFile);
+			Sequence<K> sequence = abstractor
+					.buildSequence(writeCollection(data));
 			this.handlerOut.handle(sequence);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private File writeCollection(Collection<T> data) throws IOException {
+		File file = new File(TMP_FILENAME);
+		BufferedWriter writer = new BufferedWriter(new FileWriter(file, false));
+		for (T element : data) {
+			writer.write(element.toString());
+			writer.newLine();
+		}
+		writer.close();
+		file.deleteOnExit();
+		return file;
 	}
 }

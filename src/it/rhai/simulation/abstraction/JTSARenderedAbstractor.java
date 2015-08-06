@@ -13,15 +13,14 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 /**
- * This implementation of {@link Abstractor} interface can extract a
- * {@link Sequence} of {@link PowerConsumptionLabel} from the output file of the
- * JTSA {@link RendererCSV}
+ * This implementation of {@link Abstractor} interface can extract a single
+ * {@link RHAILabel} from the output file of the JTSA {@link RendererCSV}. The
+ * returned {@link Sequence} will always be composed by one single label
  * 
  * @author simone
  *
  */
-public class JTSARenderedAbstractor implements
-		Abstractor<RHAILabel> {
+public class JTSARenderedAbstractor implements Abstractor<RHAILabel> {
 
 	@Override
 	/*
@@ -29,8 +28,7 @@ public class JTSARenderedAbstractor implements
 	 * 
 	 * @see it.rhai.abstraction.Abstractor#buildSequence(java.io.File)
 	 */
-	public Sequence<RHAILabel> buildSequence(File data)
-			throws IOException {
+	public Sequence<RHAILabel> buildSequence(File data) throws IOException {
 		BufferedReader reader = new BufferedReader(new FileReader(data));
 		ArrayList<RHAILabel> labels = getSequence(reader);
 		reader.close();
@@ -38,10 +36,8 @@ public class JTSARenderedAbstractor implements
 		return sequence;
 	}
 
-	private Sequence<RHAILabel> toOneLabel(
-			ArrayList<RHAILabel> labels) {
-		Sequence<RHAILabel> sequence = new Sequence<RHAILabel>(
-				1);
+	private Sequence<RHAILabel> toOneLabel(ArrayList<RHAILabel> labels) {
+		Sequence<RHAILabel> sequence = new Sequence<RHAILabel>(1);
 		sequence.addElement(RHAILabelEnum.smooth(labels));
 		return sequence;
 	}
@@ -56,13 +52,11 @@ public class JTSARenderedAbstractor implements
 		return labels;
 	}
 
-	private void addAllSubSequence(String line,
-			ArrayList<RHAILabel> labels) {
+	private void addAllSubSequence(String line, ArrayList<RHAILabel> labels) {
 		StringTokenizer tokenizer = new StringTokenizer(line, ";");
 		int period = -Integer.parseInt(tokenizer.nextToken())
 				+ Integer.parseInt(tokenizer.nextToken());
-		RHAILabel label = RHAILabelEnum.valueOf(tokenizer
-				.nextToken());
+		RHAILabel label = RHAILabelEnum.valueOf(tokenizer.nextToken());
 		for (int i = 0; i < period; i++) {
 			labels.add(label);
 		}

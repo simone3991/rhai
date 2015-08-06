@@ -66,7 +66,7 @@ public class IdentifierElement implements ApplicationElement,
 				new AbstractorHandler<PowerMeasure, RHAILabel>(
 						new CumulativeAbstractor<RHAILabel>(
 								new JTSAAbstractor(new JTSARenderedAbstractor())),
-						new Identifier(this)));
+						new Identifier(this, SettingsKeeper.getSettings())));
 		int length = SettingsKeeper.getSettings().getTAbstraction()
 				/ (computeSamplingTime() / 1000);
 		reader.setMaxLength(length);

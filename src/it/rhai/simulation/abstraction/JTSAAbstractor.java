@@ -10,7 +10,8 @@ import java.io.IOException;
 
 /**
  * This implementation of {@link Abstractor} interface uses the JTSA Framework
- * to extract a sequence of elementary patterns from a data file
+ * to extract a sequence of elementary patterns ({@link RHAILabel} instances)
+ * from a data file containing power consumption informations
  * 
  * @author simone
  *
@@ -29,8 +30,7 @@ public class JTSAAbstractor implements Abstractor<RHAILabel> {
 	 * 
 	 * @see it.rhai.identification.Sequencer#buildSequence(java.io.File)
 	 */
-	public Sequence<RHAILabel> buildSequence(File data)
-			throws IOException {
+	public Sequence<RHAILabel> buildSequence(File data) throws IOException {
 		try {
 			File xmlModified = FileUtils.replaceLabel(data.getPath(), "$TMP",
 					new File("data/template.xml"));

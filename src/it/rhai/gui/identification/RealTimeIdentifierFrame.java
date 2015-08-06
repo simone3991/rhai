@@ -103,11 +103,11 @@ public class RealTimeIdentifierFrame extends JFrame implements
 							new CumulativeAbstractor<RHAILabel>(
 									new JTSAAbstractor(
 											new JTSARenderedAbstractor())),
-							new Identifier(this)));
+							new Identifier(this, SettingsKeeper.getSettings())));
 			invoker = new ReaderInvoker(new File(
 					(String) application.getParam("file-path")), reader);
 			reader.setMaxLength(SettingsKeeper.getSettings().getTAbstraction()
-					/ (invoker.getSamplingTime()/1000));
+					/ (invoker.getSamplingTime() / 1000));
 			invoker.addObserver(this);
 			invoker.start();
 		} catch (Exception e) {

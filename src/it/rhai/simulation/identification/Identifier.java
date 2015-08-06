@@ -4,7 +4,7 @@ import it.distanciable.sequences.Sequence;
 import it.distanciable.sequences.SequenceRecognizer;
 import it.rhai.model.RHAILabelEnum.RHAILabel;
 import it.rhai.model.RealTimeDistanciator;
-import it.rhai.settings.SettingsKeeper;
+import it.rhai.settings.RHAIdentificationSettings;
 import it.rhai.util.DataHandler;
 
 import java.util.ArrayList;
@@ -13,14 +13,15 @@ public class Identifier implements DataHandler<Sequence<RHAILabel>> {
 
 	private SequenceRecognizer<RHAILabel> recognizer;
 	private DataHandler<String> outputDisplayer;
+	private RHAIdentificationSettings environment;
 
-	public Identifier(DataHandler<String> outputDisplayer) {
+	public Identifier(DataHandler<String> outputDisplayer,
+			RHAIdentificationSettings environment) {
 		this.outputDisplayer = outputDisplayer;
 		this.recognizer = new SequenceRecognizer<RHAILabel>(
 				new RealTimeDistanciator<RHAILabel>());
-		recognizer
-				.save((ArrayList<Sequence<RHAILabel>>) SettingsKeeper
-						.getSettings().getLib());
+		recognizer.save((ArrayList<Sequence<RHAILabel>>) environment.getLib());
+		this.environment = environment;
 	}
 
 	@Override
@@ -31,15 +32,13 @@ public class Identifier implements DataHandler<Sequence<RHAILabel>> {
 	 */
 	public void handle(Sequence<RHAILabel> data) {
 		Sequence<RHAILabel> real = doIdentify(data).get(0);
-		String appliance = SettingsKeeper.getSettings().getAppliance(real);
+		String appliance = environment.getAppliance(real);
 		outputDisplayer.handle(appliance);
 	}
 
-	private ArrayList<Sequence<RHAILabel>> doIdentify(
-			Sequence<RHAILabel> data) {
+	private ArrayList<Sequence<RHAILabel>> doIdentify(Sequence<RHAILabel> data) {
 		prepareRecognizer(data);
-		return recognizer.recognize(SettingsKeeper.getSettings()
-				.getMinimumLikelihood());
+		return recognizer.recognize(environment.getMinimumLikelihood());
 	}
 
 	private void prepareRecognizer(Sequence<RHAILabel> data) {

@@ -1,6 +1,5 @@
 package it.rhai.simulation.abstraction;
 
-import it.distanciable.Distanciable;
 import it.distanciable.sequences.Sequence;
 
 import java.io.File;
@@ -14,7 +13,7 @@ import java.io.IOException;
  *
  * @param <T>: the type of sequence to be extracted
  */
-public interface Abstractor<T extends Distanciable<T>> {
+public interface Abstractor<T> {
 
 	/**
 	 * Extracts the sequence from the data file

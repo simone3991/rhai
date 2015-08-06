@@ -22,8 +22,7 @@ public class ReaderInvokerTest {
 	}
 
 	public static void main(String[] args) throws IOException {
-		ReaderInvoker invoker = new ReaderInvoker(
-				new File("data/testing.dat"),
+		ReaderInvoker invoker = new ReaderInvoker(new File("data/testing.dat"),
 				new RedirectingReader<PowerMeasure>(
 						new AbstractorHandler<PowerMeasure, RHAILabel>(
 								new CumulativeAbstractor<RHAILabel>(
@@ -36,7 +35,7 @@ public class ReaderInvokerTest {
 										System.out.println(toBeHandled);
 
 									}
-								}))));
+								}, SettingsKeeper.getSettings()))));
 		invoker.start();
 	}
 }
