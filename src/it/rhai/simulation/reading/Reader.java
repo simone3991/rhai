@@ -7,7 +7,7 @@ package it.rhai.simulation.reading;
  *
  * @param <T>
  */
-public interface Reader<T> {
+public interface Reader<T>{
 
 	/**
 	 * Reads a new data value

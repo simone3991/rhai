@@ -1,16 +1,15 @@
 package it.rhai.simulation.reading;
 
-import it.rhai.settings.RHAISettings;
 import it.rhai.util.DataHandler;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.logging.Handler;
 
 /**
  * This class represents an object able to read a stream of data and redirecting
  * to a {@link DataHandler} instance when a certain amount of data has been
- * reached. To further information of this length, see
- * {@link RHAISettings#getTAbstraction()}
+ * reached
  * 
  * @author simone
  *
@@ -24,7 +23,9 @@ public class RedirectingReader<T> implements Reader<T> {
 	private int counter = 1;
 
 	/**
-	 * Creates a new instance of this class
+	 * Creates a new instance of this class. The amount of data to be reached
+	 * before delivering them to the {@link Handler} is now 1. To set a
+	 * different value, just call {@link #setMaxLength(int)}
 	 * 
 	 * @param handler
 	 *            : the object this reader will redirect the data to
