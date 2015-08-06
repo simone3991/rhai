@@ -28,19 +28,19 @@ public class ApplianceAdder {
 	private ArrayList<PowerMeasure> data = new ArrayList<PowerMeasure>();
 	private int nextData = 0;
 	protected Sequence<RHAILabel> sequence;
+	private String name = Calendar.getInstance().getTime().toString().trim();
 
 	public void addAppliance(String appliance, File sourceFile,
 			File applianceIcon) throws IOException {
 		this.loadData(sourceFile);
 		RedirectingReader<PowerMeasure> reader = new RedirectingReader<PowerMeasure>(
 				new AbstractorHandler<PowerMeasure, RHAILabel>(
-						new CumulativeAbstractor<RHAILabel>(
-								new JTSAAbstractor(new JTSARenderedAbstractor())),
+						new CumulativeAbstractor<RHAILabel>(new JTSAAbstractor(
+								new JTSARenderedAbstractor())),
 						new DataHandler<Sequence<RHAILabel>>() {
 
 							@Override
-							public void handle(
-									Sequence<RHAILabel> toBeHandled) {
+							public void handle(Sequence<RHAILabel> toBeHandled) {
 								sequence = toBeHandled;
 							}
 						}));
@@ -73,9 +73,7 @@ public class ApplianceAdder {
 			dir.mkdirs();
 		}
 		BufferedWriter writer = new BufferedWriter(new FileWriter(new File(
-				"data/lib/" + dir.getName() + "/"
-						+ Calendar.getInstance().getTime().toString().trim()
-						+ ".dat")));
+				"data/lib/" + dir.getName() + "/" + name + ".dat")));
 		writer.write(sequence.toString());
 		writer.close();
 	}
@@ -87,5 +85,11 @@ public class ApplianceAdder {
 			data.add(PowerMeasure.parsePowerMeasure(line));
 		}
 		reader.close();
+	}
+
+	public void addAppliance(String name, String name2, File dataFile,
+			File object) throws IOException {
+		this.name = name;
+		this.addAppliance(name2, dataFile, object);
 	}
 }

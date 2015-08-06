@@ -40,7 +40,7 @@ public class RHAIPropertiesSettings implements RHAISettings {
 
 	@Override
 	/*
-	 * (non-Javadoc) s
+	 * (non-Javadoc)
 	 * 
 	 * @see it.rhai.settings.RHAISettings#getLib()
 	 */
@@ -139,11 +139,11 @@ public class RHAIPropertiesSettings implements RHAISettings {
 	private void loadParameters(File settings) throws IOException {
 		RHAIproperties.load(new FileInputStream(settings.getAbsolutePath()));
 		abstractionProperties.load(new FileInputStream(new File(RHAIproperties
-				.getProperty("abstraction-settings"))));
+				.getProperty("abstraction-properties"))));
 		identificationProperties.load(new FileInputStream(new File(
-				RHAIproperties.getProperty("identification-settings"))));
+				RHAIproperties.getProperty("identification-properties"))));
 		utilProperties.load(new FileInputStream(new File(RHAIproperties
-				.getProperty("util-settings"))));
+				.getProperty("util-properties"))));
 	}
 
 	@Override
