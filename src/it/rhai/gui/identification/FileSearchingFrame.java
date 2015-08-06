@@ -2,7 +2,7 @@ package it.rhai.gui.identification;
 
 import it.rhai.gui.Application;
 import it.rhai.gui.ApplicationElement;
-import it.rhai.gui.util.JFrameUtils;
+import it.rhai.gui.util.WindowsUtils;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -37,7 +37,7 @@ public class FileSearchingFrame extends JFrame implements ApplicationElement {
 		JComponent.setDefaultLocale(Locale.ENGLISH);
 		super.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.buildMe();
-		JFrameUtils.putAtMiddleScreen(this);
+		WindowsUtils.putAtMiddleScreen(this);
 	}
 
 	private void buildMe() {

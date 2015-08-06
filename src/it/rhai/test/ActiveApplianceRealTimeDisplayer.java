@@ -1,10 +1,9 @@
 package it.rhai.test;
 
+import it.rhai.gui.util.WindowsUtils;
 import it.rhai.util.DataHandler;
 
-import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,7 +24,7 @@ public class ActiveApplianceRealTimeDisplayer extends JFrame implements
 		super.setContentPane(panel);
 		super.setVisible(true);
 		super.setSize(500, 80);
-		this.putAtMiddleScreen();
+		WindowsUtils.putAtMiddleScreen(this);
 	}
 
 	@Override
@@ -39,11 +38,4 @@ public class ActiveApplianceRealTimeDisplayer extends JFrame implements
 		});
 		thread.start();
 	}
-
-	private void putAtMiddleScreen() {
-		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		super.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height
-				/ 2 - this.getSize().height / 2);
-	}
-
 }

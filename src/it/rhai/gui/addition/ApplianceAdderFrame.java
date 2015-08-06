@@ -2,8 +2,8 @@ package it.rhai.gui.addition;
 
 import it.rhai.gui.Application;
 import it.rhai.gui.ApplicationElement;
-import it.rhai.gui.util.JFrameUtils;
-import it.rhai.settings.FileSettings;
+import it.rhai.gui.util.WindowsUtils;
+import it.rhai.settings.RHAIPropertiesSettings;
 import it.rhai.settings.SettingsKeeper;
 import it.rhai.simulation.ApplianceAdder;
 import it.rhai.util.FileUtils;
@@ -40,12 +40,12 @@ public class ApplianceAdderFrame extends JFrame implements ApplicationElement {
 	protected Component me = this;
 
 	public ApplianceAdderFrame() {
-		SettingsKeeper.setSettings(new FileSettings(new File(
+		SettingsKeeper.setSettings(new RHAIPropertiesSettings(new File(
 				"data/settings/settings.properties")));
 		JComponent.setDefaultLocale(Locale.ENGLISH);
 		super.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.buildMe();
-		JFrameUtils.putAtMiddleScreen(this);
+		WindowsUtils.putAtMiddleScreen(this);
 	}
 
 	@Override

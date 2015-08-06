@@ -4,7 +4,7 @@ import it.rhai.gui.Application;
 import it.rhai.gui.ApplicationElement;
 import it.rhai.model.PowerMeasure;
 import it.rhai.model.RHAILabelEnum.RHAILabel;
-import it.rhai.settings.FileSettings;
+import it.rhai.settings.RHAIPropertiesSettings;
 import it.rhai.settings.SettingsKeeper;
 import it.rhai.simulation.abstraction.AbstractorHandler;
 import it.rhai.simulation.abstraction.CumulativeAbstractor;
@@ -44,7 +44,7 @@ public class IdentifierElement implements ApplicationElement,
 	public void turnOn() {
 		try {
 			this.loadData(new File((String) application.getParam("file-path")));
-			SettingsKeeper.setSettings(new FileSettings(new File(
+			SettingsKeeper.setSettings(new RHAIPropertiesSettings(new File(
 					"data/settings/settings.properties")));
 		} catch (IOException e) {
 			SettingsKeeper.getSettings().getDebugLogger()

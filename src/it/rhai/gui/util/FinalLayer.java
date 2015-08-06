@@ -49,7 +49,7 @@ public class FinalLayer extends JFrame implements ApplicationElement {
 		});
 		panel.add(exiter);
 		super.setSize(400, 60);
-		JFrameUtils.putAtMiddleScreen(this);
+		WindowsUtils.putAtMiddleScreen(this);
 	}
 
 	@Override

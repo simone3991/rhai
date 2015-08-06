@@ -20,13 +20,16 @@ import java.util.Properties;
 
 import javax.imageio.ImageIO;
 
-public class FileSettings implements RHAISettings {
+public class RHAIPropertiesSettings implements RHAISettings {
 
-	private Properties properties = new Properties();
+	private Properties RHAIproperties = new Properties();
+	private Properties utilProperties = new Properties();
+	private Properties identificationProperties = new Properties();
+	private Properties abstractionProperties = new Properties();
 	private HashMap<String, ArrayList<Sequence<RHAILabel>>> appliances = new HashMap<String, ArrayList<Sequence<RHAILabel>>>();
 	private HashMap<String, Image> icons = new HashMap<String, Image>();
 
-	public FileSettings(File settings) {
+	public RHAIPropertiesSettings(File settings) {
 		try {
 			this.loadParameters(settings);
 		} catch (IOException e) {
@@ -56,8 +59,8 @@ public class FileSettings implements RHAISettings {
 	 * @see it.rhai.settings.RHAISettings#getTolerance()
 	 */
 	public double getMinimumLikelihood() {
-		return Double.parseDouble(properties
-				.getProperty("acceptance_likelihood"));
+		return Double.parseDouble(RHAIproperties
+				.getProperty("acceptance-likelihood"));
 	}
 
 	@Override
@@ -68,13 +71,11 @@ public class FileSettings implements RHAISettings {
 	 * it.rhai.settings.RHAISettings#getAppliance(it.distanciable.sequences.
 	 * Sequence)
 	 */
-	// TODO: change to Sequence#equals()
 	public String getAppliance(Sequence<RHAILabel> recognizedSequence) {
 		for (String appliance : appliances.keySet()) {
 			for (Sequence<RHAILabel> sequence : appliances.get(appliance)) {
 				try {
-					if (sequence.toString().compareTo(
-							recognizedSequence.toString()) == 0) {
+					if (sequence.equals(recognizedSequence)) {
 						return appliance;
 					}
 				} catch (NullPointerException e) {
@@ -85,7 +86,8 @@ public class FileSettings implements RHAISettings {
 	}
 
 	private void loadLib() {
-		File directory = new File(properties.getProperty("lib_root"));
+		File directory = new File(
+				identificationProperties.getProperty("lib-root"));
 		for (File subDir : directory.listFiles(new FileFilter() {
 
 			@Override
@@ -121,9 +123,6 @@ public class FileSettings implements RHAISettings {
 		return toSequence(line);
 	}
 
-	/*
-	 * TODO: move to Sequence#parseSequence()
-	 */
 	private Sequence<RHAILabel> toSequence(String line) {
 		String[] elements = line.trim().split("-");
 		Sequence<RHAILabel> sequence = new Sequence<RHAILabel>(elements.length);
@@ -138,7 +137,13 @@ public class FileSettings implements RHAISettings {
 	}
 
 	private void loadParameters(File settings) throws IOException {
-		properties.load(new FileInputStream(settings.getAbsolutePath()));
+		RHAIproperties.load(new FileInputStream(settings.getAbsolutePath()));
+		abstractionProperties.load(new FileInputStream(new File(RHAIproperties
+				.getProperty("abstraction-settings"))));
+		identificationProperties.load(new FileInputStream(new File(
+				RHAIproperties.getProperty("identification-settings"))));
+		utilProperties.load(new FileInputStream(new File(RHAIproperties
+				.getProperty("util-settings"))));
 	}
 
 	@Override
@@ -148,7 +153,8 @@ public class FileSettings implements RHAISettings {
 	 * @see it.rhai.settings.RHAISettings#getTAbstraction()
 	 */
 	public int getTAbstraction() {
-		return Integer.parseInt(properties.getProperty("t_abstraction"));
+		return Integer.parseInt(abstractionProperties
+				.getProperty("t_abstraction"));
 	}
 
 	@Override
@@ -158,15 +164,25 @@ public class FileSettings implements RHAISettings {
 	 * @see it.rhai.settings.RHAISettings#getDebugLogger()
 	 */
 	public DataHandler<String> getDebugLogger() {
-		return Loggers.getLogger(properties.getProperty("debug_printer"));
+		return Loggers.getLogger(utilProperties.getProperty("debug_printer"));
 	}
 
 	@Override
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see it.rhai.settings.RHAIdentificationSettings#getAvailableAppliances()
+	 */
 	public Collection<String> getAvailableAppliances() {
 		return appliances.keySet();
 	}
 
 	@Override
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see it.rhai.settings.RHAISettings#getIcon(java.lang.String)
+	 */
 	public Image getIcon(String appliance) {
 		return icons.get(appliance);
 	}
