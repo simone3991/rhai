@@ -14,21 +14,21 @@ public class RHAILabelEnumTest {
 	public void testDistance() throws Exception {
 		assertEquals(
 				1,
-				RHAILabelEnum.valueOf("ll").distanceFrom(
-						RHAILabelEnum.valueOf("lm")));
+				RHAILabelEnum.valueOf("000").distanceFrom(
+						RHAILabelEnum.valueOf("001")));
 	}
 
 	@Test
 	public void testSmooth() throws Exception {
 		ArrayList<RHAILabel> labels = new ArrayList<RHAILabel>();
-		labels.add(RHAILabelEnum.valueOf("ll"));
-		labels.add(RHAILabelEnum.valueOf("mm"));
-		assertEquals(RHAILabelEnum.valueOf("lm"), RHAILabelEnum.smooth(labels));
+		labels.add(RHAILabelEnum.valueOf("000"));
+		labels.add(RHAILabelEnum.valueOf("010"));
+		assertEquals(RHAILabelEnum.valueOf("001"), RHAILabelEnum.smooth(labels));
 	}
 
 	@Test
 	public void testValues() throws Exception {
-		assertEquals(5, RHAILabelEnum.values().length);
+		assertEquals(8, RHAILabelEnum.values().length);
 	}
 
 }
