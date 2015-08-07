@@ -3,6 +3,7 @@ package it.rhai.simulation.abstraction;
 import it.bmi.jtsa.test.JTSATester;
 import it.distanciable.sequences.Sequence;
 import it.rhai.model.RHAILabelEnum.RHAILabel;
+import it.rhai.settings.SettingsKeeper;
 import it.rhai.util.FileUtils;
 
 import java.io.File;
@@ -33,13 +34,15 @@ public class JTSAAbstractor implements Abstractor<RHAILabel> {
 	public Sequence<RHAILabel> buildSequence(File data) throws IOException {
 		try {
 			File xmlModified = FileUtils.replaceLabel(data.getPath(), "$TMP",
-					new File("data/template.xml"));
+					new File(SettingsKeeper.getSettings().getRHAIroot() + "/"
+							+ "data/template.xml"));
 			xmlModified.deleteOnExit();
 			JTSATester.run(xmlModified.getName());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		File tmpFile = new File("data/output.jtsa");
+		File tmpFile = new File(SettingsKeeper.getSettings().getRHAIroot()
+				+ "/" + "data/output.jtsa");
 		tmpFile.deleteOnExit();
 		return outputAbstractor.buildSequence(tmpFile);
 	}

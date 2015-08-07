@@ -20,6 +20,13 @@ import java.util.Properties;
 
 import javax.imageio.ImageIO;
 
+/**
+ * A {@link Properties} oriented implementation of {@link RHAISettings}
+ * interface
+ * 
+ * @author simone
+ *
+ */
 public class RHAIPropertiesSettings implements RHAISettings {
 
 	private Properties RHAIproperties = new Properties();
@@ -138,12 +145,15 @@ public class RHAIPropertiesSettings implements RHAISettings {
 
 	private void loadParameters(File settings) throws IOException {
 		RHAIproperties.load(new FileInputStream(settings.getAbsolutePath()));
-		abstractionProperties.load(new FileInputStream(new File(RHAIproperties
-				.getProperty("abstraction-properties"))));
+		utilProperties.load(new FileInputStream(new File(getRHAIroot() + "/"
+				+ RHAIproperties.getProperty("util-properties"))));
+		abstractionProperties.load(new FileInputStream(new File(getRHAIroot()
+				+ "/" + RHAIproperties.getProperty("abstraction-properties"))));
 		identificationProperties.load(new FileInputStream(new File(
-				RHAIproperties.getProperty("identification-properties"))));
-		utilProperties.load(new FileInputStream(new File(RHAIproperties
-				.getProperty("util-properties"))));
+				getRHAIroot()
+						+ "/"
+						+ RHAIproperties
+								.getProperty("identification-properties"))));
 	}
 
 	@Override
@@ -185,5 +195,10 @@ public class RHAIPropertiesSettings implements RHAISettings {
 	 */
 	public Image getIcon(String appliance) {
 		return icons.get(appliance);
+	}
+
+	@Override
+	public String getRHAIroot() {
+		return RHAIproperties.getProperty("root");
 	}
 }

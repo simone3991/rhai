@@ -4,7 +4,7 @@ import it.rhai.model.RHAILabelEnum.RHAILabel;
 
 /**
  * This interface provides simple methods to access all needed informations
- * about RHAI abstraction
+ * about RHAI abstraction engine
  * 
  * @author simone
  *

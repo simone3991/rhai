@@ -18,5 +18,4 @@ public interface RHAIUtilSettings {
 	 * @return: a {@link PrintStream} where messages should be printed
 	 */
 	public DataHandler<String> getDebugLogger();
-
 }

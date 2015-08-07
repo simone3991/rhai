@@ -1,19 +1,16 @@
 package it.rhai.routines;
 
-import it.rhai.settings.RHAIPropertiesSettings;
-import it.rhai.settings.SettingsKeeper;
 import it.rhai.simulation.ApplianceAdder;
 
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
 
+@Executable(id = "--reload")
 public class DataSetCreator {
 
-	public static void main(String[] args) throws IOException {
-		SettingsKeeper.setSettings(new RHAIPropertiesSettings(new File(
-				"data/settings/settings.properties")));
-		File dir = new File("/home/simone/Scrivania/RHAI_db/training");
+	public static void execute(String[] args) throws IOException {
+		File dir = new File(args[0]);
 		for (File applianceSrcDir : dir.listFiles(new FileFilter() {
 
 			@Override

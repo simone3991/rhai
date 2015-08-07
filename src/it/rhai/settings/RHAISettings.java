@@ -15,6 +15,13 @@ public interface RHAISettings extends RHAIdentificationSettings,
 		RHAIUtilSettings, RHAIAbstractionSettings {
 
 	/**
+	 * Returns the root directory of the RHAI environment
+	 * 
+	 * @return
+	 */
+	public String getRHAIroot();
+	
+	/**
 	 * Returns an icon representation for a certain appliance
 	 * 
 	 * @param appliance
@@ -23,4 +30,5 @@ public interface RHAISettings extends RHAIdentificationSettings,
 	 * @return: an {@link ImageIcon} instance representing that appliance
 	 */
 	public Image getIcon(String appliance);
+
 }

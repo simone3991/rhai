@@ -4,7 +4,6 @@ import it.rhai.gui.Application;
 import it.rhai.gui.ApplicationElement;
 import it.rhai.model.PowerMeasure;
 import it.rhai.model.RHAILabelEnum.RHAILabel;
-import it.rhai.settings.RHAIPropertiesSettings;
 import it.rhai.settings.SettingsKeeper;
 import it.rhai.simulation.abstraction.AbstractorHandler;
 import it.rhai.simulation.abstraction.CumulativeAbstractor;
@@ -30,7 +29,9 @@ public class IdentifierElement implements ApplicationElement,
 	@Override
 	/*
 	 * (non-Javadoc)
-	 * @see it.rhai.gui.ApplicationElement#setApplication(it.rhai.gui.Application)
+	 * 
+	 * @see
+	 * it.rhai.gui.ApplicationElement#setApplication(it.rhai.gui.Application)
 	 */
 	public void setApplication(Application application) {
 		this.application = application;
@@ -39,13 +40,12 @@ public class IdentifierElement implements ApplicationElement,
 	@Override
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see it.rhai.gui.ApplicationElement#turnOn()
 	 */
 	public void turnOn() {
 		try {
 			this.loadData(new File((String) application.getParam("file-path")));
-			SettingsKeeper.setSettings(new RHAIPropertiesSettings(new File(
-					"data/settings/settings.properties")));
 		} catch (IOException e) {
 			SettingsKeeper.getSettings().getDebugLogger()
 					.handle(e.getMessage());
@@ -56,6 +56,7 @@ public class IdentifierElement implements ApplicationElement,
 	@Override
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see it.rhai.gui.ApplicationElement#turnOff()
 	 */
 	public void turnOff() {
@@ -64,9 +65,9 @@ public class IdentifierElement implements ApplicationElement,
 	private void start() {
 		RedirectingReader<PowerMeasure> reader = new RedirectingReader<PowerMeasure>(
 				new AbstractorHandler<PowerMeasure, RHAILabel>(
-						new CumulativeAbstractor<RHAILabel>(
-								new JTSAAbstractor(new JTSARenderedAbstractor())),
-						new Identifier(this, SettingsKeeper.getSettings())));
+						new CumulativeAbstractor<RHAILabel>(new JTSAAbstractor(
+								new JTSARenderedAbstractor())), new Identifier(
+								this, SettingsKeeper.getSettings())));
 		int length = SettingsKeeper.getSettings().getTAbstraction()
 				/ (computeSamplingTime() / 1000);
 		reader.setMaxLength(length);
@@ -90,6 +91,7 @@ public class IdentifierElement implements ApplicationElement,
 	@Override
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see it.rhai.util.DataHandler#handle(java.lang.Object)
 	 */
 	public void handle(String toBeHandled) {

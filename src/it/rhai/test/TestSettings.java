@@ -140,4 +140,10 @@ public class TestSettings implements RHAISettings {
 	public Image getIcon(String appliance) {
 		return null;
 	}
+
+	@Override
+	public String getRHAIroot() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

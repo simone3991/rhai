@@ -192,8 +192,11 @@ public class RHAILabelEnum {
 	}
 
 	private static String getFilePath() {
-		return "src/" + RHAILabelEnum.class.getName().replace(".", "/")
-				+ ".properties";
+		String path = RHAILabelEnum.class.getProtectionDomain().getCodeSource()
+				.getLocation().getPath().replace("%20", " ")
+				+ RHAILabelEnum.class.getSimpleName() + ".properties";
+		System.out.println(path);
+		return path;
 	}
 
 	private static int getAverageValue(Collection<RHAILabel> labels) {

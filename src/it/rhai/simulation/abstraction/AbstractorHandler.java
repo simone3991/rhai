@@ -1,6 +1,7 @@
 package it.rhai.simulation.abstraction;
 
 import it.distanciable.sequences.Sequence;
+import it.rhai.settings.SettingsKeeper;
 import it.rhai.util.DataHandler;
 
 import java.io.BufferedWriter;
@@ -26,7 +27,8 @@ import java.util.Collection;
  */
 public class AbstractorHandler<T, K> implements DataHandler<Collection<T>> {
 
-	private static final String TMP_FILENAME = "data/tmp.out";
+	private static final String TMP_FILENAME = SettingsKeeper.getSettings()
+			.getRHAIroot() + "/" + "data/tmp.out";
 	private Abstractor<K> abstractor;
 	private DataHandler<Sequence<K>> handlerOut;
 

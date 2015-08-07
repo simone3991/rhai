@@ -5,7 +5,6 @@ import it.rhai.gui.ApplicationElement;
 import it.rhai.gui.util.WindowsUtils;
 import it.rhai.model.PowerMeasure;
 import it.rhai.model.RHAILabelEnum.RHAILabel;
-import it.rhai.settings.RHAIPropertiesSettings;
 import it.rhai.settings.SettingsKeeper;
 import it.rhai.simulation.ReaderInvoker;
 import it.rhai.simulation.abstraction.AbstractorHandler;
@@ -44,8 +43,6 @@ public class RealTimeIdentifierFrame extends JFrame implements
 
 	public RealTimeIdentifierFrame() {
 		super("RHAI - Active Appliance");
-		SettingsKeeper.setSettings(new RHAIPropertiesSettings(new File(
-				"data/settings/settings.properties")));
 		Collection<String> appliances = SettingsKeeper.getSettings()
 				.getAvailableAppliances();
 		Container panel = new JPanel(new GridLayout(1, appliances.size()));

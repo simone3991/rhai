@@ -23,6 +23,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+/* TODO: fix static references to resources location */
 public class ApplianceAdder {
 
 	private ArrayList<PowerMeasure> data = new ArrayList<PowerMeasure>();
@@ -51,8 +52,10 @@ public class ApplianceAdder {
 		}
 		doAddAppliance(appliance);
 		if (applianceIcon != null) {
-			Files.copy(applianceIcon.toPath(),
-					Paths.get("data/icons/" + appliance + ".png"),
+			Files.copy(
+					applianceIcon.toPath(),
+					Paths.get(SettingsKeeper.getSettings().getRHAIroot() + "/"
+							+ "data/icons/" + appliance + ".png"),
 					StandardCopyOption.REPLACE_EXISTING);
 		}
 	}
@@ -68,12 +71,14 @@ public class ApplianceAdder {
 	}
 
 	private void doAddAppliance(String appliance) throws IOException {
-		File dir = new File("data/lib/" + appliance);
+		File dir = new File(SettingsKeeper.getSettings().getRHAIroot() + "/"
+				+ "data/lib/" + appliance);
 		if ((!dir.exists()) || !(dir.isDirectory())) {
 			dir.mkdirs();
 		}
 		BufferedWriter writer = new BufferedWriter(new FileWriter(new File(
-				"data/lib/" + dir.getName() + "/" + name + ".dat")));
+				SettingsKeeper.getSettings().getRHAIroot() + "/" + "data/lib/"
+						+ dir.getName() + "/" + name + ".dat")));
 		writer.write(sequence.toString());
 		writer.close();
 	}
