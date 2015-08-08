@@ -1,7 +1,7 @@
 package it.rhai.simulation.abstraction;
 
 import it.bmi.jtsa.engine.renderer.basic.implementation.RendererCSV;
-import it.distanciable.sequences.Sequence;
+import it.distanciable.sequence.Sequence;
 import it.rhai.model.RHAILabelEnum;
 import it.rhai.model.RHAILabelEnum.RHAILabel;
 

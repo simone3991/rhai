@@ -1,6 +1,6 @@
 package it.rhai.simulation.abstraction;
 
-import it.distanciable.sequences.Sequence;
+import it.distanciable.sequence.Sequence;
 
 import java.io.File;
 import java.io.IOException;

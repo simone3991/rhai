@@ -1,6 +1,6 @@
 package it.rhai.simulation;
 
-import it.distanciable.sequences.Sequence;
+import it.distanciable.sequence.Sequence;
 import it.rhai.model.PowerMeasure;
 import it.rhai.model.RHAILabelEnum.RHAILabel;
 import it.rhai.settings.SettingsKeeper;

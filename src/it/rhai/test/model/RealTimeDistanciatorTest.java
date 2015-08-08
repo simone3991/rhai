@@ -2,7 +2,7 @@ package it.rhai.test.model;
 
 import static org.junit.Assert.assertTrue;
 import it.distanciable.Distanciator;
-import it.distanciable.sequences.Sequence;
+import it.distanciable.sequence.Sequence;
 import it.rhai.model.RealTimeDistanciator;
 
 import org.junit.Test;

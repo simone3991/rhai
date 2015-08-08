@@ -10,8 +10,9 @@
 			parameters="/home/simone/Documenti/Software Development/Java/Running Household Appliances Identifier/data/parameters/aggregation.properties"
 			type="AGGREGATION" subtype="AGGREGATION_LEVELSAGGREGATION">
 		</step>
-		<renderer type="CSV" label="data/output.jtsa" granularity="SECONDS"
-			renderInput="true" />
+		<renderer type="CSV"
+			label="/home/simone/Documenti/Software Development/Java/Running Household Appliances Identifier/data/output.jtsa"
+			granularity="SECONDS" renderInput="true" />
 	</block>
 
 </run>

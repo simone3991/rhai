@@ -1,6 +1,6 @@
 package it.rhai.simulation.abstraction;
 
-import it.distanciable.sequences.Sequence;
+import it.distanciable.sequence.Sequence;
 import it.rhai.settings.SettingsKeeper;
 import it.rhai.util.DataHandler;
 

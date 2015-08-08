@@ -192,10 +192,8 @@ public class RHAILabelEnum {
 	}
 
 	private static String getFilePath() {
-		String path = RHAILabelEnum.class.getProtectionDomain().getCodeSource()
-				.getLocation().getPath().replace("%20", " ")
+		String path = "/home/simone/"
 				+ RHAILabelEnum.class.getSimpleName() + ".properties";
-		System.out.println(path);
 		return path;
 	}
 

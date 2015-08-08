@@ -1,7 +1,7 @@
 package it.rhai.test;
 
 import it.distanciable.Distanciable;
-import it.distanciable.sequences.Sequence;
+import it.distanciable.sequence.Sequence;
 import it.rhai.settings.SettingsKeeper;
 import it.rhai.simulation.abstraction.Abstractor;
 

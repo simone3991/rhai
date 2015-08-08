@@ -1,6 +1,6 @@
 package it.rhai.settings;
 
-import it.distanciable.sequences.Sequence;
+import it.distanciable.sequence.Sequence;
 import it.rhai.model.RHAILabelEnum;
 import it.rhai.model.RHAILabelEnum.RHAILabel;
 import it.rhai.util.DataHandler;
@@ -66,7 +66,7 @@ public class RHAIPropertiesSettings implements RHAISettings {
 	 * @see it.rhai.settings.RHAISettings#getTolerance()
 	 */
 	public double getMinimumLikelihood() {
-		return Double.parseDouble(RHAIproperties
+		return Double.parseDouble(identificationProperties
 				.getProperty("acceptance-likelihood"));
 	}
 

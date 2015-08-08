@@ -1,7 +1,7 @@
 package it.rhai.model;
 
 import it.distanciable.Distanciator;
-import it.distanciable.sequences.Sequence;
+import it.distanciable.sequence.Sequence;
 
 /**
  * This implementation of {@link Distanciator} interface computes the distance

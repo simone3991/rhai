@@ -1,11 +1,11 @@
 package it.rhai.settings;
 
+import it.distanciable.sequence.Sequence;
+import it.distanciable.sequence.SequenceRecognizer;
+import it.rhai.model.RHAILabelEnum.RHAILabel;
+
 import java.util.ArrayList;
 import java.util.Collection;
-
-import it.distanciable.sequences.Sequence;
-import it.distanciable.sequences.SequenceRecognizer;
-import it.rhai.model.RHAILabelEnum.RHAILabel;
 
 /**
  * This interface provides all necessary informations to provide appliances
