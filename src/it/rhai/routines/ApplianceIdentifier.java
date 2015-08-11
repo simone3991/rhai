@@ -23,7 +23,7 @@ public class ApplianceIdentifier {
 	private static int nextData = 0;
 	private static String appliance;
 
-	@EntryPoint(id = "-t", description = "identifies an appliance over time", args = { "data file" })
+	@EntryPoint(id = { "-d", "-dynamic" }, description = "identifies an appliance over time", args = { "data file" })
 	public static void identifyRealTime(String[] args) throws IOException {
 		loadData(new File(args[0]));
 		RedirectingReader<PowerMeasure> reader = new RedirectingReader<PowerMeasure>(
@@ -48,7 +48,7 @@ public class ApplianceIdentifier {
 		}
 	}
 
-	@EntryPoint(id = "-f", description = "returns the final identification", args = { "data file" })
+	@EntryPoint(id = { "-s", "-static" }, description = "returns the final identification", args = { "data file" })
 	public static void identifyFinal(String[] args) throws IOException {
 		loadData(new File(args[0]));
 		RedirectingReader<PowerMeasure> reader = new RedirectingReader<PowerMeasure>(
@@ -72,7 +72,7 @@ public class ApplianceIdentifier {
 		System.out.println("most likely identification: " + appliance);
 	}
 
-	@EntryPoint(id = "-h", description = "prints a simple help", args = { "" })
+	@EntryPoint(id = { "-h", "-help", "-man" }, description = "prints a simple help", args = { "" })
 	public static void help(Object... args) {
 		HelpPrinter.print("Welcome to RHAI identification system",
 				ApplianceIdentifier.class);

@@ -10,7 +10,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target(ElementType.METHOD)
 public @interface EntryPoint {
 
-	public String id();
+	public String[] id();
 
 	public String description();
 	

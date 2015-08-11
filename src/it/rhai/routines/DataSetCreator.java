@@ -7,7 +7,7 @@ import java.io.FileFilter;
 
 public class DataSetCreator {
 
-	@EntryPoint(id = "-d", description = "loads fingerprints from a directory", args = { "a dataset directory" })
+	@EntryPoint(id = { "-l", "-ld", "-load" }, description = "loads fingerprints from a directory", args = { "a dataset directory" })
 	public static void loadLibraryFromDir(String[] args) throws Exception {
 		File dir = new File(args[0]);
 		for (File applianceSrcDir : dir.listFiles(new FileFilter() {
@@ -30,7 +30,7 @@ public class DataSetCreator {
 		}
 	}
 
-	@EntryPoint(id = "-h", description = "prints a simple help", args = { "" })
+	@EntryPoint(id = { "-h", "-help", "-man" }, description = "prints a simple help", args = { "" })
 	public static void help(Object... args) {
 		HelpPrinter.print("Welcome to RHAI loading system",
 				DataSetCreator.class);

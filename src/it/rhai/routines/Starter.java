@@ -6,6 +6,7 @@ import it.rhai.settings.SettingsKeeper;
 import java.io.File;
 import java.io.FileInputStream;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.Properties;
 
@@ -28,9 +29,10 @@ public class Starter {
 				Class aClass = Class.forName(config.getProperty(args[0]));
 				for (Method method : aClass.getMethods()) {
 					if (method.isAnnotationPresent(EntryPoint.class)) {
-						if (((EntryPoint) method
-								.getAnnotation(EntryPoint.class)).id().equals(
-								args[1])) {
+						if (Arrays.asList(
+								((EntryPoint) method
+										.getAnnotation(EntryPoint.class)).id())
+								.contains(args[1])) {
 							method.invoke(null, new Object[] { cutArgs(args) });
 							return;
 						}
@@ -39,19 +41,22 @@ public class Starter {
 				System.out.println("No available option " + args[1]
 						+ " for command " + args[0]);
 			} else {
-				System.out.println("RHAI: help system");
-				System.out.println("Available commands:\n");
+				System.out
+						.println("Welcome to the Running Household Appliances Identifier");
+				System.out.println("Theese are the vailable commands:");
 				Enumeration<Object> keys = config.keys();
 				while (keys.hasMoreElements()) {
 					String key = (String) keys.nextElement();
 					System.out.println(key);
 				}
-				System.out.println();
+				System.out
+						.println("For any command, try '-h' for further informations");
 			}
 		} catch (Exception exception) {
-			System.out.println("Error occured: "+exception.toString());
+			System.out.println("Error occured: " + exception.toString());
 			exception.printStackTrace();
-			System.out.println("Try --help for further informations about usage");
+			System.out
+					.println("Try '--help' for further informations about usage");
 		}
 	}
 

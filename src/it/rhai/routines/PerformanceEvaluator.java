@@ -24,13 +24,15 @@ public class PerformanceEvaluator {
 	private static int trials, globalTrials = 0;
 	private static String recognized;
 
-	@EntryPoint(id = "-s", description = "returns the static performance", args = { "a dataset directory" })
+	@EntryPoint(id = { "-s", "-static" }, description = "returns the static performance", args = { "a dataset directory" })
 	public static void evaluateDir(String[] args) throws Exception {
 		File dir = new File(args[0]);
 		evaluateDir(dir);
-		String perc = ((double) ((double) globalSuccesses / globalTrials) * 100) + "%";
+		String perc = ((double) ((double) globalSuccesses / globalTrials) * 100)
+				+ "%";
 		System.out.println("The overall performance computation resulted in a "
-				+ perc + " of success (" + globalSuccesses + "/" + globalTrials + ")");
+				+ perc + " of success (" + globalSuccesses + "/" + globalTrials
+				+ ")");
 	}
 
 	private static void evaluateDir(File dir) throws Exception {
@@ -103,7 +105,7 @@ public class PerformanceEvaluator {
 		return data;
 	}
 
-	@EntryPoint(id = "-h", description = "prints a simple help", args = { "" })
+	@EntryPoint(id = { "-h", "-help", "-man" }, description = "prints a simple help", args = { "" })
 	public static void printHelp(Object[] args) {
 		HelpPrinter
 				.print("Welcome to RHAI validation system: it allows to evaluate RHAI general performances",
