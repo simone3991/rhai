@@ -28,11 +28,11 @@ public class ApplianceAdder {
 
 	private ArrayList<PowerMeasure> data = new ArrayList<PowerMeasure>();
 	private int nextData = 0;
-	protected Sequence<RHAILabel> sequence;
+	private Sequence<RHAILabel> sequence;
 	private String name = Calendar.getInstance().getTime().toString().trim();
 
 	public void addAppliance(String appliance, File sourceFile,
-			File applianceIcon) throws IOException {
+			File applianceIcon) throws Exception {
 		this.loadData(sourceFile);
 		RedirectingReader<PowerMeasure> reader = new RedirectingReader<PowerMeasure>(
 				new AbstractorHandler<PowerMeasure, RHAILabel>(
@@ -62,12 +62,7 @@ public class ApplianceAdder {
 
 	private int computeToBeAbstracted() {
 		return SettingsKeeper.getSettings().getTAbstraction()
-				/ computeSamplingTime();
-	}
-
-	private int computeSamplingTime() {
-		return (int) ((data.get(data.size() - 1).getDate().getTimeInMillis() - data
-				.get(0).getDate().getTimeInMillis()) / ((data.size() - 1) * 1000));
+				/ PowerMeasure.computeSamplingTime(data);
 	}
 
 	private void doAddAppliance(String appliance) throws IOException {
@@ -93,7 +88,7 @@ public class ApplianceAdder {
 	}
 
 	public void addAppliance(String name, String name2, File dataFile,
-			File object) throws IOException {
+			File object) throws Exception {
 		this.name = name;
 		this.addAppliance(name2, dataFile, object);
 	}

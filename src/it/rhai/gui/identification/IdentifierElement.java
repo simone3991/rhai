@@ -69,7 +69,7 @@ public class IdentifierElement implements ApplicationElement,
 								new JTSARenderedAbstractor())), new Identifier(
 								this, SettingsKeeper.getSettings())));
 		int length = SettingsKeeper.getSettings().getTAbstraction()
-				/ (computeSamplingTime() / 1000);
+				/ (PowerMeasure.computeSamplingTime(data));
 		reader.setMaxLength(length);
 		while (nextData < data.size()) {
 			reader.read(data.get(nextData));
@@ -96,10 +96,5 @@ public class IdentifierElement implements ApplicationElement,
 	 */
 	public void handle(String toBeHandled) {
 		System.out.println(toBeHandled);
-	}
-
-	private int computeSamplingTime() {
-		return (int) ((data.get(data.size() - 1).getDate().getTimeInMillis() - data
-				.get(0).getDate().getTimeInMillis()) / ((data.size() - 1)));
 	}
 }

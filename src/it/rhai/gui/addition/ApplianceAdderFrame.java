@@ -199,6 +199,9 @@ public class ApplianceAdderFrame extends JFrame implements ApplicationElement {
 				} catch (IOException e1) {
 					SettingsKeeper.getSettings().getDebugLogger()
 							.handle(e1.getMessage());
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 				application.next();
 			}

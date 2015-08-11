@@ -5,11 +5,10 @@ import it.rhai.settings.SettingsKeeper;
 import it.rhai.simulation.ApplianceAdder;
 
 import java.io.File;
-import java.io.IOException;
 
 public class LibraryAdditionTest {
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws Exception {
 		SettingsKeeper.setSettings(new RHAIPropertiesSettings(new File(
 				"settings/settings.dat")));
 		ApplianceAdder adder = new ApplianceAdder();

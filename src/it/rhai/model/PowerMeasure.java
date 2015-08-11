@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.StringTokenizer;
 
 /**
@@ -77,6 +78,20 @@ public class PowerMeasure implements Comparable<PowerMeasure> {
 				min, secs);
 		PowerMeasure measure = new PowerMeasure(calendar, value);
 		return measure;
+	}
+
+	/**
+	 * Returns an estimation of the average sampling time between a list of
+	 * measures, in seconds
+	 * 
+	 * @param measures
+	 *            : a collection of measures
+	 * @return: the estimated sampling time between a measure and another
+	 */
+	public static int computeSamplingTime(List<PowerMeasure> measures) {
+		return (int) ((measures.get(measures.size() - 1).getDate()
+				.getTimeInMillis() - measures.get(0).getDate()
+				.getTimeInMillis()) / ((measures.size() - 1))) / 1000;
 	}
 
 	@Override

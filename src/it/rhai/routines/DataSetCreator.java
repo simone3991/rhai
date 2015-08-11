@@ -4,12 +4,11 @@ import it.rhai.simulation.ApplianceAdder;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.io.IOException;
 
-@Executable(id = "--reload")
 public class DataSetCreator {
 
-	public static void execute(String[] args) throws IOException {
+	@EntryPoint(id = "-d", description = "loads fingerprints from a directory", args = { "a dataset directory" })
+	public static void loadLibraryFromDir(String[] args) throws Exception {
 		File dir = new File(args[0]);
 		for (File applianceSrcDir : dir.listFiles(new FileFilter() {
 
@@ -29,6 +28,12 @@ public class DataSetCreator {
 						applianceSrcDir.getName(), dataFile, null);
 			}
 		}
+	}
+
+	@EntryPoint(id = "-h", description = "prints a simple help", args = { "" })
+	public static void help(Object... args) {
+		HelpPrinter.print("Welcome to RHAI loading system",
+				DataSetCreator.class);
 	}
 
 }

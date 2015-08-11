@@ -71,14 +71,9 @@ public class ReaderInvoker extends Observable {
 			data.add(PowerMeasure.parsePowerMeasure(line));
 		}
 		reader.close();
-		samplingTime = computeSamplingTime();
+		samplingTime = PowerMeasure.computeSamplingTime(data)*1000;
 	}
 
-	private int computeSamplingTime() {
-		return (int) ((data.get(data.size() - 1).getDate().getTimeInMillis() - data
-				.get(0).getDate().getTimeInMillis()) / ((data.size() - 1)));
-	}
-	
 	public int getSamplingTime() {
 		return samplingTime;
 	}
