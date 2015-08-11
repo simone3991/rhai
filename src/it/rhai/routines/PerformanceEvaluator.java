@@ -20,19 +20,17 @@ import java.util.ArrayList;
 
 public class PerformanceEvaluator {
 
-	private static int successes = 0;
-	private static int trials = 0;
+	private static int successes, globalSuccesses = 0;
+	private static int trials, globalTrials = 0;
 	private static String recognized;
-	private static int counter = 0;
 
 	@EntryPoint(id = "-s", description = "returns the static performance", args = { "a dataset directory" })
 	public static void evaluateDir(String[] args) throws Exception {
 		File dir = new File(args[0]);
 		evaluateDir(dir);
-		String perc = ((double) ((double) successes / trials) * 100) + "%";
-		System.out.println("The identification resulted in a " + perc
-				+ " of success (" + successes + "/" + trials + ")");
-		System.out.println("read "+counter+" data");
+		String perc = ((double) ((double) globalSuccesses / globalTrials) * 100) + "%";
+		System.out.println("The overall performance computation resulted in a "
+				+ perc + " of success (" + globalSuccesses + "/" + globalTrials + ")");
 	}
 
 	private static void evaluateDir(File dir) throws Exception {
@@ -56,12 +54,12 @@ public class PerformanceEvaluator {
 			throws Exception {
 		final String appliance = applianceSrcDir.getName();
 		int nextData;
+		successes = trials = 0;
 		for (final File dataFile : applianceSrcDir.listFiles()) {
 			trials++;
+			globalTrials++;
 			ArrayList<PowerMeasure> data = loadData(dataFile);
 			nextData = 0;
-			System.out.println("examining " + dataFile.getName() + ".... "
-					+ data.size() + " data to be read");
 			RedirectingReader<PowerMeasure> reader = new RedirectingReader<PowerMeasure>(
 					new AbstractorHandler<PowerMeasure, RHAILabel>(
 							new CumulativeAbstractor<RHAILabel>(
@@ -71,9 +69,6 @@ public class PerformanceEvaluator {
 
 								@Override
 								public void handle(String toBeHandled) {
-									System.out.println("found "
-											+ toBeHandled + " for "
-											+ dataFile.getName()+" c: "+counter);
 									recognized = toBeHandled;
 								}
 							}, SettingsKeeper.getSettings())));
@@ -81,15 +76,18 @@ public class PerformanceEvaluator {
 					/ (PowerMeasure.computeSamplingTime(data));
 			reader.setMaxLength(length);
 			while (nextData < data.size()) {
-				counter ++;
 				reader.read(data.get(nextData));
 				nextData++;
 			}
-			System.out.println("finished examining " + dataFile.getName());
 			if (appliance.equals(recognized)) {
 				successes++;
+				globalSuccesses++;
 			}
 		}
+		String perc = ((double) ((double) successes / trials) * 100) + "%";
+		System.out.println("The identification of " + applianceSrcDir.getName()
+				+ " resulted in a " + perc + " of success (" + successes + "/"
+				+ trials + ")");
 	}
 
 	private static ArrayList<PowerMeasure> loadData(File file)
