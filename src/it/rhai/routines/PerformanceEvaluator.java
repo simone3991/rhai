@@ -22,17 +22,25 @@ public class PerformanceEvaluator {
 
 	private static int successes, globalSuccesses = 0;
 	private static int trials, globalTrials = 0;
-	private static String recognized;
+	private static String globalRecognized;
+	private static int counter = 0;
 
 	@EntryPoint(id = { "-s", "-static" }, description = "returns the static performance", args = { "a dataset directory" })
 	public static void evaluateDir(String[] args) throws Exception {
 		File dir = new File(args[0]);
 		evaluateDir(dir);
-		String perc = ((double) ((double) globalSuccesses / globalTrials) * 100)
-				+ "%";
+		String perc = computePerc(globalSuccesses, globalTrials);
 		System.out.println("The overall performance computation resulted in a "
-				+ perc + " of success (" + globalSuccesses + "/" + globalTrials
-				+ ")");
+				+ perc + " of success");
+	}
+
+	@EntryPoint(id = { "-d", "-dynamic" }, description = "returns the dynamic performance", args = { "a dataset directory" })
+	public static void evaluateDirDyn(String[] args) throws Exception {
+		File dir = new File(args[0]);
+		evaluateDirDyn(dir);
+		String perc = computePerc(globalSuccesses, globalTrials);
+		System.out.println("The overall performance computation resulted in a "
+				+ perc + " of success");
 	}
 
 	private static void evaluateDir(File dir) throws Exception {
@@ -49,6 +57,23 @@ public class PerformanceEvaluator {
 			}
 		})) {
 			evaluateSingleAppliance(applianceSrcDir);
+		}
+	}
+
+	private static void evaluateDirDyn(File dir) throws Exception {
+		for (File applianceSrcDir : dir.listFiles(new FileFilter() {
+
+			@Override
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see java.io.FileFilter#accept(java.io.File)
+			 */
+			public boolean accept(File pathname) {
+				return pathname.isDirectory();
+			}
+		})) {
+			evaluateSingleApplianceDyn(applianceSrcDir);
 		}
 	}
 
@@ -71,7 +96,7 @@ public class PerformanceEvaluator {
 
 								@Override
 								public void handle(String toBeHandled) {
-									recognized = toBeHandled;
+									globalRecognized = toBeHandled;
 								}
 							}, SettingsKeeper.getSettings())));
 			int length = SettingsKeeper.getSettings().getTAbstraction()
@@ -81,15 +106,60 @@ public class PerformanceEvaluator {
 				reader.read(data.get(nextData));
 				nextData++;
 			}
-			if (appliance.equals(recognized)) {
+			if (appliance.equals(globalRecognized)) {
 				successes++;
 				globalSuccesses++;
 			}
 		}
-		String perc = ((double) ((double) successes / trials) * 100) + "%";
+		String perc = computePerc(successes, trials);
 		System.out.println("The identification of " + applianceSrcDir.getName()
 				+ " resulted in a " + perc + " of success (" + successes + "/"
 				+ trials + ")");
+	}
+
+	private static void evaluateSingleApplianceDyn(File applianceSrcDir)
+			throws Exception {
+		final String appliance = applianceSrcDir.getName();
+		int nextData;
+		successes = trials = 0;
+		for (final File dataFile : applianceSrcDir.listFiles()) {
+			counter = 0;
+			ArrayList<PowerMeasure> data = loadData(dataFile);
+			nextData = 0;
+			RedirectingReader<PowerMeasure> reader = new RedirectingReader<PowerMeasure>(
+					new AbstractorHandler<PowerMeasure, RHAILabel>(
+							new CumulativeAbstractor<RHAILabel>(
+									new JTSAAbstractor(
+											new JTSARenderedAbstractor())),
+							new Identifier(new DataHandler<String>() {
+
+								@Override
+								public void handle(String toBeHandled) {
+									counter++;
+									trials += counter * counter;
+									globalTrials += counter * counter;
+									if (appliance.equals(toBeHandled)) {
+										successes += counter * counter;
+										globalSuccesses += counter * counter;
+									}
+								}
+							}, SettingsKeeper.getSettings())));
+			int length = SettingsKeeper.getSettings().getTAbstraction()
+					/ (PowerMeasure.computeSamplingTime(data));
+			reader.setMaxLength(length);
+			while (nextData < data.size()) {
+				reader.read(data.get(nextData));
+				nextData++;
+			}
+		}
+		String perc = computePerc(successes, trials);
+		System.out.println("The identification of " + applianceSrcDir.getName()
+				+ " resulted in a " + perc + " of success");
+	}
+
+	private static String computePerc(int successes, int trials) {
+		float perc = ((float) successes / trials) * 100;
+		return String.format("%.2f", perc) + "%";
 	}
 
 	private static ArrayList<PowerMeasure> loadData(File file)
