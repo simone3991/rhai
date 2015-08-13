@@ -1,4 +1,4 @@
-package it.rhai.model;
+package it.rhai.model.algos;
 
 import it.distanciable.Distanciator;
 import it.distanciable.sequence.Sequence;
@@ -23,6 +23,16 @@ public class RealTimeDistanciator<T> implements Distanciator<Sequence<T>> {
 
 	private Sequence<T> received;
 	private Sequence<T> complete;
+	private Distanciator<Sequence<T>> distanciator;
+
+	public RealTimeDistanciator(Distanciator<Sequence<T>> distanciator) {
+		this();
+		this.distanciator = distanciator;
+	}
+
+	public RealTimeDistanciator() {
+		super();
+	}
 
 	@Override
 	/*
@@ -32,10 +42,19 @@ public class RealTimeDistanciator<T> implements Distanciator<Sequence<T>> {
 	 * java.lang.Object)
 	 */
 	public int computeDistance(Sequence<T> partial, Sequence<T> complete) {
+		Sequence<T> partOfComplete = handleParam(partial, complete);
+		if (distanciator == null) {
+			return received.distanceFrom(partOfComplete);
+		} else {
+			return distanciator.computeDistance(received, partOfComplete);
+		}
+	}
+
+	private Sequence<T> handleParam(Sequence<T> partial, Sequence<T> complete) {
 		this.complete = complete;
 		this.received = partial;
 		Sequence<T> partOfComplete = cutFutureSequenceToPresent();
-		return received.distanceFrom(partOfComplete);
+		return partOfComplete;
 	}
 
 	private Sequence<T> cutFutureSequenceToPresent() {
@@ -49,5 +68,22 @@ public class RealTimeDistanciator<T> implements Distanciator<Sequence<T>> {
 			}
 		}
 		return partOfComplete;
+	}
+
+	@Override
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * it.distanciable.Distanciator#computeMaximumDistance(java.lang.Object,
+	 * java.lang.Object)
+	 */
+	public int computeMaximumDistance(Sequence<T> partial, Sequence<T> complete) {
+		if (distanciator == null) {
+			return partial.getAbsoluteDistance();
+		} else {
+			return distanciator.computeMaximumDistance(partial,
+					handleParam(partial, complete));
+		}
 	}
 }

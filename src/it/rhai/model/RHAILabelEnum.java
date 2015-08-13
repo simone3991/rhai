@@ -2,15 +2,12 @@ package it.rhai.model;
 
 import it.distanciable.Copiable;
 import it.distanciable.Distanciable;
-import it.distanciable.Distanciator;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Properties;
 
@@ -70,7 +67,7 @@ public class RHAILabelEnum {
 		 */
 		public int distanceFrom(RHAILabel another) {
 			if (another == null) {
-				return this.getMaximumDistance();
+				return 0;
 			}
 			return Math.abs(ordinal - another.ordinal);
 		}
@@ -79,26 +76,10 @@ public class RHAILabelEnum {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see it.distanciable.Distanciable#distanceFrom(java.lang.Object,
-		 * it.distanciable.Distanciator)
+		 * @see it.distanciable.Distanciable#getAbsoluteDistance()
 		 */
-		public int distanceFrom(RHAILabel anotherLabel,
-				Distanciator<RHAILabel> distanciator) {
-			return distanciator.computeDistance(this, anotherLabel);
-		}
-
-		@Override
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see it.distanciable.Distanciable#getMaximumDistance()
-		 */
-		public int getMaximumDistance() {
-			ArrayList<Integer> list = new ArrayList<Integer>();
-			for (RHAILabel label : RHAILabelEnum.labels) {
-				list.add(label.ordinal);
-			}
-			return Collections.max(list) - Collections.min(list);
+		public int getAbsoluteDistance() {
+			return this.ordinal;
 		}
 
 		@Override
@@ -192,8 +173,8 @@ public class RHAILabelEnum {
 	}
 
 	private static String getFilePath() {
-		String path = "/home/simone/"
-				+ RHAILabelEnum.class.getSimpleName() + ".properties";
+		String path = "/home/simone/" + RHAILabelEnum.class.getSimpleName()
+				+ ".properties";
 		return path;
 	}
 

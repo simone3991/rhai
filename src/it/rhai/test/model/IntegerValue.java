@@ -2,7 +2,6 @@ package it.rhai.test.model;
 
 import it.distanciable.Copiable;
 import it.distanciable.Distanciable;
-import it.distanciable.Distanciator;
 
 public class IntegerValue implements Distanciable<IntegerValue>,
 		Copiable<IntegerValue> {
@@ -20,21 +19,15 @@ public class IntegerValue implements Distanciable<IntegerValue>,
 
 	@Override
 	public int distanceFrom(IntegerValue anotherInteger) {
-		if (anotherInteger==null) {
+		if (anotherInteger == null) {
 			return 1;
 		}
 		return Math.abs(value - anotherInteger.value);
 	}
 
 	@Override
-	public int distanceFrom(IntegerValue anotherInteger,
-			Distanciator<IntegerValue> distanciator) {
-		return distanciator.computeDistance(this, anotherInteger);
-	}
-
-	@Override
-	public int getMaximumDistance() {
-		return -1;
+	public int getAbsoluteDistance() {
+		return value;
 	}
 
 }

@@ -1,9 +1,10 @@
-package it.rhai.test.model;
+package it.rhai.test.model.algos;
 
 import static org.junit.Assert.assertTrue;
 import it.distanciable.Distanciator;
 import it.distanciable.sequence.Sequence;
-import it.rhai.model.RealTimeDistanciator;
+import it.rhai.model.algos.RealTimeDistanciator;
+import it.rhai.test.model.IntegerValue;
 
 import org.junit.Test;
 

@@ -136,11 +136,12 @@ public class PerformanceEvaluator {
 								@Override
 								public void handle(String toBeHandled) {
 									counter++;
-									trials += counter * counter;
-									globalTrials += counter * counter;
+									int weight = counter * counter;
+									trials += weight;
+									globalTrials += weight;
 									if (appliance.equals(toBeHandled)) {
-										successes += counter * counter;
-										globalSuccesses += counter * counter;
+										successes += weight;
+										globalSuccesses += weight;
 									}
 								}
 							}, SettingsKeeper.getSettings())));
