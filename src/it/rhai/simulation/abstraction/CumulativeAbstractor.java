@@ -40,16 +40,15 @@ public class CumulativeAbstractor<T extends Distanciable<T>> implements
 	 */
 	public Sequence<T> buildSequence(File data) throws IOException {
 		Sequence<T> result = abstractor.buildSequence(data);
-		Sequence<T> sequence = new Sequence<T>(this.sequence.getSequence()
-				.size() + result.getSequence().size());
-		for (T element : this.sequence.getSequence()) {
+		Sequence<T> sequence = new Sequence<T>(this.sequence.size()
+				+ result.size());
+		for (T element : this.sequence) {
 			sequence.addElement(element);
 		}
-		for (T element : result.getSequence()) {
+		for (T element : result) {
 			sequence.addElement(element);
 		}
 		this.sequence = sequence;
 		return this.sequence;
 	}
-
 }

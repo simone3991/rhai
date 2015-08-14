@@ -4,6 +4,8 @@ import it.distanciable.Distanciable;
 import it.distanciable.Distanciator;
 import it.distanciable.sequence.Sequence;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 
 /**
@@ -53,17 +55,26 @@ public class MaximumOrientedDistanciator<T> implements
 
 	private int computeMax(Sequence<T> sequence) {
 		Sequence<Distanciable<T>> goodSequence = new Sequence<Distanciable<T>>(
-				sequence.getSequence().size());
+				sequence.size());
 		castSequence(sequence, goodSequence);
-		Distanciable<T> t = Collections.max(goodSequence.getSequence(),
+		Distanciable<T> t = Collections.max(toList(goodSequence),
 				new DistanciablesComparator<T>());
 		return t != null ? t.getAbsoluteDistance() : 0;
+	}
+
+	private Collection<? extends Distanciable<T>> toList(
+			Sequence<Distanciable<T>> goodSequence) {
+		ArrayList<Distanciable<T>> list = new ArrayList<Distanciable<T>>();
+		for (Distanciable<T> distanciable : list) {
+			list.add(distanciable);
+		}
+		return list;
 	}
 
 	@SuppressWarnings("unchecked")
 	private void castSequence(Sequence<T> uncast,
 			Sequence<Distanciable<T>> casted) {
-		for (T element : uncast.getSequence()) {
+		for (T element : uncast) {
 			casted.addElement((Distanciable<T>) element);
 		}
 	}

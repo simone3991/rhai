@@ -1,6 +1,6 @@
 package it.rhai.test.gui;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import it.rhai.gui.Application;
 import it.rhai.gui.ApplicationElement;
 

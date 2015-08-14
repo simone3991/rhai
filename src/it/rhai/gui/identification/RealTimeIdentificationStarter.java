@@ -1,11 +1,11 @@
 package it.rhai.gui.identification;
 
-import java.io.File;
-
 import it.rhai.gui.Application;
 import it.rhai.gui.util.FinalLayer;
 import it.rhai.settings.RHAIPropertiesSettings;
 import it.rhai.settings.SettingsKeeper;
+
+import java.io.File;
 
 import javax.swing.UIManager;
 

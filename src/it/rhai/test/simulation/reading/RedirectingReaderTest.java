@@ -1,11 +1,10 @@
 package it.rhai.test.simulation.reading;
 
+import static org.junit.Assert.assertEquals;
 import it.rhai.simulation.reading.RedirectingReader;
 import it.rhai.util.DataHandler;
 
 import java.util.Collection;
-
-import static org.junit.Assert.*;
 
 import org.junit.Test;
 

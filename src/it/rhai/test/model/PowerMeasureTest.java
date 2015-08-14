@@ -1,10 +1,10 @@
 package it.rhai.test.model;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import it.rhai.model.PowerMeasure;
 
 import java.util.Calendar;
-
-import it.rhai.model.PowerMeasure;
 
 import org.junit.Test;
 

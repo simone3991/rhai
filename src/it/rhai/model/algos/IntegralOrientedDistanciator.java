@@ -50,7 +50,7 @@ public class IntegralOrientedDistanciator<T> implements
 	@SuppressWarnings("unchecked")
 	private int computeArea(Sequence<T> sequence) {
 		int area = 0;
-		for (T element : sequence.getSequence()) {
+		for (T element : sequence) {
 			area += element != null ? ((Distanciable<T>) element)
 					.getAbsoluteDistance() : 0;
 		}

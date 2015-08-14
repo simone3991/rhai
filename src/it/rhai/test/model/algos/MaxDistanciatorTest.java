@@ -1,6 +1,6 @@
 package it.rhai.test.model.algos;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import it.distanciable.sequence.Sequence;
 import it.rhai.model.algos.MaximumOrientedDistanciator;
 import it.rhai.test.model.IntegerValue;

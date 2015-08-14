@@ -1,7 +1,7 @@
 package it.rhai.simulation.identification;
 
-import it.distanciable.Distanciator;
 import it.distanciable.CumulativeDistanciator;
+import it.distanciable.Distanciator;
 import it.distanciable.sequence.Sequence;
 import it.distanciable.sequence.SequenceRecognizer;
 import it.rhai.model.RHAILabelEnum.RHAILabel;

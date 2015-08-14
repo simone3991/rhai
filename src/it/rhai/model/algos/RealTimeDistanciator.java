@@ -58,9 +58,8 @@ public class RealTimeDistanciator<T> implements Distanciator<Sequence<T>> {
 	}
 
 	private Sequence<T> cutFutureSequenceToPresent() {
-		Sequence<T> partOfComplete = new Sequence<T>(received.getSequence()
-				.size());
-		for (int i = 0; i < received.getSequence().size(); i++) {
+		Sequence<T> partOfComplete = new Sequence<T>(received.size());
+		for (int i = 0; i < received.size(); i++) {
 			try {
 				partOfComplete.addElement(complete.get(i));
 			} catch (IndexOutOfBoundsException e) {
