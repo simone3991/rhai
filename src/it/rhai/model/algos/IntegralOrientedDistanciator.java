@@ -4,6 +4,18 @@ import it.distanciable.Distanciable;
 import it.distanciable.Distanciator;
 import it.distanciable.sequence.Sequence;
 
+/**
+ * This implementation of {@link Distanciator} interface computes the distance
+ * between two sequences according to their integral value. Which means that two
+ * sequences "1 - 1 - 3" and "1 - 3 - 1" will be considered exactly the same by
+ * this algorithm. Please note that, to compute the integral value, sequenced
+ * element must properly implement {@link Distanciable#getAbsoluteDistance()}
+ * method: <code>null</code> values will not be accepted
+ * 
+ * @author simone
+ *
+ * @param <T>
+ */
 public class IntegralOrientedDistanciator<T> implements
 		Distanciator<Sequence<T>> {
 
