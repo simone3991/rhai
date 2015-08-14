@@ -1,11 +1,10 @@
 package it.rhai.model.algos;
 
-import java.util.Collections;
-import java.util.Comparator;
-
 import it.distanciable.Distanciable;
 import it.distanciable.Distanciator;
 import it.distanciable.sequence.Sequence;
+
+import java.util.Collections;
 
 /**
  * This implementation of {@link Distanciator} interface computes the distance
@@ -52,30 +51,20 @@ public class MaximumOrientedDistanciator<T> implements
 				: another;
 	}
 
-	@SuppressWarnings("unchecked")
 	private int computeMax(Sequence<T> sequence) {
-		Distanciable<T> t = (Distanciable<T>) Collections.max(
-				sequence.getSequence(), new Comparator<T>() {
-
-					@Override
-					public int compare(T o1, T o2) {
-						if (o1 == null && o2 != null) {
-							return -1;
-						}
-						if (o1 != null && o2 == null) {
-							return 1;
-						}
-						if (o1 == null && o2 != null) {
-							return 0;
-						}
-						Distanciable<T> x = (Distanciable<T>) o1;
-						Distanciable<T> y = (Distanciable<T>) o2;
-						return Integer
-								.valueOf(x.getAbsoluteDistance())
-								.compareTo(
-										Integer.valueOf(y.getAbsoluteDistance()));
-					}
-				});
+		Sequence<Distanciable<T>> goodSequence = new Sequence<Distanciable<T>>(
+				sequence.getSequence().size());
+		castSequence(sequence, goodSequence);
+		Distanciable<T> t = Collections.max(goodSequence.getSequence(),
+				new DistanciablesComparator<T>());
 		return t != null ? t.getAbsoluteDistance() : 0;
+	}
+
+	@SuppressWarnings("unchecked")
+	private void castSequence(Sequence<T> uncast,
+			Sequence<Distanciable<T>> casted) {
+		for (T element : uncast.getSequence()) {
+			casted.addElement((Distanciable<T>) element);
+		}
 	}
 }
