@@ -5,7 +5,6 @@ import it.distanciable.Distanciator;
 import it.distanciable.sequence.Sequence;
 import it.distanciable.sequence.SequenceRecognizer;
 import it.rhai.model.RHAILabelEnum.RHAILabel;
-import it.rhai.model.algos.IntegralOrientedDistanciator;
 import it.rhai.model.algos.MaximumOrientedDistanciator;
 import it.rhai.model.algos.RealTimeDistanciator;
 import it.rhai.settings.RHAIdentificationSettings;
@@ -22,7 +21,7 @@ public class Identifier implements DataHandler<Sequence<RHAILabel>> {
 			new RealTimeDistanciator<RHAILabel>(),
 			new RealTimeDistanciator<RHAILabel>(
 					new CumulativeDistanciator<Sequence<RHAILabel>>(
-							new IntegralOrientedDistanciator<RHAILabel>(),
+					// new IntegralOrientedDistanciator<RHAILabel>(),
 							new MaximumOrientedDistanciator<RHAILabel>())));
 
 	public Identifier(DataHandler<String> outputDisplayer,

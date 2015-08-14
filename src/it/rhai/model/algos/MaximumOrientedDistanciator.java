@@ -5,7 +5,6 @@ import it.distanciable.Distanciator;
 import it.distanciable.sequence.Sequence;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 /**
@@ -62,10 +61,10 @@ public class MaximumOrientedDistanciator<T> implements
 		return t != null ? t.getAbsoluteDistance() : 0;
 	}
 
-	private Collection<? extends Distanciable<T>> toList(
+	private ArrayList<Distanciable<T>> toList(
 			Sequence<Distanciable<T>> goodSequence) {
 		ArrayList<Distanciable<T>> list = new ArrayList<Distanciable<T>>();
-		for (Distanciable<T> distanciable : list) {
+		for (Distanciable<T> distanciable : goodSequence) {
 			list.add(distanciable);
 		}
 		return list;
