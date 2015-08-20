@@ -1,5 +1,5 @@
-- implement a separated-thread behavior for it.rhai.simulation.* routines, in order to ensure a correct computation in critical situations (long delays in abstraction / identification)
+- implement a separated-thread architecture for it.rhai.simulation.* 
+	routines, in order to ensure a correct behavior in critical 
+	situations (long delays in abstraction / identification)
 
-- implement a DoubleBuffer<T> in it.rhai.util. Let it.rhai.simulation handlers use this stack to avoid missing data
-
-- 
+- let it.rhai.simulation handlers use it.rhai.util.DoubleBuffer to avoid missing data
