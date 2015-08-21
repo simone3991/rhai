@@ -1,13 +1,13 @@
 package it.rhai.test.util;
 
-import it.rhai.util.DoubleBuffer;
+import it.rhai.util.FIFOQueue;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
 public class DoubleBufferTest {
 
-	DoubleBuffer<Object> buffer = new DoubleBuffer<Object>();
+	FIFOQueue<Object> buffer = new FIFOQueue<Object>();
 	Object ob1 = new Object();
 	Object ob2 = new Object();
 	Object ob3 = new Object();
@@ -29,5 +29,4 @@ public class DoubleBufferTest {
 		assertEquals(1, buffer.size());
 		assertEquals(ob3, buffer.nextElement());
 	}
-
 }

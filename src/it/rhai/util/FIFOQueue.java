@@ -4,16 +4,16 @@ import java.util.ArrayList;
 
 /**
  * This class provides a simple object to perform producer-consumer operations.
- * This buffer allows to be add produced element and to get the next to be
- * consumed element consumed. Hence, this buffer implements a first in first out
- * logic. To avoid critical races during buffer operations (add or get), theese
- * methods are synchronized
+ * This queue allows to add produced elements and to get the next element to be
+ * consumed. Hence, this buffer implements a first in first out logic. To avoid
+ * critical races during buffer operations (add or get), theese methods are
+ * synchronized
  * 
  * @author simone
  *
  * @param <T>
  */
-public class DoubleBuffer<T> {
+public class FIFOQueue<T> {
 
 	private ArrayList<T> buffer = new ArrayList<T>();
 

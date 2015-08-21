@@ -12,6 +12,16 @@ import it.rhai.util.DataHandler;
 
 import java.util.ArrayList;
 
+/**
+ * This implementation of {@link DataHandler} interface handles a
+ * {@link Sequence} of {@link RHAILabel} instances by merging it into the
+ * most-likely active appliance described by that sequence. The effective
+ * handling of that appliance (a simple String) is left to an other instance of
+ * {@link DataHandler}.
+ * 
+ * @author simone
+ *
+ */
 public class Identifier implements DataHandler<Sequence<RHAILabel>> {
 
 	private SequenceRecognizer<RHAILabel> recognizer;
@@ -24,11 +34,21 @@ public class Identifier implements DataHandler<Sequence<RHAILabel>> {
 					// new IntegralOrientedDistanciator<RHAILabel>(),
 							new MaximumOrientedDistanciator<RHAILabel>())));
 
+	/**
+	 * Creates a new instance of this class, with a given output handler for
+	 * produced results
+	 * 
+	 * @param outputDisplayer
+	 *            : the instance of {@link DataHandler} that will be responsible
+	 *            for outputs
+	 * @param environment
+	 *            : the {@link RHAIdentificationSettings} environment where
+	 *            needed informations will be take from
+	 */
 	public Identifier(DataHandler<String> outputDisplayer,
 			RHAIdentificationSettings environment) {
 		this.outputDisplayer = outputDisplayer;
-		this.recognizer = new SequenceRecognizer<RHAILabel>(
-				this.distanciator);
+		this.recognizer = new SequenceRecognizer<RHAILabel>(this.distanciator);
 		recognizer.save((ArrayList<Sequence<RHAILabel>>) environment.getLib());
 		this.environment = environment;
 	}
@@ -56,5 +76,4 @@ public class Identifier implements DataHandler<Sequence<RHAILabel>> {
 		dataReceived.add(data);
 		recognizer.receiveMessage(dataReceived);
 	}
-
 }

@@ -54,7 +54,7 @@ public class AbstractorHandler<T, K> implements DataHandler<Collection<T>> {
 	 * 
 	 * @see it.rhai.reading.DataHandler#handle(java.lang.Object)
 	 */
-	public void handle(Collection<T> data) {
+	public synchronized void handle(Collection<T> data) {
 		try {
 			Sequence<K> sequence = abstractor
 					.buildSequence(writeCollection(data));
@@ -64,7 +64,8 @@ public class AbstractorHandler<T, K> implements DataHandler<Collection<T>> {
 		}
 	}
 
-	private File writeCollection(Collection<T> data) throws IOException {
+	private File writeCollection(Collection<T> data)
+			throws IOException {
 		File file = new File(TMP_FILENAME);
 		BufferedWriter writer = new BufferedWriter(new FileWriter(file, false));
 		for (T element : data) {
