@@ -1,49 +1,46 @@
 package it.rhai.util;
 
-import java.io.Closeable;
+public class SeparatedThreadHandler<T> extends ConsumerHandler<T> {
 
-public class SeparatedThreadHandler<T> implements DataHandler<T>, Closeable {
-
-	private boolean threadStarted = false;
-	private boolean closed = false;
-	private boolean running = false;
-	private FIFOQueue<T> queue = new FIFOQueue<T>();
+	private boolean waitingForData = true;
+	boolean isRunning = false;
 	private DataHandler<T> handlerOut;
-	private Thread handlerThread;
+	Thread handlerThread = new Thread(new Runnable() {
 
-	public SeparatedThreadHandler(String name, DataHandler<T> effectiveHandler) {
-		this.handlerOut = effectiveHandler;
-		this.handlerThread = new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				while (queue.size() == 0) {
-					if (closed) {
-						handlerThread.interrupt();
-						running = false;
+		@Override
+		public synchronized void run() {
+			while (isRunning) {
+				while (dataSource.size() == 0 && isRunning) {
+					if (!waitingForData) {
+						isRunning = false;
 					}
 				}
-				handlerOut.handle(queue.nextElement());
+				if (isRunning) {
+					handlerOut.handle(dataSource.nextElement());
+				}
 			}
-		}, name);
-	}
-
-	@Override
-	public void handle(T toBeHandled) {
-		queue.addElement(toBeHandled);
-		if (!threadStarted) {
-			threadStarted = true;
-			running = true;
-			handlerThread.start();
 		}
+	});
+
+	public SeparatedThreadHandler(DataHandler<T> effectiveHandler) {
+		this.handlerOut = effectiveHandler;
 	}
 
-	@Override
-	public void close() {
-		closed = true;
+	public synchronized void close() {
+		this.waitingForData = false;
 	}
 
 	public boolean isRunning() {
-		return running;
+		try {
+			Thread.sleep(1);
+		} catch (InterruptedException e) {
+		}
+		return isRunning;
+	}
+
+	@Override
+	protected void handleQueue() {
+		isRunning = true;
+		handlerThread.start();
 	}
 }

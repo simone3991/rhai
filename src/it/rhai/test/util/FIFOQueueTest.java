@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class DoubleBufferTest {
+public class FIFOQueueTest {
 
 	FIFOQueue<Object> buffer = new FIFOQueue<Object>();
 	Object ob1 = new Object();

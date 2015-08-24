@@ -47,7 +47,7 @@ public class RedirectingReader<T> implements Reader<T> {
 	 * @see it.rhai.reading.Reader#read(T)
 	 */
 	@Override
-	public synchronized void read(T value) {
+	public void read(T value) {
 		data.add(value);
 		if (data.size() == maxLength) {
 			handler.handle(data);

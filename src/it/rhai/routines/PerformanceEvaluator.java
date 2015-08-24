@@ -11,7 +11,6 @@ import it.rhai.simulation.abstraction.JTSARenderedAbstractor;
 import it.rhai.simulation.identification.Identifier;
 import it.rhai.simulation.reading.RedirectingReader;
 import it.rhai.util.DataHandler;
-import it.rhai.util.SeparatedThreadHandler;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -99,13 +98,10 @@ public class PerformanceEvaluator {
 						}
 					}, SettingsKeeper.getSettings());
 
-			SeparatedThreadHandler<Collection<PowerMeasure>> RHAIHandler = new SeparatedThreadHandler<Collection<PowerMeasure>>(
-					"rhai-thread",
-					new AbstractorHandler<PowerMeasure, RHAILabel>(
-							new CumulativeAbstractor<RHAILabel>(
-									new JTSAAbstractor(
-											new JTSARenderedAbstractor())),
-							identificationHandler));
+			DataHandler<Collection<PowerMeasure>> RHAIHandler = new AbstractorHandler<PowerMeasure, RHAILabel>(
+					new CumulativeAbstractor<RHAILabel>(new JTSAAbstractor(
+							new JTSARenderedAbstractor())),
+					identificationHandler);
 
 			RedirectingReader<PowerMeasure> reader = new RedirectingReader<PowerMeasure>(
 					RHAIHandler);
@@ -116,9 +112,6 @@ public class PerformanceEvaluator {
 				reader.read(data.get(nextData));
 				nextData++;
 			}
-			RHAIHandler.close();
-			while (RHAIHandler.isRunning())
-				; // waits for rhai routines to finish
 			if (appliance.equals(globalRecognized)) {
 				successes++;
 				globalSuccesses++;
