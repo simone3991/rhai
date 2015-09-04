@@ -1,8 +1,10 @@
-package it.rhai.util;
+package it.rhai.util.concurrent;
+
+import it.rhai.util.DataHandler;
 
 public class ProducerHandler<T> implements DataHandler<T> {
 
-	private FIFOQueue<T> queue = new FIFOQueue<T>();
+	private SynchronizedQueue<T> queue = new SynchronizedQueue<T>();
 
 	public ProducerHandler(ConsumerHandler<T> handler) {
 		handler.handle(queue);

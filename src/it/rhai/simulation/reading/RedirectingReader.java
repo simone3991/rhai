@@ -55,4 +55,10 @@ public class RedirectingReader<T> implements Reader<T> {
 		}
 		counter++;
 	}
+
+	public void close() {
+		if (data.size() > 0) {
+			handler.handle(data);
+		}
+	}
 }

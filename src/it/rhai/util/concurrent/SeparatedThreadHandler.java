@@ -1,4 +1,6 @@
-package it.rhai.util;
+package it.rhai.util.concurrent;
+
+import it.rhai.util.DataHandler;
 
 public class SeparatedThreadHandler<T> extends ConsumerHandler<T> {
 
@@ -8,17 +10,25 @@ public class SeparatedThreadHandler<T> extends ConsumerHandler<T> {
 	Thread handlerThread = new Thread(new Runnable() {
 
 		@Override
-		public synchronized void run() {
-			while (isRunning) {
-				while (dataSource.size() == 0 && isRunning) {
-					if (!waitingForData) {
-						isRunning = false;
+		public void run() {
+			synchronized (dataSource) {
+				while (true) {
+					if (dataSource.size() != 0) {
+						handlerOut.handle(dataSource.nextElement());
+					} else {
+						if (waitingForData) {
+							try {
+								dataSource.wait();
+								continue;
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+						}
+						break;
 					}
 				}
-				if (isRunning) {
-					handlerOut.handle(dataSource.nextElement());
-				}
 			}
+			isRunning = false;
 		}
 	});
 
@@ -26,15 +36,11 @@ public class SeparatedThreadHandler<T> extends ConsumerHandler<T> {
 		this.handlerOut = effectiveHandler;
 	}
 
-	public synchronized void close() {
+	public void close() {
 		this.waitingForData = false;
 	}
 
 	public boolean isRunning() {
-		try {
-			Thread.sleep(1);
-		} catch (InterruptedException e) {
-		}
 		return isRunning;
 	}
 

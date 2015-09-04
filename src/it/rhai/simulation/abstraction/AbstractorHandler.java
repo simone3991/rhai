@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * This implementation of {@link DataHandler} interface represents an
@@ -54,22 +55,23 @@ public class AbstractorHandler<T, K> implements DataHandler<Collection<T>> {
 	 * 
 	 * @see it.rhai.reading.DataHandler#handle(java.lang.Object)
 	 */
-	public synchronized void handle(Collection<T> data) {
+	public void handle(Collection<T> data) {
 		try {
 			Sequence<K> sequence = abstractor
-					.buildSequence(writeCollection(data));
+					.buildSequence(writeCollection(new CopyOnWriteArrayList<T>(
+							data)));
 			this.handlerOut.handle(sequence);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private File writeCollection(Collection<T> data)
+	private synchronized File writeCollection(Collection<T> data)
 			throws IOException {
 		File file = new File(TMP_FILENAME);
 		BufferedWriter writer = new BufferedWriter(new FileWriter(file, false));
 		for (T element : data) {
-			writer.write(element.toString());
+			writer.write(element != null ? element.toString() : "null");
 			writer.newLine();
 		}
 		writer.close();

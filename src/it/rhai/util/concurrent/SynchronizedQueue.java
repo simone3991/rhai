@@ -1,6 +1,6 @@
-package it.rhai.util;
+package it.rhai.util.concurrent;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * This class provides a simple object to perform producer-consumer operations.
@@ -13,9 +13,9 @@ import java.util.ArrayList;
  *
  * @param <T>
  */
-public class FIFOQueue<T> {
+public class SynchronizedQueue<T> {
 
-	private ArrayList<T> buffer = new ArrayList<T>();
+	private LinkedList<T> buffer = new LinkedList<T>();
 
 	/**
 	 * Add an element on this buffer
@@ -26,7 +26,13 @@ public class FIFOQueue<T> {
 	 *          place or not
 	 */
 	public synchronized boolean addElement(T element) {
-		return buffer.add(element);
+		boolean offer = buffer.offer(element);
+		synchronized (this) {
+			if (buffer.size() == 1) {
+				super.notifyAll();
+			}
+		}
+		return offer;
 	}
 
 	/**
@@ -36,23 +42,10 @@ public class FIFOQueue<T> {
 	 * @return: the next element of this buffer to be used
 	 */
 	public synchronized T nextElement() {
-		T element = null;
-		if (this.size() > 0) {
-			element = buffer.get(0);
-			this.shift();
-		}
-		return element;
+		return buffer.pollFirst();
 	}
 
 	public int size() {
 		return buffer.size();
-	}
-
-	private void shift() {
-		ArrayList<T> shifted = new ArrayList<T>();
-		for (int i = 1; i < this.size(); i++) {
-			shifted.add(buffer.get(i));
-		}
-		buffer = shifted;
 	}
 }

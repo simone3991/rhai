@@ -1,8 +1,8 @@
 package it.rhai.test.util;
 
 import it.rhai.util.DataHandler;
-import it.rhai.util.ProducerHandler;
-import it.rhai.util.SeparatedThreadHandler;
+import it.rhai.util.concurrent.ProducerHandler;
+import it.rhai.util.concurrent.SeparatedThreadHandler;
 
 import org.junit.Test;
 
@@ -13,12 +13,7 @@ public class ProducerConsumerTest {
 
 				@Override
 				public void handle(Integer toBeHandled) {
-					try {
-						Thread.sleep(10);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-					System.out.println("handling " + toBeHandled);
+					System.out.println("handled " + toBeHandled);
 				}
 			});
 	ProducerHandler<Integer> producer = new ProducerHandler<Integer>(consumer);
@@ -27,13 +22,8 @@ public class ProducerConsumerTest {
 	@Test
 	public void test() {
 		for (int i : array) {
-			try {
-				Thread.sleep(5);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
 			producer.handle(i);
-			System.out.println("producing " + i);
+			System.out.println("produced " + i);
 		}
 		consumer.close();
 		while (consumer.isRunning())

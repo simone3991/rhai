@@ -1,13 +1,13 @@
 package it.rhai.test.util;
 
-import it.rhai.util.FIFOQueue;
+import it.rhai.util.concurrent.SynchronizedQueue;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
 public class FIFOQueueTest {
 
-	FIFOQueue<Object> buffer = new FIFOQueue<Object>();
+	SynchronizedQueue<Object> buffer = new SynchronizedQueue<Object>();
 	Object ob1 = new Object();
 	Object ob2 = new Object();
 	Object ob3 = new Object();

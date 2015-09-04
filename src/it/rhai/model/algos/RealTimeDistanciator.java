@@ -42,7 +42,7 @@ public class RealTimeDistanciator<T> implements Distanciator<Sequence<T>> {
 	 * java.lang.Object)
 	 */
 	public int computeDistance(Sequence<T> partial, Sequence<T> complete) {
-		Sequence<T> partOfComplete = handleParam(partial, complete);
+		Sequence<T> partOfComplete = partOfComplete(partial, complete);
 		if (distanciator == null) {
 			return received.distanceFrom(partOfComplete);
 		} else {
@@ -50,7 +50,7 @@ public class RealTimeDistanciator<T> implements Distanciator<Sequence<T>> {
 		}
 	}
 
-	private Sequence<T> handleParam(Sequence<T> partial, Sequence<T> complete) {
+	private Sequence<T> partOfComplete(Sequence<T> partial, Sequence<T> complete) {
 		this.complete = complete;
 		this.received = partial;
 		Sequence<T> partOfComplete = cutFutureSequenceToPresent();
@@ -82,7 +82,7 @@ public class RealTimeDistanciator<T> implements Distanciator<Sequence<T>> {
 			return partial.getAbsoluteDistance();
 		} else {
 			return distanciator.computeMaximumDistance(partial,
-					handleParam(partial, complete));
+					partOfComplete(partial, complete));
 		}
 	}
 }
