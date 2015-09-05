@@ -1,5 +1,8 @@
-package it.rhai.routines;
+package it.rhai.routines.entries.identification;
 
+import it.rhai.routines.EntryPoint;
+import it.rhai.routines.HelpPrinter;
+import it.rhai.routines.entries.RHAI;
 import it.rhai.util.DataHandler;
 
 import java.io.File;

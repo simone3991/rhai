@@ -1,5 +1,7 @@
-package it.rhai.routines;
+package it.rhai.routines.entries.training;
 
+import it.rhai.routines.EntryPoint;
+import it.rhai.routines.HelpPrinter;
 import it.rhai.simulation.ApplianceAdder;
 
 import java.io.File;

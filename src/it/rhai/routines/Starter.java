@@ -43,7 +43,7 @@ public class Starter {
 			} else {
 				System.out
 						.println("Welcome to the Running Household Appliances Identifier");
-				System.out.println("Theese are the vailable commands:");
+				System.out.println("Theese are the available commands:");
 				Enumeration<Object> keys = config.keys();
 				while (keys.hasMoreElements()) {
 					String key = (String) keys.nextElement();
