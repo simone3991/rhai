@@ -31,7 +31,7 @@ public class ProducerHandler<T> implements DataHandler<T> {
 	 * @see it.rhai.util.DataHandler#handle(java.lang.Object)
 	 */
 	public void handle(T toBeHandled) {
-		queue.addElement(toBeHandled);
+		queue.add(toBeHandled);
 	}
 
 }

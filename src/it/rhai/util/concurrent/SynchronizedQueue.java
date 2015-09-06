@@ -25,27 +25,40 @@ public class SynchronizedQueue<T> {
 	 * @return: a logic value, as a flag to indicate whether the addition took
 	 *          place or not
 	 */
-	public synchronized boolean addElement(T element) {
+	public synchronized boolean add(T element) {
 		boolean offer = buffer.offer(element);
-		synchronized (this) {
-			if (buffer.size() == 1) {
-				super.notifyAll();
-			}
+		if (buffer.size() == 1) {
+			super.notifyAll();
 		}
 		return offer;
 	}
 
 	/**
 	 * Returns the next element to be used in this buffer, that meaning the
-	 * oldest one
+	 * oldest one. This method removes the element from the queue
 	 * 
 	 * @return: the next element of this buffer to be used
 	 */
-	public synchronized T nextElement() {
+	public synchronized T next() {
 		return buffer.pollFirst();
 	}
 
-	public int size() {
+	/**
+	 * Returns the next element to be used in this buffer, that meaning the
+	 * oldest one. This method does not remove the element
+	 * 
+	 * @return: the next element of this buffer to be used
+	 */
+	public T seeNext() {
+		return buffer.peekFirst();
+	}
+
+	/**
+	 * Returns the number of pending elements currently into this queue
+	 * 
+	 * @return: the number of elements in this queue
+	 */
+	public int awaitingSize() {
 		return buffer.size();
 	}
 }

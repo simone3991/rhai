@@ -26,8 +26,8 @@ public class SeparatedThreadHandler<T> extends ConsumerHandler<T> {
 		public void run() {
 			synchronized (dataSource) {
 				while (true) {
-					if (dataSource.size() != 0) {
-						handlerOut.handle(dataSource.nextElement());
+					if (dataSource.awaitingSize() != 0) {
+						handlerOut.handle(dataSource.next());
 					} else {
 						if (waitingForData) {
 							try {

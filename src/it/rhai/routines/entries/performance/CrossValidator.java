@@ -3,51 +3,47 @@ package it.rhai.routines.entries.performance;
 import it.rhai.routines.entries.RHAI;
 import it.rhai.util.DataHandler;
 import it.rhai.util.DirectoryOnlyFilter;
-import it.rhai.util.StringCouple;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 
-public class CrossValidator {
+public class CrossValidator extends Evaluator {
 
 	private static String globalRecognized;
-	private static HashMap<StringCouple, Integer> crossMap = new HashMap<StringCouple, Integer>();
+	private static int counter;
+	private static HashMap<String, HashMap<String, Integer>> crossMap = new HashMap<String, HashMap<String, Integer>>();
 
 	public static void validate(File dir, DataHandler<String> logger)
 			throws IOException {
 		crossValidate(dir);
-		printCrossResult();
-	}
-
-	private static void printCrossResult() {
-		ArrayList<StringCouple> errors = new ArrayList<StringCouple>();
-		errors.addAll(crossMap.keySet());
-		Collections.sort(errors);
-		if (errors.isEmpty()) {
-			System.out.println("Each appliance has been correctly recognized");
-			return;
-		}
-		System.out.println("Theese are the detected errors:");
-		for (StringCouple couple : errors) {
-			System.out.println("The appliance '" + couple.getFirst()
-					+ "' was identified as a '" + couple.getSecond() + "' "
-					+ crossMap.get(couple) + " times");
-		}
 	}
 
 	private static void crossValidate(File dir) throws IOException {
 		for (File applianceSrcDir : dir.listFiles(new DirectoryOnlyFilter())) {
+			counter = 0;
 			crossValidateSingleAppliance(applianceSrcDir);
+			String real = applianceSrcDir.getName();
+			printApplianceResult(real);
+		}
+	}
+
+	private static void printApplianceResult(String real) {
+		HashMap<String, Integer> map = crossMap.get(real);
+		for (String recognized : map.keySet()) {
+			System.out.println("The validation of '" + real + "' over '"
+					+ recognized + "' resulted in a "
+					+ computePerc(map.get(recognized), counter)
+					+ " of failed identifications");
 		}
 	}
 
 	private static void crossValidateSingleAppliance(File applianceSrcDir)
 			throws IOException {
 		String appliance = applianceSrcDir.getName();
+		crossMap.put(appliance, new HashMap<String, Integer>());
 		for (File dataFile : applianceSrcDir.listFiles()) {
+			counter++;
 			RHAI.identifyAppliance(dataFile, new DataHandler<String>() {
 
 				@Override
@@ -55,13 +51,12 @@ public class CrossValidator {
 					globalRecognized = toBeHandled;
 				}
 			});
+			if (!crossMap.get(appliance).containsKey(globalRecognized)) {
+				crossMap.get(appliance).put(globalRecognized, 0);
+			}
 			if (!globalRecognized.equals(appliance)) {
-				StringCouple couple = new StringCouple(appliance,
-						globalRecognized);
-				if (!crossMap.containsKey(couple)) {
-					crossMap.put(couple, 0);
-				}
-				crossMap.put(couple, crossMap.get(couple) + 1);
+				crossMap.get(appliance).put(globalRecognized,
+						crossMap.get(appliance).get(globalRecognized) + 1);
 			}
 		}
 	}

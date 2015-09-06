@@ -14,19 +14,19 @@ public class FIFOQueueTest {
 
 	@Test
 	public void testAdd() {
-		buffer.addElement(ob1);
-		buffer.addElement(ob2);
-		assertEquals(2, buffer.size());
+		buffer.add(ob1);
+		buffer.add(ob2);
+		assertEquals(2, buffer.awaitingSize());
 	}
 
 	@Test
 	public void testGet() {
-		buffer.addElement(ob1);
-		buffer.addElement(ob2);
-		buffer.addElement(ob3);
-		assertEquals(ob1, buffer.nextElement());
-		assertEquals(ob2, buffer.nextElement());
-		assertEquals(1, buffer.size());
-		assertEquals(ob3, buffer.nextElement());
+		buffer.add(ob1);
+		buffer.add(ob2);
+		buffer.add(ob3);
+		assertEquals(ob1, buffer.next());
+		assertEquals(ob2, buffer.next());
+		assertEquals(1, buffer.awaitingSize());
+		assertEquals(ob3, buffer.next());
 	}
 }
