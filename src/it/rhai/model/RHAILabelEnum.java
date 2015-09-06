@@ -67,7 +67,7 @@ public class RHAILabelEnum {
 		 */
 		public int distanceFrom(RHAILabel another) {
 			if (another == null) {
-				return 0;
+				return this.getAbsoluteDistance();
 			}
 			return Math.abs(ordinal - another.ordinal);
 		}

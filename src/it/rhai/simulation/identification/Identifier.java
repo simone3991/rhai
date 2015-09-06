@@ -1,11 +1,9 @@
 package it.rhai.simulation.identification;
 
-import it.distanciable.CumulativeDistanciator;
 import it.distanciable.Distanciator;
 import it.distanciable.sequence.Sequence;
 import it.distanciable.sequence.SequenceRecognizer;
 import it.rhai.model.RHAILabelEnum.RHAILabel;
-import it.rhai.model.algos.MaximumOrientedDistanciator;
 import it.rhai.model.algos.RealTimeDistanciator;
 import it.rhai.settings.RHAIdentificationSettings;
 import it.rhai.util.DataHandler;
@@ -27,12 +25,7 @@ public class Identifier implements DataHandler<Sequence<RHAILabel>> {
 	private SequenceRecognizer<RHAILabel> recognizer;
 	private DataHandler<String> outputDisplayer;
 	private RHAIdentificationSettings environment;
-	private Distanciator<Sequence<RHAILabel>> distanciator = new CumulativeDistanciator<Sequence<RHAILabel>>(
-			new RealTimeDistanciator<RHAILabel>(),
-			new RealTimeDistanciator<RHAILabel>(
-					new CumulativeDistanciator<Sequence<RHAILabel>>(
-					// new IntegralOrientedDistanciator<RHAILabel>(),
-							new MaximumOrientedDistanciator<RHAILabel>())));
+	private Distanciator<Sequence<RHAILabel>> distanciator = new RealTimeDistanciator<RHAILabel>();
 
 	/**
 	 * Creates a new instance of this class, with a given output handler for

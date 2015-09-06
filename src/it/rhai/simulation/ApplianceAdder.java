@@ -73,7 +73,7 @@ public class ApplianceAdder {
 		}
 		BufferedWriter writer = new BufferedWriter(new FileWriter(new File(
 				SettingsKeeper.getSettings().getRHAIroot() + "/" + "data/lib/"
-						+ dir.getName() + "/" + name + ".dat")));
+						+ dir.getName() + "/" + name + ".lib")));
 		writer.write(sequence.toString());
 		writer.close();
 	}

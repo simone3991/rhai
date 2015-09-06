@@ -26,7 +26,9 @@ public class DataSetCreator {
 		})) {
 			for (File dataFile : applianceSrcDir.listFiles()) {
 				ApplianceAdder adder = new ApplianceAdder();
-				adder.addAppliance(dataFile.getName(),
+				adder.addAppliance(
+						dataFile.getName().substring(0,
+								dataFile.getName().lastIndexOf(".")),
 						applianceSrcDir.getName(), dataFile, null);
 			}
 		}

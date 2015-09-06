@@ -31,10 +31,12 @@ public class CrossValidator extends Evaluator {
 	private static void printApplianceResult(String real) {
 		HashMap<String, Integer> map = crossMap.get(real);
 		for (String recognized : map.keySet()) {
-			System.out.println("The validation of '" + real + "' over '"
-					+ recognized + "' resulted in a "
-					+ computePerc(map.get(recognized), counter)
-					+ " of failed identifications");
+			if (!real.equals(recognized)) {
+				System.out.println("The validation of " + real + " over "
+						+ recognized + " resulted in a "
+						+ computePerc(map.get(recognized), counter)
+						+ " of failed identifications");
+			}
 		}
 	}
 
@@ -54,7 +56,7 @@ public class CrossValidator extends Evaluator {
 			if (!crossMap.get(appliance).containsKey(globalRecognized)) {
 				crossMap.get(appliance).put(globalRecognized, 0);
 			}
-			if (!globalRecognized.equals(appliance)) {
+			if (!appliance.equals(globalRecognized)) {
 				crossMap.get(appliance).put(globalRecognized,
 						crossMap.get(appliance).get(globalRecognized) + 1);
 			}
