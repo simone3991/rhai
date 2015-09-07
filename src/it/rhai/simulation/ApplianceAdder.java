@@ -12,11 +12,11 @@ import it.rhai.simulation.reading.RedirectingReader;
 import it.rhai.util.DataHandler;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
@@ -71,10 +71,14 @@ public class ApplianceAdder {
 		if ((!dir.exists()) || !(dir.isDirectory())) {
 			dir.mkdirs();
 		}
-		BufferedWriter writer = new BufferedWriter(new FileWriter(new File(
-				SettingsKeeper.getSettings().getRHAIroot() + "/" + "data/lib/"
-						+ dir.getName() + "/" + name + ".lib")));
-		writer.write(sequence.toString());
+		ObjectOutputStream writer = new ObjectOutputStream(
+				new FileOutputStream(new File(SettingsKeeper.getSettings()
+						.getRHAIroot()
+						+ "/"
+						+ "data/lib/"
+						+ dir.getName()
+						+ "/" + name + ".lib")));
+		writer.writeObject(sequence);
 		writer.close();
 	}
 

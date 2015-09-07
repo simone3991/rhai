@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Properties;
@@ -39,8 +40,9 @@ public class RHAILabelEnum {
 	 *
 	 */
 	public static final class RHAILabel implements Distanciable<RHAILabel>,
-			Copiable<RHAILabel> {
+			Copiable<RHAILabel>, Serializable {
 
+		private static final long serialVersionUID = -2899849220569391395L;
 		private int ordinal;
 		private String name;
 

@@ -1,18 +1,16 @@
 package it.rhai.settings;
 
 import it.distanciable.sequence.Sequence;
-import it.rhai.model.RHAILabelEnum;
 import it.rhai.model.RHAILabelEnum.RHAILabel;
 import it.rhai.util.DataHandler;
 import it.rhai.util.Loggers;
 
 import java.awt.Image;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -39,10 +37,10 @@ public class RHAIPropertiesSettings implements RHAISettings {
 	public RHAIPropertiesSettings(File settings) {
 		try {
 			this.loadParameters(settings);
-		} catch (IOException e) {
+			this.loadLib();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		this.loadLib();
 	}
 
 	@Override
@@ -92,7 +90,7 @@ public class RHAIPropertiesSettings implements RHAISettings {
 		return null;
 	}
 
-	private void loadLib() {
+	private void loadLib() throws ClassNotFoundException {
 		File directory = new File(
 				identificationProperties.getProperty("lib-root"));
 		for (File subDir : directory.listFiles(new FileFilter() {
@@ -122,24 +120,14 @@ public class RHAIPropertiesSettings implements RHAISettings {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	private Sequence<RHAILabel> getSequenceFromFile(File file)
-			throws IOException {
-		BufferedReader reader = new BufferedReader(new FileReader(file));
-		String line = reader.readLine();
+			throws IOException, ClassNotFoundException {
+		ObjectInputStream reader = new ObjectInputStream(new FileInputStream(
+				file));
+		Sequence<RHAILabel> sequence = (Sequence<RHAILabel>) reader
+				.readObject();
 		reader.close();
-		return toSequence(line);
-	}
-
-	private Sequence<RHAILabel> toSequence(String line) {
-		String[] elements = line.trim().split("-");
-		Sequence<RHAILabel> sequence = new Sequence<RHAILabel>(elements.length);
-		for (String string : elements) {
-			try {
-				sequence.addElement(RHAILabelEnum.valueOf(string.trim()));
-			} catch (IllegalArgumentException exception) {
-				exception.printStackTrace();
-			}
-		}
 		return sequence;
 	}
 
