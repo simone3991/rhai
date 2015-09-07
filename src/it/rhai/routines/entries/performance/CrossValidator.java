@@ -30,13 +30,19 @@ public class CrossValidator extends Evaluator {
 
 	private static void printApplianceResult(String real) {
 		HashMap<String, Integer> map = crossMap.get(real);
+		boolean failure = false;
 		for (String recognized : map.keySet()) {
 			if (!real.equals(recognized)) {
+				failure = true;
 				System.out.println("The validation of " + real + " over "
 						+ recognized + " resulted in a "
 						+ computePerc(map.get(recognized), counter)
 						+ " of failed identifications");
 			}
+		}
+		if (!failure) {
+			System.out.println("No failure has been detected for appliance: "
+					+ real);
 		}
 	}
 

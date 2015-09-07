@@ -21,7 +21,7 @@ public class PerformanceEvaluator {
 		DynamicPerformanceEvaluator.evaluate(dir, Loggers.getLogger("stdout"));
 	}
 
-	@EntryPoint(args = { "a dataset directory" }, description = "returns the cross-validation", id = {
+	@EntryPoint(args = { "a dataset directory" }, description = "returns the cross-validation results", id = {
 			"-c", "-cross" })
 	public static void crossValidates(String[] args) throws IOException {
 		File dir = new File(args[0]);
@@ -32,6 +32,6 @@ public class PerformanceEvaluator {
 	public static void printHelp(Object[] args) {
 		HelpPrinter
 				.print("Welcome to RHAI validation system: it allows to evaluate RHAI general performances",
-						PerformanceEvaluator.class);
+						PerformanceEvaluator.class, Loggers.getLogger("stdout"));
 	}
 }
