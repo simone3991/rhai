@@ -146,4 +146,8 @@ public class TestSettings implements RHAISettings {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void setMinimumLikelihood(double likelihood) {
+	}
 }

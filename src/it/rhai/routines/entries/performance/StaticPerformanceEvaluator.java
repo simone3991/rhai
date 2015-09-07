@@ -6,7 +6,7 @@ import it.rhai.util.DirectoryOnlyFilter;
 
 import java.io.File;
 
-public class StaticPerformanceEvaluator extends Evaluator {
+public class StaticPerformanceEvaluator extends PerformanceEvaluator {
 
 	private static String globalRecognized;
 	private static DataHandler<String> logger;

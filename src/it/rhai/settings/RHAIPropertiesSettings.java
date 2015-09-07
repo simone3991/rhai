@@ -201,4 +201,10 @@ public class RHAIPropertiesSettings implements RHAISettings {
 	public String getRHAIroot() {
 		return RHAIproperties.getProperty("root");
 	}
+
+	@Override
+	public void setMinimumLikelihood(double likelihood) {
+		identificationProperties.setProperty("acceptance-likelihood",
+				likelihood + "");
+	}
 }

@@ -52,4 +52,6 @@ public interface RHAIdentificationSettings {
 	 * @return: a collection of strings representing each appliance
 	 */
 	public Collection<String> getAvailableAppliances();
+	
+	public void setMinimumLikelihood(double likelihood);
 }

@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
-public class CrossValidator extends Evaluator {
+public class CrossValidator extends PerformanceEvaluator {
 
 	private static String globalRecognized;
 	private static int counter;

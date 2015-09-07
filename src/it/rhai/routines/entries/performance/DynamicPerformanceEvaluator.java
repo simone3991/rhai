@@ -6,7 +6,7 @@ import it.rhai.util.DirectoryOnlyFilter;
 
 import java.io.File;
 
-public class DynamicPerformanceEvaluator extends Evaluator {
+public class DynamicPerformanceEvaluator extends PerformanceEvaluator {
 
 	private static int counter = 0;
 

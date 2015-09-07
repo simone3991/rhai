@@ -26,6 +26,7 @@ public class Starter {
 	public static void main(String[] args) {
 		try {
 			if (!args[0].equals("--help")) {
+				long start = System.nanoTime();
 				Class aClass = Class.forName(config.getProperty(args[0]));
 				for (Method method : aClass.getMethods()) {
 					if (method.isAnnotationPresent(EntryPoint.class)) {
@@ -34,6 +35,9 @@ public class Starter {
 										.getAnnotation(EntryPoint.class)).id())
 								.contains(args[1])) {
 							method.invoke(null, new Object[] { cutArgs(args) });
+							System.out.println("[ process terminated in about "
+									+ getTime(start) + " ]");
+							System.out.println();
 							return;
 						}
 					}
@@ -58,6 +62,11 @@ public class Starter {
 			System.out
 					.println("Try '--help' for further informations about usage");
 		}
+	}
+
+	private static String getTime(long start) {
+		return String.format("%.2f", (System.nanoTime() - start) / 1000000000f)
+				+ " seconds";
 	}
 
 	private static void addExecutables() {
