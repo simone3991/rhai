@@ -3,8 +3,8 @@ package it.rhai.gui.addition;
 import it.rhai.gui.Application;
 import it.rhai.gui.ApplicationElement;
 import it.rhai.gui.util.WindowsUtils;
+import it.rhai.routines.entries.training.ApplianceAdder;
 import it.rhai.settings.SettingsKeeper;
-import it.rhai.simulation.ApplianceAdder;
 import it.rhai.util.FileUtils;
 
 import java.awt.BorderLayout;

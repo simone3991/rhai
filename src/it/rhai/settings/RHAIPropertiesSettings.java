@@ -33,6 +33,7 @@ public class RHAIPropertiesSettings implements RHAISettings {
 	private Properties abstractionProperties = new Properties();
 	private HashMap<String, ArrayList<Sequence<RHAILabel>>> appliances = new HashMap<String, ArrayList<Sequence<RHAILabel>>>();
 	private HashMap<String, Image> icons = new HashMap<String, Image>();
+	private DataHandler<String> output = Loggers.getLogger("stdout");
 
 	public RHAIPropertiesSettings(File settings) {
 		try {
@@ -194,5 +195,15 @@ public class RHAIPropertiesSettings implements RHAISettings {
 	public void setMinimumLikelihood(double likelihood) {
 		identificationProperties.setProperty("acceptance-likelihood",
 				likelihood + "");
+	}
+
+	@Override
+	public void setOutput(DataHandler<String> dataHandler) {
+		this.output = dataHandler;
+	}
+
+	@Override
+	public DataHandler<String> getOutput() {
+		return output;
 	}
 }

@@ -1,4 +1,4 @@
-package it.rhai.simulation;
+package it.rhai.routines.entries.training;
 
 import it.distanciable.sequence.Sequence;
 import it.rhai.model.PowerMeasure;

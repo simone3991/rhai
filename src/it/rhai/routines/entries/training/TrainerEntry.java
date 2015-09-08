@@ -2,7 +2,7 @@ package it.rhai.routines.entries.training;
 
 import it.rhai.routines.EntryPoint;
 import it.rhai.routines.HelpPrinter;
-import it.rhai.util.Loggers;
+import it.rhai.settings.SettingsKeeper;
 
 import java.io.File;
 
@@ -29,7 +29,7 @@ public class TrainerEntry {
 	@EntryPoint(id = { "-h", "-help", "-man" }, description = "prints a simple help", args = { "" })
 	public static void help(Object... args) {
 		HelpPrinter.print("Welcome to RHAI training system",
-				TrainerEntry.class, Loggers.getLogger("stdout"));
+				TrainerEntry.class, SettingsKeeper.getSettings().getOutput());
 	}
 
 }

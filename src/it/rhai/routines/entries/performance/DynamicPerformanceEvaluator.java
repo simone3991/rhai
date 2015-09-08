@@ -12,17 +12,17 @@ public class DynamicPerformanceEvaluator extends PerformanceEvaluator {
 
 	public static void evaluate(File dir, DataHandler<String> logger)
 			throws Exception {
-		evaluateDirDyn(dir);
+		evaluateDirDyn(dir, logger);
 		printOverallPerformance(logger);
 	}
 
-	private static void evaluateDirDyn(File dir) throws Exception {
+	private static void evaluateDirDyn(File dir, DataHandler<String> logger) throws Exception {
 		for (File applianceSrcDir : dir.listFiles(new DirectoryOnlyFilter())) {
-			evaluateSingleApplianceDyn(applianceSrcDir);
+			evaluateSingleApplianceDyn(applianceSrcDir, logger);
 		}
 	}
 
-	private static void evaluateSingleApplianceDyn(File applianceSrcDir)
+	private static void evaluateSingleApplianceDyn(File applianceSrcDir, DataHandler<String> logger)
 			throws Exception {
 		final String appliance = applianceSrcDir.getName();
 		successes = trials = 0;
@@ -44,7 +44,7 @@ public class DynamicPerformanceEvaluator extends PerformanceEvaluator {
 			});
 		}
 		String perc = computePerc(successes, trials);
-		System.out.println("The identification of " + applianceSrcDir.getName()
+		logger.handle("The identification of " + applianceSrcDir.getName()
 				+ " resulted in a " + perc + " of success");
 	}
 

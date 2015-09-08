@@ -3,8 +3,8 @@ package it.rhai.routines.entries.identification;
 import it.rhai.routines.EntryPoint;
 import it.rhai.routines.HelpPrinter;
 import it.rhai.routines.entries.RHAI;
+import it.rhai.settings.SettingsKeeper;
 import it.rhai.util.DataHandler;
-import it.rhai.util.Loggers;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,7 +20,8 @@ public class ApplianceIdentifier {
 			@Override
 			public void handle(String toBeHandled) {
 				appliance = toBeHandled;
-				System.out.println("most likely identification: " + appliance);
+				SettingsKeeper.getSettings().getOutput()
+						.handle("most likely identification: " + appliance);
 			}
 		});
 	}
@@ -34,12 +35,14 @@ public class ApplianceIdentifier {
 				appliance = toBeHandled;
 			}
 		});
-		System.out.println("most likely identification: " + appliance);
+		SettingsKeeper.getSettings().getOutput()
+				.handle("most likely identification: " + appliance);
 	}
 
 	@EntryPoint(id = { "-h", "-help", "-man" }, description = "prints a simple help", args = { "" })
 	public static void help(Object... args) {
 		HelpPrinter.print("Welcome to RHAI identification system",
-				ApplianceIdentifier.class, Loggers.getLogger("stdout"));
+				ApplianceIdentifier.class, SettingsKeeper.getSettings()
+						.getOutput());
 	}
 }

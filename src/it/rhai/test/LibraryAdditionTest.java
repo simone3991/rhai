@@ -1,8 +1,8 @@
 package it.rhai.test;
 
+import it.rhai.routines.entries.training.ApplianceAdder;
 import it.rhai.settings.RHAIPropertiesSettings;
 import it.rhai.settings.SettingsKeeper;
-import it.rhai.simulation.ApplianceAdder;
 
 import java.io.File;
 

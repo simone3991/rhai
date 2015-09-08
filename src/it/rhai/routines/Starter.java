@@ -2,17 +2,28 @@ package it.rhai.routines;
 
 import it.rhai.settings.RHAIPropertiesSettings;
 import it.rhai.settings.SettingsKeeper;
+import it.rhai.util.ArraysUtil;
+import it.rhai.util.DataHandler;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Properties;
 
 public class Starter {
 
 	public static Properties config = new Properties();
+	private static HashMap<String, DataHandler<String[]>> options = new HashMap<String, DataHandler<String[]>>();
 
 	static {
 		SettingsKeeper
@@ -20,48 +31,73 @@ public class Starter {
 						new File(
 								"/home/simone/Documenti/Software Development/Java/Running Household Appliances Identifier/data/settings/settings.properties")));
 		addExecutables();
+		addOptions();
 	}
 
-	@SuppressWarnings({ "rawtypes" })
 	public static void main(String[] args) {
 		try {
-			if (!args[0].equals("--help")) {
-				long start = System.nanoTime();
-				Class aClass = Class.forName(config.getProperty(args[0]));
-				for (Method method : aClass.getMethods()) {
-					if (method.isAnnotationPresent(EntryPoint.class)) {
-						if (Arrays.asList(
-								((EntryPoint) method
-										.getAnnotation(EntryPoint.class)).id())
-								.contains(args[1])) {
-							method.invoke(null, new Object[] { cutArgs(args) });
-							System.out.println("[ process terminated in about "
-									+ getTime(start) + " ]");
-							System.out.println();
-							return;
-						}
-					}
-				}
-				System.out.println("No available option " + args[1]
-						+ " for command " + args[0]);
-			} else {
-				System.out
-						.println("Welcome to the Running Household Appliances Identifier");
-				System.out.println("Theese are the available commands:");
-				Enumeration<Object> keys = config.keys();
-				while (keys.hasMoreElements()) {
-					String key = (String) keys.nextElement();
-					System.out.println(key);
-				}
-				System.out
-						.println("For any command, try '-h' for further informations");
+			if (options.containsKey(args[0])) {
+				String option = args[0];
+				ArraysUtil.shiftLeft(args, 1);
+				options.get(option).handle(args);
 			}
+			execv(args);
+
 		} catch (Exception exception) {
 			System.out.println("Error occured: " + exception.toString());
-			exception.printStackTrace();
+			(new DataHandler<StackTraceElement[]>() {
+
+				@Override
+				public void handle(StackTraceElement[] toBeHandled) {
+					for (StackTraceElement stackTraceElement : toBeHandled) {
+						SettingsKeeper.getSettings().getDebugLogger()
+								.handle(stackTraceElement.toString());
+					}
+				}
+			}).handle(exception.getStackTrace());
 			System.out
 					.println("Try '--help' for further informations about usage");
 		}
+	}
+
+	private static void execv(String[] args) throws ClassNotFoundException,
+			IllegalAccessException, InvocationTargetException {
+		Class<?> aClass = Class.forName(config.getProperty(args[0]));
+		for (Method method : aClass.getMethods()) {
+			if (method.isAnnotationPresent(EntryPoint.class)) {
+				if (Arrays.asList(
+						((EntryPoint) method.getAnnotation(EntryPoint.class))
+								.id()).contains(args[1])) {
+					SettingsKeeper
+							.getSettings()
+							.getOutput()
+							.handle("\n[ command "
+									+ args[0]
+									+ " with option "
+									+ args[1]
+									+ " started"
+									+ ", "
+									+ (new SimpleDateFormat(
+											"E dd MM yyyy HH:mm"))
+											.format(new Date()) + " ]");
+					execOption(args, method);
+					return;
+				}
+			}
+		}
+	}
+
+	private static void execOption(String[] args, Method method)
+			throws IllegalAccessException, InvocationTargetException {
+		long start = System.nanoTime();
+		ArraysUtil.shiftLeft(args, 2);
+		method.invoke(null, new Object[] { args });
+		SettingsKeeper
+				.getSettings()
+				.getOutput()
+				.handle("[ process terminated in about " + getTime(start)
+						+ " ]");
+		SettingsKeeper.getSettings().getOutput().handle("");
 	}
 
 	private static String getTime(long start) {
@@ -80,11 +116,57 @@ public class Starter {
 		}
 	}
 
-	private static String[] cutArgs(String[] args) {
-		String[] cutArgs = new String[args.length - 2];
-		for (int i = 2; i < args.length; i++) {
-			cutArgs[i - 2] = args[i];
-		}
-		return cutArgs;
+	private static void addOptions() {
+		options.put("--save", new DataHandler<String[]>() {
+
+			@Override
+			public void handle(final String[] toBeHandled) {
+				final String fileName = toBeHandled[0];
+				SettingsKeeper.getSettings().setOutput(
+						new DataHandler<String>() {
+
+							@Override
+							public void handle(String toBePrinted) {
+								try {
+									File file = new File(fileName);
+									BufferedWriter writer = new BufferedWriter(
+											new FileWriter(file, true));
+									writer.write(toBePrinted);
+									writer.newLine();
+									writer.close();
+								} catch (IOException e) {
+									e.printStackTrace();
+								}
+							}
+						});
+				ArraysUtil.shiftLeft(toBeHandled, 1);
+			}
+		});
+
+		options.put("--help", new DataHandler<String[]>() {
+
+			@Override
+			public void handle(String[] toBeHandled) {
+				System.out
+						.println("Welcome to the Running Household Appliances Identifier");
+				System.out.println("Theese are the available commands:");
+				Enumeration<Object> keys = config.keys();
+				while (keys.hasMoreElements()) {
+					String key = (String) keys.nextElement();
+					System.out.println(key);
+				}
+				System.out
+						.println("For any command, try '-h' for further informations");
+				System.out.println("And theese are the available options:");
+				Iterator<String> opts = options.keySet().iterator();
+				while (opts.hasNext()) {
+					String key = (String) opts.next();
+					System.out.println(key);
+				}
+				System.out
+						.println("Usage: <option> <option-args> <command> <routine-id> <routine-args>");
+				System.exit(0);
+			}
+		});
 	}
 }

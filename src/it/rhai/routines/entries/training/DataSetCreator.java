@@ -1,6 +1,5 @@
 package it.rhai.routines.entries.training;
 
-import it.rhai.simulation.ApplianceAdder;
 import it.rhai.util.DirectoryOnlyFilter;
 
 import java.io.File;

@@ -11,7 +11,7 @@ public class HelpPrinter {
 	public static <T> void print(String string, Class<T> aClass,
 			DataHandler<String> printer) {
 		printer.handle(string);
-		printer.handle("Theese are the available options:");
+		printer.handle("Theese are the available routines:");
 		for (Method method : aClass.getMethods()) {
 			EntryPoint annotation = method.getAnnotation(EntryPoint.class);
 			if (annotation != null) {

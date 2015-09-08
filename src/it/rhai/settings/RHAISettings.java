@@ -1,5 +1,7 @@
 package it.rhai.settings;
 
+import it.rhai.util.DataHandler;
+
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
@@ -30,5 +32,9 @@ public interface RHAISettings extends RHAIdentificationSettings,
 	 * @return: an {@link ImageIcon} instance representing that appliance
 	 */
 	public Image getIcon(String appliance);
+
+	public void setOutput(DataHandler<String> dataHandler);
+	
+	public DataHandler<String> getOutput();
 
 }

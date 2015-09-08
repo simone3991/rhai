@@ -150,4 +150,16 @@ public class TestSettings implements RHAISettings {
 	@Override
 	public void setMinimumLikelihood(double likelihood) {
 	}
+
+	@Override
+	public void setOutput(DataHandler<String> dataHandler) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public DataHandler<String> getOutput() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
