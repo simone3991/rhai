@@ -22,7 +22,8 @@ import java.util.Properties;
 
 public class Starter {
 
-	public static Properties config = new Properties();
+	public static Properties commands = new Properties();
+	public static Properties commandsDescrip = new Properties();
 	private static HashMap<String, DataHandler<String[]>> options = new HashMap<String, DataHandler<String[]>>();
 
 	static {
@@ -62,7 +63,7 @@ public class Starter {
 
 	private static void execv(String[] args) throws ClassNotFoundException,
 			IllegalAccessException, InvocationTargetException {
-		Class<?> aClass = Class.forName(config.getProperty(args[0]));
+		Class<?> aClass = Class.forName(commands.getProperty(args[0]));
 		for (Method method : aClass.getMethods()) {
 			if (method.isAnnotationPresent(EntryPoint.class)) {
 				if (Arrays.asList(
@@ -107,9 +108,12 @@ public class Starter {
 
 	private static void addExecutables() {
 		try {
-			config.load(new FileInputStream(new File(SettingsKeeper
+			commands.load(new FileInputStream(new File(SettingsKeeper
 					.getSettings().getRHAIroot()
 					+ "/data/settings/executables.properties")));
+			commandsDescrip.load(new FileInputStream(new File(SettingsKeeper
+					.getSettings().getRHAIroot()
+					+ "/data/settings/executables.description")));
 		} catch (Exception e) {
 			System.out
 					.println("Unable to access config file, or config file corrupted");
@@ -148,23 +152,25 @@ public class Starter {
 			@Override
 			public void handle(String[] toBeHandled) {
 				System.out
-						.println("Welcome to the Running Household Appliances Identifier");
-				System.out.println("Theese are the available commands:");
-				Enumeration<Object> keys = config.keys();
+						.println("\nWelcome to the Running Household Appliances Identifier");
+				System.out.printf("\n%10s", "Commands:\n");
+				Enumeration<Object> keys = commands.keys();
 				while (keys.hasMoreElements()) {
 					String key = (String) keys.nextElement();
-					System.out.println(key);
+					System.out.printf("%10s %-20s %s\n", "", key,
+							commandsDescrip.getProperty(key));
 				}
-				System.out
-						.println("For any command, try '-h' for further informations");
-				System.out.println("And theese are the available options:");
+				System.out.printf("\n%10s", "Options:\n");
 				Iterator<String> opts = options.keySet().iterator();
 				while (opts.hasNext()) {
 					String key = (String) opts.next();
-					System.out.println(key);
+					System.out.printf("%10s %-20s %s\n", "", key,
+							"description here");
 				}
+				System.out.printf("\n%10s", "Usage:\n");
 				System.out
-						.println("Usage: <option> <option-args> <command> <routine-id> <routine-args>");
+						.printf("%10s %s\n\n", "",
+								"<option> <option-args> <command> <routine-id> <routine-args>");
 				System.exit(0);
 			}
 		});
