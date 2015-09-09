@@ -1,30 +1,24 @@
 package it.rhai.routines;
 
+import it.rhai.routines.entries.options.Options;
 import it.rhai.settings.RHAIPropertiesSettings;
 import it.rhai.settings.SettingsKeeper;
 import it.rhai.util.ArraysUtil;
 import it.rhai.util.DataHandler;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Properties;
 
 public class Starter {
 
 	public static Properties commands = new Properties();
 	public static Properties commandsDescrip = new Properties();
-	private static HashMap<String, DataHandler<String[]>> options = new HashMap<String, DataHandler<String[]>>();
 
 	static {
 		SettingsKeeper
@@ -32,15 +26,15 @@ public class Starter {
 						new File(
 								"/home/simone/Documenti/Software Development/Java/Running Household Appliances Identifier/data/settings/settings.properties")));
 		addExecutables();
-		addOptions();
 	}
 
 	public static void main(String[] args) {
 		try {
-			if (options.containsKey(args[0])) {
+			if (Options.containsOption(args[0])) {
 				String option = args[0];
 				ArraysUtil.shiftLeft(args, 1);
-				options.get(option).handle(args);
+				Options.saveCommands(commands, commandsDescrip);
+				Options.exec(option, args);
 			}
 			execv(args);
 
@@ -118,61 +112,5 @@ public class Starter {
 			System.out
 					.println("Unable to access config file, or config file corrupted");
 		}
-	}
-
-	private static void addOptions() {
-		options.put("--save", new DataHandler<String[]>() {
-
-			@Override
-			public void handle(final String[] toBeHandled) {
-				final String fileName = toBeHandled[0];
-				SettingsKeeper.getSettings().setOutput(
-						new DataHandler<String>() {
-
-							@Override
-							public void handle(String toBePrinted) {
-								try {
-									File file = new File(fileName);
-									BufferedWriter writer = new BufferedWriter(
-											new FileWriter(file, true));
-									writer.write(toBePrinted);
-									writer.newLine();
-									writer.close();
-								} catch (IOException e) {
-									e.printStackTrace();
-								}
-							}
-						});
-				ArraysUtil.shiftLeft(toBeHandled, 1);
-			}
-		});
-
-		options.put("--help", new DataHandler<String[]>() {
-
-			@Override
-			public void handle(String[] toBeHandled) {
-				System.out
-						.println("\nWelcome to the Running Household Appliances Identifier");
-				System.out.printf("\n%10s", "Commands:\n");
-				Enumeration<Object> keys = commands.keys();
-				while (keys.hasMoreElements()) {
-					String key = (String) keys.nextElement();
-					System.out.printf("%10s %-20s %s\n", "", key,
-							commandsDescrip.getProperty(key));
-				}
-				System.out.printf("\n%10s", "Options:\n");
-				Iterator<String> opts = options.keySet().iterator();
-				while (opts.hasNext()) {
-					String key = (String) opts.next();
-					System.out.printf("%10s %-20s %s\n", "", key,
-							"description here");
-				}
-				System.out.printf("\n%10s", "Usage:\n");
-				System.out
-						.printf("%10s %s\n\n", "",
-								"<option> <option-args> <command> <routine-id> <routine-args>");
-				System.exit(0);
-			}
-		});
 	}
 }

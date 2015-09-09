@@ -8,7 +8,7 @@ public class ArraysUtil {
 		for (int i = 0; i < array.length - 1; i++) {
 			toString += array[i] + separator;
 		}
-		return toString += separator + array[array.length - 1]
+		return toString += array[array.length - 1]
 				+ (ender == null ? "" : ender);
 	}
 
