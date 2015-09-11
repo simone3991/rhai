@@ -15,13 +15,13 @@ public class ProducerHandler<T> implements DataHandler<T> {
 	private SynchronizedQueue<T> queue = new SynchronizedQueue<T>();
 
 	/**
-	 * Creates a new instance of this class
+	 * Creates a new producer element
 	 * 
-	 * @param handler
-	 *            : the associated consumer
+	 * @param queue
+	 *            : the queue to insert elements into
 	 */
-	public ProducerHandler(ConsumerHandler<T> handler) {
-		handler.handle(queue);
+	public ProducerHandler(SynchronizedQueue<T> queue) {
+		this.queue = queue;
 	}
 
 	@Override

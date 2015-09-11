@@ -16,6 +16,7 @@ import java.util.LinkedList;
 public class SynchronizedQueue<T> {
 
 	private LinkedList<T> buffer = new LinkedList<T>();
+	private boolean producing = true;
 
 	/**
 	 * Add an element on this buffer
@@ -25,12 +26,13 @@ public class SynchronizedQueue<T> {
 	 * @return: a logic value, as a flag to indicate whether the addition took
 	 *          place or not
 	 */
-	public synchronized boolean add(T element) {
-		boolean offer = buffer.offer(element);
-		if (buffer.size() == 1) {
-			super.notifyAll();
+	public synchronized void add(T element) {
+		if (producing) {
+			buffer.offer(element);
+			if (buffer.size() == 1) {
+				super.notifyAll();
+			}
 		}
-		return offer;
 	}
 
 	/**
@@ -40,6 +42,7 @@ public class SynchronizedQueue<T> {
 	 * @return: the next element of this buffer to be used
 	 */
 	public synchronized T next() {
+		waitForElements();
 		return buffer.pollFirst();
 	}
 
@@ -49,7 +52,8 @@ public class SynchronizedQueue<T> {
 	 * 
 	 * @return: the next element of this buffer to be used
 	 */
-	public T seeNext() {
+	public synchronized T seeNext() {
+		waitForElements();
 		return buffer.peekFirst();
 	}
 
@@ -60,5 +64,34 @@ public class SynchronizedQueue<T> {
 	 */
 	public int awaitingSize() {
 		return buffer.size();
+	}
+
+	/**
+	 * Returns a flag to indicate whether or not reading this queue is worth it:
+	 * it is not pointless either when some object is writing into it either
+	 * when it is not empty. If neither of theese condition do hold, reading the
+	 * queue will be meanless
+	 * 
+	 * @return: a flag to indicate whether or not reading this queue is useful
+	 */
+	public boolean isActive() {
+		return producing || !buffer.isEmpty();
+	}
+
+	/**
+	 * Closes this queue: since this method call, calling {@link #add(Object)}
+	 * will be ineffective
+	 */
+	public void close() {
+		producing = false;
+	}
+
+	private void waitForElements() {
+		while (buffer.isEmpty()) {
+			try {
+				super.wait();
+			} catch (InterruptedException e) {
+			}
+		}
 	}
 }

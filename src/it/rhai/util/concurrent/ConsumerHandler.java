@@ -11,21 +11,34 @@ import it.rhai.util.DataHandler;
  *
  * @param <T>
  */
-public abstract class ConsumerHandler<T> implements
-		DataHandler<SynchronizedQueue<T>> {
+public class ConsumerHandler<T> extends Thread {
 
-	private boolean handling = false;
-	protected SynchronizedQueue<T> dataSource;
+	private SynchronizedQueue<T> queue;
+	private DataHandler<T> handler;
 
-	@Override
-	public void handle(SynchronizedQueue<T> toBeHandled) {
-		if (!handling) {
-			this.dataSource = toBeHandled;
-			handleQueue();
-			handling = true;
-		}
+	/**
+	 * Creates a new consumer element
+	 * 
+	 * @param queue
+	 *            : the {@link SynchronizedQueue} where elements will be taken
+	 * @param realHandler
+	 *            : the handler to consume elements
+	 */
+	public ConsumerHandler(SynchronizedQueue<T> queue,
+			DataHandler<T> realHandler) {
+		this.queue = queue;
+		this.handler = realHandler;
 	}
 
-	protected abstract void handleQueue();
-
+	@Override
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Thread#run()
+	 */
+	public void run() {
+		while (queue.isActive()) {
+			handler.handle(queue.next());
+		}
+	}
 }

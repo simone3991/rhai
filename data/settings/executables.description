@@ -1,0 +1,3 @@
+--trainer = The RHAI training system. use this to improve the identification algorithm
+--identifier = The identifier itself: use this to identify your data files
+--validator = The RHAI performance evaluator: use this command to check general performances
