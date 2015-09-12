@@ -40,16 +40,27 @@ public class Starter {
 
 		} catch (Exception exception) {
 			System.out.println("Error occured: " + exception.toString());
-			(new DataHandler<StackTraceElement[]>() {
+			DataHandler<Throwable> printer = new DataHandler<Throwable>() {
+
+				private DataHandler<String> handler = SettingsKeeper
+						.getSettings().getDebugLogger();
 
 				@Override
-				public void handle(StackTraceElement[] toBeHandled) {
-					for (StackTraceElement stackTraceElement : toBeHandled) {
-						SettingsKeeper.getSettings().getDebugLogger()
-								.handle(stackTraceElement.toString());
+				public void handle(Throwable toBeHandled) {
+					printStackTrace(toBeHandled);
+					handler.handle("Caused by: "
+							+ toBeHandled.getCause().toString());
+					printStackTrace(toBeHandled.getCause());
+				}
+
+				private void printStackTrace(Throwable toBeHandled) {
+					for (StackTraceElement stackTraceElement : toBeHandled
+							.getStackTrace()) {
+						handler.handle(stackTraceElement.toString());
 					}
 				}
-			}).handle(exception.getStackTrace());
+			};
+			printer.handle(exception);
 			System.out
 					.println("Try '--help' for further informations about usage");
 		}

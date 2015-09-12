@@ -30,6 +30,14 @@ public class ValidationEntry {
 		CrossValidator.validate(dir, SettingsKeeper.getSettings().getOutput());
 	}
 
+	@EntryPoint(args = { "a dataset directory" }, description = "computes the average identification time", id = {
+			"-t", "-time" })
+	public static void computeTime(String[] args) throws Exception {
+		File dir = new File(args[0]);
+		IdentificationTimeComputer.compute(dir, SettingsKeeper.getSettings()
+				.getOutput());
+	}
+
 	@EntryPoint(id = { "-h", "-help", "-man" }, description = "prints a simple help", args = { "" })
 	public static void printHelp(Object[] args) {
 		HelpPrinter
