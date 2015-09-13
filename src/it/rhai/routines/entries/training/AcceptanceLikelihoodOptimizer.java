@@ -18,11 +18,15 @@ public class AcceptanceLikelihoodOptimizer {
 	private static String recognized;
 
 	public static float optimize(File dataset, File fake) throws IOException {
+		System.out.printf("%10s %10s %10s %10s", "25%", "50%", "75%", "100%");
+		System.out.println();
 		for (float acceptanceLikelihood = 0; acceptanceLikelihood < 1; acceptanceLikelihood += 0.05f) {
 			modifyProp(acceptanceLikelihood);
 			errors.put(acceptanceLikelihood, 0);
 			handleDataSet(dataset, acceptanceLikelihood);
+			System.out.print("=");
 			handleFakeDataset(acceptanceLikelihood, fake);
+			System.out.print("=");
 		}
 		return Collections.max(keysOf(Collections.min(errors.values())));
 	}
@@ -73,7 +77,7 @@ public class AcceptanceLikelihoodOptimizer {
 	}
 
 	private static void handleFile(File dataFile) throws IOException {
-		RHAI.identifyAppliance(dataFile, new DataHandler<String>() {
+		RHAI.identify(dataFile, new DataHandler<String>() {
 
 			@Override
 			public void handle(String toBeHandled) {

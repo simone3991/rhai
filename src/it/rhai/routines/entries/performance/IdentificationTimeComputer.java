@@ -36,7 +36,8 @@ public class IdentificationTimeComputer {
 		Integer averageTime = average(identificationTimes)
 				* SettingsKeeper.getSettings().getTAbstraction();
 		logger.handle("When not failed, the identification of " + appliance
-				+ " required about " + averageTime + " sec to become stable");
+				+ " required about " + averageTime
+				+ " seconds to become stable");
 	}
 
 	private static Integer average(Collection<Integer> collection) {
@@ -49,7 +50,7 @@ public class IdentificationTimeComputer {
 
 	private static String identify(File dataFile) throws IOException {
 		identified.removeAll(identified);
-		RHAI.identifyAppliance(dataFile, new DataHandler<String>() {
+		RHAI.identify(dataFile, new DataHandler<String>() {
 
 			@Override
 			public void handle(String toBeHandled) {

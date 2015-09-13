@@ -31,7 +31,7 @@ public class StaticPerformanceEvaluator extends PerformanceEvaluator {
 		for (File dataFile : applianceSrcDir.listFiles()) {
 			trials++;
 			globalTrials++;
-			RHAI.identifyAppliance(dataFile, new DataHandler<String>() {
+			RHAI.identify(dataFile, new DataHandler<String>() {
 
 				@Override
 				public void handle(String toBeHandled) {

@@ -73,4 +73,18 @@ public class FileUtils {
 			String toBeReplaced) {
 		return line.replace(toBeReplaced, newString);
 	}
+
+	public static int countFiles(File directory) {
+	      int count = 0;
+	      for (File file : directory.listFiles()) {
+	          if (file.isFile()) {
+	              count++;
+	          }
+	          if (file.isDirectory()) {
+	              count += countFiles(file);
+	          }
+	      }
+	      return count;
+	  }
+
 }

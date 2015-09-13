@@ -21,20 +21,37 @@ import java.util.Collection;
 
 public class RHAI {
 
-	public static void identifyAppliance(File dataFile,
+	public static void identify(final File data,
+			final DataHandler<String> resultHandler) throws IOException {
+		// Thread thread = new Thread(new Runnable() {
+		// public void run() {
+		// try {
+		// identifyAppliance(data, resultHandler);
+		// } catch (IOException e) {
+		// throw new RuntimeException(e);
+		// }
+		// }
+		// });
+		// thread.start();
+		identifyAppliance(data, resultHandler);
+	}
+
+	private static void identifyAppliance(File dataFile,
 			DataHandler<String> finalHandler) throws IOException {
 		int nextData;
 		ArrayList<PowerMeasure> data = loadData(dataFile);
 		nextData = 0;
-		DataHandler<Sequence<RHAILabel>> identificationHandler = new Identifier(
+
+		DataHandler<Sequence<RHAILabel>> realIdentifier = new Identifier(
 				finalHandler, SettingsKeeper.getSettings());
 
-		DataHandler<Collection<PowerMeasure>> RHAIHandler = new AbstractorHandler<PowerMeasure, RHAILabel>(
+		DataHandler<Collection<PowerMeasure>> realAbstractor = new AbstractorHandler<PowerMeasure, RHAILabel>(
 				new CumulativeAbstractor<RHAILabel>(new JTSAAbstractor(
-						new JTSARenderedAbstractor())), identificationHandler);
+						new JTSARenderedAbstractor())), realIdentifier);
 
 		RedirectingReader<PowerMeasure> reader = new RedirectingReader<PowerMeasure>(
-				RHAIHandler);
+				realAbstractor);
+
 		int length = SettingsKeeper.getSettings().getTAbstraction()
 				/ (PowerMeasure.computeSamplingTime(data));
 		reader.setMaxLength(length);

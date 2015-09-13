@@ -52,7 +52,7 @@ public class CrossValidator extends PerformanceEvaluator {
 		crossMap.put(appliance, new HashMap<String, Integer>());
 		for (File dataFile : applianceSrcDir.listFiles()) {
 			counter++;
-			RHAI.identifyAppliance(dataFile, new DataHandler<String>() {
+			RHAI.identify(dataFile, new DataHandler<String>() {
 
 				@Override
 				public void handle(String toBeHandled) {

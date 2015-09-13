@@ -42,7 +42,7 @@ public class PowerMeasureTest {
 		PowerMeasure measure = new PowerMeasure(date, value);
 		Thread.sleep(100);
 		Calendar date2 = Calendar.getInstance();
-		PowerMeasure measure2 = new PowerMeasure(date, value);
+		PowerMeasure measure2 = new PowerMeasure(date2, value);
 		assertEquals(date.compareTo(date2), measure.compareTo(measure2));
 	}
 

@@ -15,7 +15,7 @@ public class ApplianceIdentifier {
 
 	@EntryPoint(id = { "-d", "-dynamic" }, description = "identifies an appliance over time", args = { "data file" })
 	public static void identifyRealTime(String[] args) throws IOException {
-		RHAI.identifyAppliance(new File(args[0]), new DataHandler<String>() {
+		RHAI.identify(new File(args[0]), new DataHandler<String>() {
 
 			@Override
 			public void handle(String toBeHandled) {
@@ -28,7 +28,7 @@ public class ApplianceIdentifier {
 
 	@EntryPoint(id = { "-s", "-static" }, description = "returns the final identification", args = { "data file" })
 	public static void identifyFinal(String[] args) throws IOException {
-		RHAI.identifyAppliance(new File(args[0]), new DataHandler<String>() {
+		RHAI.identify(new File(args[0]), new DataHandler<String>() {
 
 			@Override
 			public void handle(String toBeHandled) {

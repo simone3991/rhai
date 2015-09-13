@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Properties;
 
@@ -40,7 +41,8 @@ public class RHAILabelEnum {
 	 *
 	 */
 	public static final class RHAILabel implements Distanciable<RHAILabel>,
-			Copiable<RHAILabel>, Serializable {
+			Copiable<RHAILabel>, Serializable, Addable<RHAILabel>,
+			Comparable<RHAILabel> {
 
 		private static final long serialVersionUID = -2899849220569391395L;
 		private int ordinal;
@@ -103,6 +105,22 @@ public class RHAILabelEnum {
 		 */
 		public String toString() {
 			return name;
+		}
+
+		@Override
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see it.rhai.model.Addable#add(java.lang.Object)
+		 */
+		public RHAILabel add(RHAILabel addend) {
+			int result = this.ordinal + addend.ordinal - 1;
+			return RHAILabelEnum.labelOf(result);
+		}
+
+		@Override
+		public int compareTo(RHAILabel other) {
+			return this.ordinal - other.ordinal;
 		}
 	}
 
@@ -195,6 +213,14 @@ public class RHAILabelEnum {
 			if (label.ordinal == ordinal) {
 				return label;
 			}
+		}
+		RHAILabel min = Collections.min(labels);
+		RHAILabel max = Collections.max(labels);
+		if (ordinal < min.ordinal) {
+			return min;
+		}
+		if (ordinal > max.ordinal) {
+			return max;
 		}
 		return null;
 	}
